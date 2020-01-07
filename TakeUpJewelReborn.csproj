@@ -9,4 +9,10 @@
     <PackageReference Include="DotFeather" Version="2.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources/*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
