@@ -1,9 +1,9 @@
 using DotFeather;
 
-namespace TakeUpJewelReborn
+namespace TakeUpJewel
 {
     public class TitleScene : Scene
     {
-        
+
     }
 }
