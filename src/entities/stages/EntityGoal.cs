@@ -7,7 +7,7 @@ namespace TakeUpJewel.Entities
     public class EntityGoal : Entity
     {
         private int _next = 1;
-        private dynamic _obj = null;
+        private dynamic? _obj = null;
 
         public EntityGoal(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
         {
@@ -29,7 +29,7 @@ namespace TakeUpJewel.Entities
 
         public override void OnUpdate()
         {
-            if (Parent.MainEntity.Location.X > Location.X + 8)
+            if (Parent.MainEntity != null && Parent.MainEntity.Location.X > Location.X + 8)
             {
                 Game.I.NextStage = _next;
                 Game.I.IsGoal = true;

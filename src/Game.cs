@@ -19,7 +19,7 @@ namespace TakeUpJewel
 
         public Vector Middle { get; set; }
 
-        public MapData CurrentMap { get; set; }
+        public MapData? CurrentMap { get; set; }
 
         public int Tick { get; private set; }
 
@@ -35,7 +35,7 @@ namespace TakeUpJewel
 
         public EntityRegister EntityRegister { get; } = new EntityRegister();
 
-        public void BgmPlay(string id = null)
+        public void BgmPlay(string? id = null)
         {
 
         }

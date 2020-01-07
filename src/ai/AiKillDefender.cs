@@ -7,10 +7,7 @@ namespace TakeUpJewel.AI
 {
     public class AiKillDefender : AiBase
     {
-        public AiKillDefender(EntityLiving el)
-        {
-            HostEntity = el;
-        }
+        public AiKillDefender(EntityLiving host) : base(host) { }
 
         public override bool Use => !HostEntity.IsDying;
 

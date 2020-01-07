@@ -7,7 +7,7 @@ namespace TakeUpJewel.Entities
     [EntityRegistry("InfinitySpawner", 5)]
     public class EntityInfinitySpawner : Entity
     {
-        private dynamic _obj;
+        private dynamic? _obj;
 
         private int _tick;
 
@@ -24,13 +24,13 @@ namespace TakeUpJewel.Entities
 
         public override void OnUpdate()
         {
-            if (((Parent.MainEntity.Location.X + 8 < Location.X - 32) ||
+            if (Parent.MainEntity != null && ((Parent.MainEntity.Location.X + 8 < Location.X - 32) ||
                  (Location.X + 48 < Parent.MainEntity.Location.X + 8)) &&
                 (_tick > 120))
             {
-                if (_obj.IsDefined("Tag"))
-                    _obj.EntityData.Tag = _obj.Tag;
-                int spid = (int)_obj.EntityID, posx = (int)_obj.PosX, posy = (int)_obj.PosY;
+                if (_obj!.IsDefined("Tag"))
+                    _obj!.EntityData.Tag = _obj.Tag;
+                int spid = (int)_obj!.EntityID, posx = (int)_obj.PosX, posy = (int)_obj.PosY;
                 if (Game.I.EntityRegister.GetDataById(spid) != null)
                     Parent.Add(
                         Game.I.EntityRegister.CreateEntity(spid, new Vector(posx, posy), Mpts, Map, Parent, _obj.EntityData),

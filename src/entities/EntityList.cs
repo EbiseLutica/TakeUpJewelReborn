@@ -70,7 +70,7 @@ namespace TakeUpJewel.Entities
                 if (i >= Count)
                     break;
                 item = this[i];
-                if (Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
+                if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
                     continue;
                 if (!Game.I.IsFreezing)
                 {
@@ -99,7 +99,7 @@ namespace TakeUpJewel.Entities
         {
             foreach (var item in FindEntitiesByType<EntityVisible>().OrderBy(i => i.ZIndex))
             {
-                if (Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
+                if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
                     continue;
                 item.OnUpdate(Game.I.Camera + item.Location, drawablesMap[item]);
             }

@@ -16,9 +16,9 @@ namespace TakeUpJewel.AI
 
         private int _deg;
 
-        public AiFlySine(EntityLiving baseentity, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+        public AiFlySine(EntityLiving host, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+            : base(host)
         {
-            HostEntity = baseentity;
             _speed = spd;
             _leftAnimeStartIndex = lAnmStart;
             _rightAnimeStartIndex = rAnmStart;

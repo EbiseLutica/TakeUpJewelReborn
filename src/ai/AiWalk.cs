@@ -13,9 +13,9 @@ namespace TakeUpJewel.AI
 
         private readonly int _speed = 1;
 
-        public AiWalk(EntityLiving baseentity, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+        public AiWalk(EntityLiving host, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+            : base(host)
         {
-            HostEntity = baseentity;
             _speed = spd;
             _leftAnimeStartIndex = lAnmStart;
             _rightAnimeStartIndex = rAnmStart;

@@ -17,9 +17,9 @@ namespace TakeUpJewel.AI
 
         private int _tick = 60;
 
-        public AiFlySearch(EntityLiving baseentity, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+        public AiFlySearch(EntityLiving host, int spd, int lAnmStart, int lAnmEnd, int rAnmStart, int rAnmEnd)
+            : base(host)
         {
-            HostEntity = baseentity;
             _speed = spd;
             _leftAnimeStartIndex = lAnmStart;
             _rightAnimeStartIndex = rAnmStart;

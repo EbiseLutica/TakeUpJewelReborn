@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>TakeUpJewel</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>Enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

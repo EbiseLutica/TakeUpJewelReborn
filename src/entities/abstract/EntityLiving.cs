@@ -33,7 +33,7 @@ namespace TakeUpJewel.Entities
         /// </summary>
         public bool IsJumping;
 
-        public AiBase MainAi = null;
+        public AiBase? MainAi = null;
 
         /// <summary>
         /// この Entity の重力加速度を取得。基本的に変更せず、葉っぱなど空気抵抗があるものに対応させるときに、派生クラスでオーバーライドするべきです。

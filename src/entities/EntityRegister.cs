@@ -38,12 +38,12 @@ namespace TakeUpJewel.Entities
         /// <summary>
         /// この Entity の一般名。
         /// </summary>
-        public string EntityName;
+        public string EntityName = "";
 
         /// <summary>
         /// この Entity を表す Type。
         /// </summary>
-        public Type EntityType;
+        public Type EntityType = typeof(Entity);
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ namespace TakeUpJewel.Entities
 
         public List<EntityData> Items { get; protected set; }
 
-        public EntityData this[int i] => GetDataById(i);
+        public EntityData? this[int i] => GetDataById(i);
 
 
         public void Add(EntityData item)
@@ -175,14 +175,14 @@ namespace TakeUpJewel.Entities
                 Items.Add(item);
         }
 
-        public EntityData GetDataById(int id)
+        public EntityData? GetDataById(int id)
         {
             foreach (var d in this.Where(et => et.EntityId == id))
                 return d;
             return null;
         }
 
-        public EntityData GetDataByName(string name)
+        public EntityData? GetDataByName(string name)
         {
             foreach (var d in this.Where(et => et.EntityName == name))
                 return d;

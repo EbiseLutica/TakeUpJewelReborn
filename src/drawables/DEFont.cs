@@ -43,9 +43,9 @@ namespace TakeUpJewel.Util
 
         public DEText(string text, Color color, bool isSmallFont = false)
         {
-            Text = text;
-            Color = color;
-            IsSmallFont = isSmallFont;
+            this.text = text;
+            this.color = color;
+            this.isSmallFont = isSmallFont;
 
             if (!isInitialized)
             {
@@ -59,10 +59,12 @@ namespace TakeUpJewel.Util
                     //文字番号を char によって指定できるよう登録する
                     fontMap[c] = i++;
                 }
-                nativeFontGenerator = new TextDrawable("", DotFeather.Font.GetDefault(11), Color.White);
                 nativeFontMap.Clear();
+                nativeFontGenerator = new TextDrawable("", DotFeather.Font.GetDefault(11), Color.White);
                 isInitialized = true;
             }
+
+            Render();
         }
 
         private static Texture2D GetNativeFont(char c)
@@ -180,9 +182,9 @@ namespace TakeUpJewel.Util
 
         private static readonly Dictionary<char, int> fontMap = new Dictionary<char, int>();
         private static readonly Dictionary<char, Texture2D> nativeFontMap = new Dictionary<char, Texture2D>();
-        private static Texture2D[] font;
-        private static Texture2D[] smallFont;
-        private static TextDrawable nativeFontGenerator;
+        private static Texture2D[] font = new Texture2D[0];
+        private static Texture2D[] smallFont = new Texture2D[0];
+        private static TextDrawable? nativeFontGenerator;
         private static bool isInitialized;
         private string text;
         private Color color;

@@ -6,6 +6,8 @@ namespace TakeUpJewel.AI
     {
         protected EntityLiving HostEntity;
 
+        public AiBase(EntityLiving host) => HostEntity = host;
+
         /// <summary>
         /// 派生クラスで、AI を動作させるかどうかのフラグを取得します。
         /// </summary>

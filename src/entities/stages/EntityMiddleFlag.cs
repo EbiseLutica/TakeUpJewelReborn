@@ -7,7 +7,7 @@ namespace TakeUpJewel.Entities
     public class EntityMiddleFlag : Entity
     {
         private bool _flagged;
-        private dynamic _obj = null;
+        private dynamic? _obj = null;
 
         public EntityMiddleFlag(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
         {
@@ -22,7 +22,7 @@ namespace TakeUpJewel.Entities
 
         public override void OnUpdate()
         {
-            if ((Parent.MainEntity.Location.X > Location.X + 8) && !_flagged)
+            if ((Parent.MainEntity != null && Parent.MainEntity.Location.X > Location.X + 8) && !_flagged)
             {
                 Game.I.Middle = new Vector(Location.X + 8, Location.Y + 8);
                 _flagged = true;

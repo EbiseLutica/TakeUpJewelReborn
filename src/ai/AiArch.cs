@@ -11,10 +11,7 @@ namespace TakeUpJewel.AI
 
         private int _tick;
 
-        public AiArch(EntityLiving el)
-        {
-            HostEntity = el;
-        }
+        public AiArch(EntityLiving host) : base(host) { }
 
         public override bool Use => !HostEntity.IsDying;
 
