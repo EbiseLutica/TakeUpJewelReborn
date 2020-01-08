@@ -1,13 +1,8 @@
 using System;
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("KingBoss", 93)]
 	public class EntityKingBoss : EntityLiving

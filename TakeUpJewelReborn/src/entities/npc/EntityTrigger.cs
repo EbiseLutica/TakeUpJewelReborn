@@ -1,9 +1,7 @@
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     /// <summary>
     /// MainEntity が衝突した瞬間 スクリプトが発動するEntity。

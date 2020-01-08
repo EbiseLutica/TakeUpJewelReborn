@@ -1,7 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("MiddleFlag", 83)]
     public class EntityMiddleFlag : Entity

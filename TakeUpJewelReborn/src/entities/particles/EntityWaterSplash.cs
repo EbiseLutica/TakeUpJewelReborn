@@ -1,7 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("WaterSplash", -1)]
     public class EntityWaterSplash : EntityParticleBase

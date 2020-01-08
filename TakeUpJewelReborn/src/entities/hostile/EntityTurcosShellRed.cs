@@ -1,7 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     public class EntityTurcosShellRed : EntityTurcosShell
     {

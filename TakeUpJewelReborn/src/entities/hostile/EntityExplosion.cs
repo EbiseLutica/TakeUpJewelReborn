@@ -1,6 +1,6 @@
 using DotFeather;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     public class EntityExplosion : EntityFlying
     {

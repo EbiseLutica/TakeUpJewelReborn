@@ -3,11 +3,8 @@ using System.Drawing;
 using System.Linq;
 using DotFeather;
 using Newtonsoft.Json.Linq;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("ItemSpawner", 22)]
 	public class EntityItemSpawner : Entity

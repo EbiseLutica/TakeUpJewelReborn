@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
     /// <summary>
     /// 効果音の番号を指定します。

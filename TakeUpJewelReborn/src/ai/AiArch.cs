@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using TakeUpJewel.Entities;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
 
 	public class AiArch : AiBase

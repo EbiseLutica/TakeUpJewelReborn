@@ -1,9 +1,7 @@
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Entities;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
     public class AiKillDefender : AiBase
     {

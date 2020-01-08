@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Data
+namespace TakeUpJewel
 {
     /// <summary>
     /// mpt の最小単位を表します。

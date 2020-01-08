@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	public class EntityIceWeapon : EntityLiving
 	{

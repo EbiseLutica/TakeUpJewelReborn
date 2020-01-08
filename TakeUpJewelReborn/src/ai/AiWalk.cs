@@ -1,7 +1,5 @@
-using TakeUpJewel.Data;
-using TakeUpJewel.Entities;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
     public class AiWalk : AiBase
     {

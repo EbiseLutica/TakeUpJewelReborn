@@ -1,6 +1,6 @@
 ﻿using DotFeather;
 
-namespace TakeUpJewel.Map
+namespace TakeUpJewel
 {
     public class MapData
     {

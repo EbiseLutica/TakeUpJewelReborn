@@ -1,10 +1,8 @@
 ﻿using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.ResourceManager;
+using static TakeUpJewel.ResourceManager;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// プレイヤーが話しかけられる Entity です。

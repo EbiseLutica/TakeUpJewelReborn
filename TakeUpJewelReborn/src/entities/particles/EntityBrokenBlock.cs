@@ -1,8 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("BrokenBlock", -1)]
 	public class EntityBrokenBlock : EntityParticleBase

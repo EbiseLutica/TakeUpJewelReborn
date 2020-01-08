@@ -1,7 +1,6 @@
 using System;
-using TakeUpJewel.Entities;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
     public class AiFlySearch : AiBase
     {

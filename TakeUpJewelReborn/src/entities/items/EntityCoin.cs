@@ -1,11 +1,8 @@
 using System.Drawing;
 using DotFeather;
 using Newtonsoft.Json.Linq;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("Coin", 28)]
 	public class EntityCoin : EntitySprite
@@ -61,7 +58,7 @@ namespace TakeUpJewel.Entities
 						Core.I.Coin++;
 						if (!tutorialRead)
 						{
-							EventRuntime.AddScript(GenerateItemDescription("トランジスタコイン\nトランジスタ王国の　通貨。",
+							EventRuntime.AddScript(Misc.GenerateItemDescription("トランジスタコイン\nトランジスタ王国の　通貨。",
 								"50枚　集めると　残機が　1だけ　増える。"));
 							tutorialRead = true;
 						}

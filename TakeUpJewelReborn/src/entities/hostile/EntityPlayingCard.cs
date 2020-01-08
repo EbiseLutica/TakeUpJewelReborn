@@ -1,8 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Util;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	public class EntityPlayingCard : EntityDocument
 	{

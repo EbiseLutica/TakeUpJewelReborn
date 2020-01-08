@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("CameraMan", 87)]
 	public class EntityCameraMan : EntityLiving

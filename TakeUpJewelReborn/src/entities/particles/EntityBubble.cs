@@ -1,8 +1,7 @@
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("Bubble", -1)]
     public class EntityBubble : EntityParticleBase

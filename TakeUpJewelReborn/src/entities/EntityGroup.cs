@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     /// <summary>
     /// エンティティが属するグループを指定します。この値は、エンティティの制御で、他のエンティティに敵対するか、味方するか、無視するかなどを判定するために利用するのが目的です。

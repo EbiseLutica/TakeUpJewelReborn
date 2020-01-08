@@ -1,10 +1,7 @@
 ﻿using System.Drawing;
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("Boxer", 16)]
     public class EntityBoxer : EntityLiving

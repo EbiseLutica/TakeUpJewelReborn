@@ -1,12 +1,7 @@
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	public class EntityCircusBall : EntityLiving
 	{
@@ -21,7 +16,7 @@ namespace TakeUpJewel.Entities
 			Velocity.Y = -3.0f;
 			Size = new Size(16, 16);
 			MainAi = new AiKillDefender(this);
-			SetGraphic(GetRandom(17, 18, 19));
+			SetGraphic(Misc.GetRandom(17, 18, 19));
 		}
 
 		public override EntityGroup MyGroup => EntityGroup.Enemy;

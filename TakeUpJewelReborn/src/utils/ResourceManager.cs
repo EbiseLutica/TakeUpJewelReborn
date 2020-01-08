@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using DotFeather;
 
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// ゲームのリソースを取得し管理する静的クラスです。

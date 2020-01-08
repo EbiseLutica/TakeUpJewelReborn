@@ -3,13 +3,8 @@ using System.Globalization;
 using DotFeather;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	public enum QueenBossBehaviorOption
 	{

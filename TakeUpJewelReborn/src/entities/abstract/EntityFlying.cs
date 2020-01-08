@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     public abstract class EntityFlying : EntityLiving
     {

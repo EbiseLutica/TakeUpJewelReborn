@@ -1,8 +1,5 @@
 using System;
 using DotFeather;
-using TakeUpJewel.Entities;
-using TakeUpJewel.Map;
-using TakeUpJewel.Util;
 
 namespace TakeUpJewel
 {

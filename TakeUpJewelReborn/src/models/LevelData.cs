@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Data
+namespace TakeUpJewel
 {
     /// <summary>
     /// レベルに関する情報を表します。

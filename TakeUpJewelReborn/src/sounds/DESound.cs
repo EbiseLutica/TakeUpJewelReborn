@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using DotFeather;
 
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
     /// <summary>
     /// 効果音データを取得し、再生する機能を提供する静的クラスです。

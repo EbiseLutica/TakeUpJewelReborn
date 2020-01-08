@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace TakeUpJewel.Map
+namespace TakeUpJewel
 {
     public static class MapLoader
     {

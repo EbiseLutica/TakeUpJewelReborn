@@ -5,9 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using DotFeather;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// EntityRegister によって自動で登録される Entity クラスを指定します。このクラスは継承できません。

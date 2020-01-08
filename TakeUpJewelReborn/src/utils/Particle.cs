@@ -1,10 +1,8 @@
 using System.Drawing;
-using TakeUpJewel.Entities;
-using Object = TakeUpJewel.Data.Object;
 using static TakeUpJewel.Core;
 using DotFeather;
 
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// パーティクルの処理をまとめた静的クラスです。

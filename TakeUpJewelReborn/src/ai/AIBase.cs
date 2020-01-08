@@ -1,6 +1,5 @@
-﻿using TakeUpJewel.Entities;
-
-namespace TakeUpJewel.AI
+﻿
+namespace TakeUpJewel
 {
     public abstract class AiBase
     {

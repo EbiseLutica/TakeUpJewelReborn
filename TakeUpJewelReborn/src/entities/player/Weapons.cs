@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using Object = TakeUpJewel.Data.Object;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 
 	public class Weapons : EntityFlying

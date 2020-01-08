@@ -1,4 +1,4 @@
-﻿namespace TakeUpJewel.Entities
+﻿namespace TakeUpJewel
 {
     /// <summary>
     /// ゲームのアイテムを指定します。

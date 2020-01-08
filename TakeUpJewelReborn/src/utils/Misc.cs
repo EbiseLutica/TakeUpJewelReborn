@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Text;
 using DotFeather;
 
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// 開発に便利な機能が用意されています。

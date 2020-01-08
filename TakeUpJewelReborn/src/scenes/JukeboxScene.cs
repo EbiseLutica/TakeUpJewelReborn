@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using DotFeather;
-using TakeUpJewel.Util;
 
 namespace TakeUpJewel
 {

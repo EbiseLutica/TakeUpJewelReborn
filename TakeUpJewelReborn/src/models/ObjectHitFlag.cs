@@ -1,4 +1,4 @@
-﻿namespace TakeUpJewel.Data
+﻿namespace TakeUpJewel
 {
     /// <summary>
     /// オブジェクトの当たり判定フラグを指定します。

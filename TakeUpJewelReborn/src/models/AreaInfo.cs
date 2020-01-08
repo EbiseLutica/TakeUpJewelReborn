@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Data
+namespace TakeUpJewel
 {
     /// <summary>
     /// エリアに関する情報を表します。

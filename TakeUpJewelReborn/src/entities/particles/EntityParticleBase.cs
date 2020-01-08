@@ -1,9 +1,7 @@
 ﻿using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	public class EntityParticleBase : EntityLiving
 	{

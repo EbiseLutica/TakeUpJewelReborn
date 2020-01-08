@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
-using TakeUpJewel.Entities;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
     public class AiKiller : AiBase
     {

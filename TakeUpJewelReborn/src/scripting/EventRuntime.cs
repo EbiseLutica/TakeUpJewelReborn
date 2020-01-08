@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Util;
 
 namespace TakeUpJewel
 {

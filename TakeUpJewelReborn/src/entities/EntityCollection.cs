@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     /// <summary>
     /// Entity のコレクションを表します。

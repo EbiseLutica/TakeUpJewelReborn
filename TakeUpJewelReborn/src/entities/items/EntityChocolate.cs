@@ -1,11 +1,7 @@
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
-using static TakeUpJewel.Util.Misc;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("SoulChocolate", 32)]
 	public class EntityChocolate : EntityFlying
@@ -41,7 +37,7 @@ namespace TakeUpJewel.Entities
 		{
 			if (!Nikaime)
 			{
-				EventRuntime.AddScript(GenerateItemDescription(@"ソウルチョコレート\n命の　すべてが　詰まった　フシギな　チョコレート。", "プレイヤーの　体力が　1だけ　回復する。"));
+				EventRuntime.AddScript(Misc.GenerateItemDescription(@"ソウルチョコレート\n命の　すべてが　詰まった　フシギな　チョコレート。", "プレイヤーの　体力が　1だけ　回復する。"));
 				Nikaime = true;
 			}
 			if (Velocity.Y < 0)

@@ -1,7 +1,6 @@
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("Star", -1)]
     public class EntityStar : EntityParticleBase

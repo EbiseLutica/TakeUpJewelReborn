@@ -1,8 +1,6 @@
 using System;
-using TakeUpJewel.Data;
-using TakeUpJewel.Entities;
 
-namespace TakeUpJewel.AI
+namespace TakeUpJewel
 {
     public class AiFlySine : AiBase
     {

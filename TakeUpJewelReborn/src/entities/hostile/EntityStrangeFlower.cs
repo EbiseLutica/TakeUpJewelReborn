@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Util;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
 	[EntityRegistry("StrangeFlower", 13)]
 	public class EntityStrangeFlower : EntityLiving, IScaffold

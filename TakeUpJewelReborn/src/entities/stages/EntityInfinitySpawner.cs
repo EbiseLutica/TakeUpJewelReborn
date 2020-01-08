@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("InfinitySpawner", 5)]
     public class EntityInfinitySpawner : Entity

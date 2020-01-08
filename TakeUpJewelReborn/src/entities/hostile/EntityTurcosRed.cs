@@ -1,8 +1,6 @@
 using DotFeather;
-using TakeUpJewel.AI;
-using TakeUpJewel.Data;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     [EntityRegistry("Turcos_Red", 10)]
     public class EntityTurcosRed : EntityTurcos

@@ -1,7 +1,7 @@
 using System.Drawing;
 using DotFeather;
 
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     public interface IScaffold
     {

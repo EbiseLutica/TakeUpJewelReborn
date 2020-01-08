@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using DotFeather;
 
-namespace TakeUpJewel.Util
+namespace TakeUpJewel
 {
 	/// <summary>
 	/// フォントデータを取得し、文字列描画機能を提供する静的クラスです。

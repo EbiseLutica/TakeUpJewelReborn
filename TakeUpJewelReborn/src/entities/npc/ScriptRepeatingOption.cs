@@ -1,4 +1,4 @@
-namespace TakeUpJewel.Entities
+namespace TakeUpJewel
 {
     public enum ScriptRepeatingOption
     {

@@ -1,9 +1,7 @@
 ﻿using System.Drawing;
 using DotFeather;
-using TakeUpJewel.Data;
-using TakeUpJewel.Entities;
 
-namespace TakeUpJewel.src.Entities.Defenders
+namespace TakeUpJewel
 {
     public class EntityPlayerGhost : EntitySprite
     {
