@@ -1,0 +1,3 @@
+[submodule "external/groorine"]
+	path = external/groorine
+	url = https://github.com/Xeltica/DotFeather.Audio.Groorine
