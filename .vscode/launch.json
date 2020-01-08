@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/TakeUpJewelReborn.dll",
             "args": [],
             "cwd": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/",
-            "console": "internalConsole",
+            "console": "integratedTerminal",
             "stopAtEntry": false
         },
         {
