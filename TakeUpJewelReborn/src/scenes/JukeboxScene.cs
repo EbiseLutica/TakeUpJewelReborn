@@ -87,7 +87,7 @@ namespace TakeUpJewel
 			"勝利！",
 			"Vサイン",
 			"エンディング",
-			"(もどる)"
+			"（戻る）"
 		};
 
 		private static readonly string[] AudioFileList =

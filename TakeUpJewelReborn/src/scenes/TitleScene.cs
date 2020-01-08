@@ -11,6 +11,8 @@ namespace TakeUpJewel
 	{
 		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
 		{
+			this.router = router;
+			this.game = game;
 			menuItems = new (DEText, Action)[]
 			{
 				(new DEText(" はじめる", Color.Yellow), () =>
@@ -37,7 +39,7 @@ namespace TakeUpJewel
 				ZOrder = 2
 			};
 
-			genderSelectorPrompt = new DEText("どちらであそぶ?", Color.White);
+			genderSelectorPrompt = new DEText("どちらであそぶ？", Color.White);
 			genderSelectorItems[0] = new DEText(" アレン", Color.White);
 			genderSelectorItems[1] = new DEText(" ルーシィ", Color.White);
 			genderSelectorItems[2] = new DEText(" もどる", Color.White);
@@ -133,9 +135,11 @@ namespace TakeUpJewel
 				{
 					case 0:
 						Core.I.CurrentGender = PlayerGender.Male;
+						router.ChangeScene<PrologueScene>();
 						break;
 					case 1:
 						Core.I.CurrentGender = PlayerGender.Female;
+						router.ChangeScene<PrologueScene>();
 						break;
 					case 2:
 						state = State.Menu;
@@ -260,19 +264,20 @@ namespace TakeUpJewel
 			}
 		}
 
+		private bool openingFinished = false;
+
+		private State state = State.Menu;
+		private int selectedIndex = 0;
+
 		private (DEText text, Action onclick)[] menuItems = new (DEText text, Action onclick)[0];
 
 		private DEText genderSelectorPrompt;
-
 		private DEText[] genderSelectorItems = new DEText[3];
 
-		private bool openingFinished = false;
-
-		private int selectedIndex = 0;
-
-		private State state = State.Menu;
-
 		private Sprite helpImage;
+
+		private Router router;
+		private GameBase game;
 
 		enum State
 		{
