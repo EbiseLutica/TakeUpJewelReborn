@@ -8,110 +8,276 @@ using static TakeUpJewel.Util.ResourceUtility;
 
 namespace TakeUpJewel
 {
-    public class TitleScene : Scene
-    {
-        public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
-        {
-            menuItems = new (DEText, Action)[]
-            {
-                (new DEText(" はじめる", Color.Yellow), () => { }),
-                (new DEText(" ジュークボックス", Color.White), () => { }),
-                (new DEText(" ヘルプ", Color.White), () => { }),
-                (new DEText(" おわる", Color.White), () => game.Exit(0)),
-            };
+	public class TitleScene : Scene
+	{
+		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
+		{
+			menuItems = new (DEText, Action)[]
+			{
+				(new DEText(" はじめる", Color.Yellow), () =>
+				{
+					state = State.Gender;
+					selectedIndex = 0;
+					HideMenuItems();
+					ShowGenderSelector();
+				}),
+				(new DEText(" ジュークボックス", Color.White), () =>
+				{
+					router.ChangeScene<JukeboxScene>();
+				}),
+				(new DEText(" ヘルプ", Color.White), () =>
+				{
+					Root.Add(helpImage);
+					state = State.Help;
+				}),
+				(new DEText(" おわる", Color.White), () => game.Exit(0)),
+			};
 
-            game.StartCoroutine(OpeningAnimation());
-        }
+			helpImage = new Sprite(LoadTexture("kbactgame.png"))
+			{
+				ZOrder = 2
+			};
 
-        public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
-        {
-            if (!openingFinished) return;
+			genderSelectorPrompt = new DEText("どちらであそぶ?", Color.White);
+			genderSelectorItems[0] = new DEText(" アレン", Color.White);
+			genderSelectorItems[1] = new DEText(" ルーシィ", Color.White);
+			genderSelectorItems[2] = new DEText(" もどる", Color.White);
 
-            if (DFKeyboard.Up.IsKeyDown)
-            {
-                selectedIndex--;
-                DESound.Play(Sounds.Selected);
-            }
-            if (DFKeyboard.Down.IsKeyDown)
-            {
-                selectedIndex++;
-                DESound.Play(Sounds.Selected);
-            }
-            if (selectedIndex < 0)
-                selectedIndex = menuItems.Length - 1;
-            if (selectedIndex > menuItems.Length - 1)
-                selectedIndex = 0;
+			game.StartCoroutine(OpeningAnimation(game));
+		}
 
-            for (var i = 0; i < menuItems.Length; i++)
-            {
-                var item = menuItems[i].text;
-                item.Color = selectedIndex == i ? Color.Yellow : Color.White;
-                item.Text = (selectedIndex == i ? ">" : " ") + item.Text.Substring(1);
-            }
+		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		{
+			if (!openingFinished) return;
 
-            if (DFKeyboard.Z.IsKeyDown)
-            {
-                menuItems[selectedIndex].onclick();
-                DESound.Play(Sounds.Pressed);
-            }
-        }
+			switch (state)
+			{
+				case State.Menu:
+					UpdateMenu();
+					break;
 
-        private IEnumerator OpeningAnimation()
-        {
-            var title = new Sprite(Logo[0])
-            {
-                Location = new Vector(Const.Width / 2 - Logo[0].Size.X / 2, Const.Height),
-                ZOrder = 1,
-            };
-            Root.Add(title);
+				case State.Gender:
+					UpdateGenderSelector();
+					break;
 
-            while (title.Location.Y > 16)
-            {
-                title.Location += Vector.Up;
-                yield return null;
-                if (DFKeyboard.Z.IsKeyDown)
-                    break;
-            }
+				case State.Help:
+					if (DFKeyboard.Z.IsKeyDown)
+					{
+						Root.Remove(helpImage);
+						state = State.Menu;
+					}
+					break;
+			}
+		}
 
-            title.Location = new Vector(Const.Width / 2 - Logo[0].Size.X / 2, 16);
+		private void UpdateMenu()
+		{
+			if (DFKeyboard.Up.IsKeyDown)
+			{
+				selectedIndex--;
+				DESound.Play(Sounds.Selected);
+			}
+			if (DFKeyboard.Down.IsKeyDown)
+			{
+				selectedIndex++;
+				DESound.Play(Sounds.Selected);
+			}
+			if (selectedIndex < 0)
+				selectedIndex = menuItems.Length - 1;
+			if (selectedIndex > menuItems.Length - 1)
+				selectedIndex = 0;
 
-            yield return DFKeyboard.Z ? null : new WaitForSeconds(0.5f);
+			for (var i = 0; i < menuItems.Length; i++)
+			{
+				var item = menuItems[i].text;
+				item.Color = selectedIndex == i ? Color.Yellow : Color.White;
+				item.Text = (selectedIndex == i ? ">" : " ") + item.Text.Substring(1);
+			}
 
-            DESound.Play(Sounds.Flash);
+			if (DFKeyboard.Z.IsKeyDown)
+			{
+				menuItems[selectedIndex].onclick();
+				DESound.Play(Sounds.Pressed);
+			}
+		}
 
-            for (var i = 0; i < 16; i++)
-            {
-                title.Texture = Logo[1];
-                yield return new WaitForSeconds(0.0625f);
-                title.Texture = Logo[0];
-                yield return new WaitForSeconds(0.0625f);
-                if (DFKeyboard.Z.IsKeyDown)
-                    break;
-            }
+		private void UpdateGenderSelector()
+		{
+			if (DFKeyboard.Up.IsKeyDown)
+			{
+				selectedIndex--;
+				DESound.Play(Sounds.Selected);
+			}
+			if (DFKeyboard.Down.IsKeyDown)
+			{
+				selectedIndex++;
+				DESound.Play(Sounds.Selected);
+			}
+			if (selectedIndex < 0)
+				selectedIndex = genderSelectorItems.Length - 1;
+			if (selectedIndex > genderSelectorItems.Length - 1)
+				selectedIndex = 0;
 
-            Root.Add(new Sprite(LoadTexture("bglvl2area1.png")));
+			for (var i = 0; i < genderSelectorItems.Length; i++)
+			{
+				var item = genderSelectorItems[i];
+				item.Color = selectedIndex == i ? Color.Yellow : Color.White;
+				item.Text = (selectedIndex == i ? ">" : " ") + item.Text.Substring(1);
+			}
 
-            var y = title.Location.Y + title.Height + 16;
-            var x = 128;
+			genderSelectorPrompt.Text = selectedIndex != 2 ? "どちらであそぶ?" : "もどるの?";
 
-            foreach (var item in menuItems)
-            {
-                item.text.Location = new Vector(x, y);
-                Root.Add(item.text);
-                y += 18;
-            }
+			if (DFKeyboard.Z.IsKeyDown)
+			{
+				DESound.Play(selectedIndex == 2 ? Sounds.Back : Sounds.Pressed);
+				switch (selectedIndex)
+				{
+					case 0:
+						Game.I.CurrentGender = PlayerGender.Male;
+						break;
+					case 1:
+						Game.I.CurrentGender = PlayerGender.Female;
+						break;
+					case 2:
+						state = State.Menu;
+						selectedIndex = 0;
+						HideGenderSelector();
+						ShowMenuItems();
+						break;
+				}
+			}
+		}
 
-            var copyright = new DEText("(C)2016 ＣCitringo\n(C)2020 Xeltica", Color.White, true);
-            copyright.Location = new Vector(0, Const.Height - 16);
-            Root.Add(copyright);
-            Game.I.BgmPlay("hometownv2.mid");
-            openingFinished = true;
-        }
+		private IEnumerator OpeningAnimation(GameBase game)
+		{
+			var title = new Sprite(Logo[0])
+			{
+				Location = new Vector(Const.Width / 2 - Logo[0].Size.X / 2, Const.Height),
+				ZOrder = 1,
+			};
+			Root.Add(title);
 
-        private (DEText text, Action onclick)[] menuItems = new (DEText text, Action onclick)[0];
+			while (title.Location.Y > 16)
+			{
+				title.Location += Vector.Up;
+				yield return null;
+				if (DFKeyboard.Z.IsKeyDown)
+					break;
+			}
 
-        private bool openingFinished = false;
+			title.Location = new Vector(Const.Width / 2 - Logo[0].Size.X / 2, 16);
 
-        private int selectedIndex = 0;
-    }
+			yield return DFKeyboard.Z ? null : new WaitForSeconds(0.5f);
+
+			DESound.Play(Sounds.Flash);
+
+			var flash = game.StartCoroutine(Flash(title));
+
+			var time = 0f;
+
+			while (time < 2.5f && !DFKeyboard.Z.IsKeyDown)
+			{
+				yield return null;
+				time += Time.DeltaTime;
+			}
+
+			game.StopCoroutine(flash);
+
+			title.Texture = Logo[0];
+
+			Root.Add(new Sprite(LoadTexture("bglvl2area1.png")));
+
+			ShowMenuItems();
+
+			var copyright = new DEText("(C)2016 ＣCitringo\n(C)2020 Xeltica", Color.White, true);
+			copyright.Location = new Vector(0, Const.Height - copyright.Height);
+			Root.Add(copyright);
+
+			var engine = new DEText("Made with DotFeather 2.5.0", Color.White, true);
+			engine.Location = new Vector(Const.Width - engine.Width, Const.Height - engine.Height);
+			Root.Add(engine);
+
+			Game.I.BgmPlay("hometownv2.mid");
+			yield return null;
+			openingFinished = true;
+		}
+
+		private void ShowMenuItems()
+		{
+			var y = 16 + 100 + 16;
+			var x = 128;
+
+			foreach (var item in menuItems)
+			{
+				item.text.Location = new Vector(x, y);
+				Root.Add(item.text);
+				y += 18;
+			}
+		}
+
+		private IEnumerator Flash(Sprite title)
+		{
+			while (true)
+			{
+				title.Texture = Logo[1];
+				yield return new WaitForSeconds(0.0625f);
+				title.Texture = Logo[0];
+				yield return new WaitForSeconds(0.0625f);
+			}
+		}
+
+		private void HideMenuItems()
+		{
+			foreach (var item in menuItems)
+			{
+				Root.Remove(item.text);
+			}
+		}
+
+		private void ShowGenderSelector()
+		{
+			var y = 16 + 100 + 16;
+			var x = 128;
+
+			genderSelectorPrompt.Location = new Vector(x, y);
+			y += 18;
+			Root.Add(genderSelectorPrompt);
+
+			foreach (var item in genderSelectorItems)
+			{
+				item.Location = new Vector(x, y);
+				Root.Add(item);
+				y += 18;
+			}
+		}
+
+		private void HideGenderSelector()
+		{
+			Root.Remove(genderSelectorPrompt);
+
+			foreach (var item in genderSelectorItems)
+			{
+				Root.Remove(item);
+			}
+		}
+
+		private (DEText text, Action onclick)[] menuItems = new (DEText text, Action onclick)[0];
+
+		private DEText genderSelectorPrompt;
+
+		private DEText[] genderSelectorItems = new DEText[3];
+
+		private bool openingFinished = false;
+
+		private int selectedIndex = 0;
+
+		private State state = State.Menu;
+
+		private Sprite helpImage;
+
+		enum State
+		{
+			Menu, Gender, Help
+		}
+	}
 }
