@@ -9,49 +9,14 @@ using DotFeather;
 namespace TakeUpJewel
 {
 	/// <summary>
-	/// EntityRegister によって自動で登録される Entity クラスを指定します。このクラスは継承できません。
-	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, Inherited = false)]
-	public sealed class EntityRegistryAttribute : Attribute
-	{
-		public int Id;
-		public string Name;
-
-		public EntityRegistryAttribute(string name, int id)
-		{
-			Name = name;
-			Id = id;
-		}
-	}
-
-	/// <summary>
-	/// エンティティの情報を表します。
-	/// </summary>
-	public class EntityData
-	{
-		/// <summary>
-		/// この Entity の ID。
-		/// </summary>
-		public int EntityId;
-
-		/// <summary>
-		/// この Entity の一般名。
-		/// </summary>
-		public string EntityName = "";
-
-		/// <summary>
-		/// この Entity を表す Type。
-		/// </summary>
-		public Type EntityType = typeof(Entity);
-	}
-
-	/// <summary>
 	/// Entity の情報はここに保存され、ゲーム内で使用されます。
 	/// </summary>
 	public class EntityRegister : ICollection<EntityData>
 	{
 		public EntityRegister()
 		{
+			logger = new Logger(nameof(EntityRegister));
+
 			Items = new List<EntityData>();
 			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())
 			{
@@ -60,6 +25,7 @@ namespace TakeUpJewel
 				{
 					var entity = (EntityRegistryAttribute)attr[0];
 					Add(t, entity.Name, entity.Id);
+					logger.Info($"Registered {t.Name}#{entity.Id} as '{entity.Name}'");
 				}
 			}
 		}
@@ -67,7 +33,6 @@ namespace TakeUpJewel
 		public List<EntityData> Items { get; protected set; }
 
 		public EntityData? this[int i] => GetDataById(i);
-
 
 		public void Add(EntityData item)
 		{
@@ -187,5 +152,7 @@ namespace TakeUpJewel
 				return d;
 			return null;
 		}
+
+		public Logger logger;
 	}
 }

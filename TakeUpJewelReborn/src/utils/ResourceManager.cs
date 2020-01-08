@@ -59,49 +59,51 @@ namespace TakeUpJewel
 
 		public static void Init()
 		{
-			MagicPlayer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spplayer_magic.png", 18, 4, new VectorInt(16, 32));
-			IcePlayer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spplayer_ice.png", 18, 4, new VectorInt(16, 32));
-			FirePlayer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spplayer_fire.png", 18, 4, new VectorInt(16, 32));
-			BigPlayer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spplayer.png", 18, 4, new VectorInt(16, 32));
-			MiniPlayer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spplayermini.png", 18, 4, new VectorInt(16, 16));
+			MagicPlayer = LoadAndSplit("Resources/Graphics/spplayer_magic.png", 18, 4, new VectorInt(16, 32));
+			IcePlayer = LoadAndSplit("Resources/Graphics/spplayer_ice.png", 18, 4, new VectorInt(16, 32));
+			FirePlayer = LoadAndSplit("Resources/Graphics/spplayer_fire.png", 18, 4, new VectorInt(16, 32));
+			BigPlayer = LoadAndSplit("Resources/Graphics/spplayer.png", 18, 4, new VectorInt(16, 32));
+			MiniPlayer = LoadAndSplit("Resources/Graphics/spplayermini.png", 18, 4, new VectorInt(16, 16));
 
-			MagicPlayerFemale = Texture2D.LoadAndSplitFrom("Resources/Graphics/spfemaleplayer_magic.png", 18, 4, new VectorInt(16, 32));
-			IcePlayerFemale = Texture2D.LoadAndSplitFrom("Resources/Graphics/spfemaleplayer_fire.png", 18, 4, new VectorInt(16, 32));
-			BigPlayerFemale = Texture2D.LoadAndSplitFrom("Resources/Graphics/spfemaleplayer.png", 18, 4, new VectorInt(16, 32));
+			MagicPlayerFemale = LoadAndSplit("Resources/Graphics/spfemaleplayer_magic.png", 18, 4, new VectorInt(16, 32));
+			IcePlayerFemale = LoadAndSplit("Resources/Graphics/spfemaleplayer_fire.png", 18, 4, new VectorInt(16, 32));
+			BigPlayerFemale = LoadAndSplit("Resources/Graphics/spfemaleplayer.png", 18, 4, new VectorInt(16, 32));
 
-			Queen = Texture2D.LoadAndSplitFrom("Resources/Graphics/spqueen.png", 16, 2, new VectorInt(16, 32));
-			King = Texture2D.LoadAndSplitFrom("Resources/Graphics/spking.png", 16, 2, new VectorInt(16, 32));
-			CommonMob = Texture2D.LoadAndSplitFrom("Resources/Graphics/commonMob.png", 16, 4, new VectorInt(16, 16));
-			ModokeeGround = Texture2D.LoadAndSplitFrom("Resources/Graphics/spModokee.png", 8, 1, new VectorInt(32, 16));
-			ModokeeCave = Texture2D.LoadAndSplitFrom("Resources/Graphics/spCaveModokee.png", 8, 1, new VectorInt(32, 16));
-			Daemon = Texture2D.LoadAndSplitFrom("Resources/Graphics/spdaemon.png", 14, 1, new VectorInt(16, 16));
-			Archer = Texture2D.LoadAndSplitFrom("Resources/Graphics/sparcher.png", 8, 1, new VectorInt(32, 32));
-			Weapon = Texture2D.LoadAndSplitFrom("Resources/Graphics/spweapon.png", 16, 2, new VectorInt(16, 16));
-			Dwarf = Texture2D.LoadAndSplitFrom("Resources/Graphics/spdwarf.png", 5, 1, new VectorInt(16, 32));
-			Fighter = Texture2D.LoadAndSplitFrom("Resources/Graphics/spfighter.png", 2, 1, new VectorInt(16, 32));
-			Turbo = Texture2D.LoadAndSplitFrom("Resources/Graphics/spturbo.png", 6, 1, new VectorInt(16, 16));
-			Boxer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spboxer.png", 2, 1, new VectorInt(32, 32));
-			RollingRock = Texture2D.LoadAndSplitFrom("Resources/Graphics/sprollingrock.png", 2, 1, new VectorInt(32, 32));
+			Queen = LoadAndSplit("Resources/Graphics/spqueen.png", 16, 2, new VectorInt(16, 32));
+			King = LoadAndSplit("Resources/Graphics/spking.png", 16, 2, new VectorInt(16, 32));
+			CommonMob = LoadAndSplit("Resources/Graphics/commonMob.png", 16, 4, new VectorInt(16, 16));
+			ModokeeGround = LoadAndSplit("Resources/Graphics/spModokee.png", 8, 1, new VectorInt(32, 16));
+			ModokeeCave = LoadAndSplit("Resources/Graphics/spCaveModokee.png", 8, 1, new VectorInt(32, 16));
+			Daemon = LoadAndSplit("Resources/Graphics/spdaemon.png", 14, 1, new VectorInt(16, 16));
+			Archer = LoadAndSplit("Resources/Graphics/sparcher.png", 8, 1, new VectorInt(32, 32));
+			Weapon = LoadAndSplit("Resources/Graphics/spweapon.png", 16, 2, new VectorInt(16, 16));
+			Dwarf = LoadAndSplit("Resources/Graphics/spdwarf.png", 5, 1, new VectorInt(16, 32));
+			Fighter = LoadAndSplit("Resources/Graphics/spfighter.png", 2, 1, new VectorInt(16, 32));
+			Turbo = LoadAndSplit("Resources/Graphics/spturbo.png", 6, 1, new VectorInt(16, 16));
+			Boxer = LoadAndSplit("Resources/Graphics/spboxer.png", 2, 1, new VectorInt(32, 32));
+			RollingRock = LoadAndSplit("Resources/Graphics/sprollingrock.png", 2, 1, new VectorInt(32, 32));
 
-			Turcos = Texture2D.LoadAndSplitFrom("Resources/Graphics/spTurcos.png", 11, 2, new VectorInt(24, 16));
-			TurcosShell = Texture2D.LoadAndSplitFrom("Resources/Graphics/spTurcosShell.png", 4, 1, new VectorInt(16, 16));
-			Spider = Texture2D.LoadAndSplitFrom("Resources/Graphics/spSpider.png", 1, 1, new VectorInt(16, 16));
-			Logo = Texture2D.LoadAndSplitFrom("Resources/Graphics/logo.png", 2, 1, new VectorInt(180, 101));
-			Item = Texture2D.LoadAndSplitFrom("Resources/Graphics/spitem.png", 14, 1, new VectorInt(16, 16));
-			Densy = Texture2D.LoadAndSplitFrom("Resources/Graphics/spDensy.png", 4, 1, new VectorInt(16, 16));
-			FolderFly = Texture2D.LoadAndSplitFrom("Resources/Graphics/spFolderFly.png", 5, 1, new VectorInt(16, 16));
-			BlackServer = Texture2D.LoadAndSplitFrom("Resources/Graphics/spblackserver.png", 10, 1, new VectorInt(16, 32));
-			CameraMan = Texture2D.LoadAndSplitFrom("Resources/Graphics/spCameraMan.png", 6, 1, new VectorInt(16, 32));
-			Particle = Texture2D.LoadAndSplitFrom("Resources/Graphics/spparticle.png", 8, 1, new VectorInt(8, 8));
-			StrangeFlower = Texture2D.LoadAndSplitFrom("Resources/Graphics/spstrangeflower.png", 5, 1, new VectorInt(48, 48));
+			Turcos = LoadAndSplit("Resources/Graphics/spTurcos.png", 11, 2, new VectorInt(24, 16));
+			TurcosShell = LoadAndSplit("Resources/Graphics/spTurcosShell.png", 4, 1, new VectorInt(16, 16));
+			Spider = LoadAndSplit("Resources/Graphics/spSpider.png", 1, 1, new VectorInt(16, 16));
+			Logo = LoadAndSplit("Resources/Graphics/logo.png", 2, 1, new VectorInt(180, 101));
+			Item = LoadAndSplit("Resources/Graphics/spitem.png", 14, 1, new VectorInt(16, 16));
+			Densy = LoadAndSplit("Resources/Graphics/spDensy.png", 4, 1, new VectorInt(16, 16));
+			FolderFly = LoadAndSplit("Resources/Graphics/spFolderFly.png", 5, 1, new VectorInt(16, 16));
+			BlackServer = LoadAndSplit("Resources/Graphics/spblackserver.png", 10, 1, new VectorInt(16, 32));
+			CameraMan = LoadAndSplit("Resources/Graphics/spCameraMan.png", 6, 1, new VectorInt(16, 32));
+			Particle = LoadAndSplit("Resources/Graphics/spparticle.png", 8, 1, new VectorInt(8, 8));
+			StrangeFlower = LoadAndSplit("Resources/Graphics/spstrangeflower.png", 5, 1, new VectorInt(48, 48));
 
-			TheEnd = Texture2D.LoadFrom("Resources/Graphics/theend.png");
-			MesBox = Texture2D.LoadFrom("Resources/Graphics/uimesbox.png");
-			BgJukeBox = Texture2D.LoadFrom("Resources/Graphics/bgjukebox.png");
-			BgBreakTime = Texture2D.LoadFrom("Resources/Graphics/bgbreaktime.png");
-			// todo Groorine を持ってきてから作業する
+			TheEnd = Load("Resources/Graphics/theend.png");
+			MesBox = Load("Resources/Graphics/uimesbox.png");
+			BgJukeBox = Load("Resources/Graphics/bgjukebox.png");
+			BgBreakTime = Load("Resources/Graphics/bgbreaktime.png");
 			foreach (var s in Directory.GetFiles("./Resources/Music"))
+			{
 				MusicList[Path.GetFileName(s)] = new GroorineAudioSource(File.OpenRead(s));
+				logger.Info($"Loaded music '{Path.GetFileName(s)}'");
+			}
 		}
 
 		/// <summary>
@@ -117,9 +119,12 @@ namespace TakeUpJewel
 			var yNum = TextureHeight / height;
 			var hash = texture.GetHashCode();
 			if (GraphicsList.ContainsKey(hash) && (GraphicsList[hash] != null))
+			{
+				logger.Info($"Use cached image {hash}");
 				return GraphicsList[hash];
+			}
 
-			var buf = Texture2D.LoadAndSplitFrom($"Resources/Graphics/{texture}", xNum, yNum, new VectorInt(width, height));
+			var buf = LoadAndSplit($"Resources/Graphics/{texture}", xNum, yNum, new VectorInt(width, height));
 
 			GraphicsList[hash] = buf;
 			if (loadingList.ContainsKey(hash) && (loadingList[hash] != null))
@@ -132,9 +137,12 @@ namespace TakeUpJewel
 		{
 			var hash = texture.GetHashCode();
 			if (GraphicList.ContainsKey(hash))
+			{
+				logger.Info($"Use cached image {hash}");
 				return GraphicList[hash];
+			}
 
-			return GraphicList[hash] = Texture2D.LoadFrom($"Resources/Graphics/{texture}");
+			return GraphicList[hash] = Load($"Resources/Graphics/{texture}");
 		}
 
 		public static void ReloadTexture()
@@ -152,13 +160,29 @@ namespace TakeUpJewel
 
 		public static Texture2D[] GetMpt(string mptname)
 		{
-			MapChip = Texture2D.LoadAndSplitFrom("Resources/Graphics/" + mptname + ".png", 16, 4, new VectorInt(16, 16));
-			MapChipMini = Texture2D.LoadAndSplitFrom("Resources/Graphics/" + mptname + ".png", 32, 8, new VectorInt(8, 8));
+			MapChip = LoadAndSplit("Resources/Graphics/" + mptname + ".png", 16, 4, new VectorInt(16, 16));
+			MapChipMini = LoadAndSplit("Resources/Graphics/" + mptname + ".png", 32, 8, new VectorInt(8, 8));
 
 			return MapChip;
 		}
 
+		private static Texture2D Load(string path)
+		{
+			var t = Texture2D.LoadFrom(path);
+			logger.Info($"Loaded an image '{path}'");
+			return t;
+		}
+
+		private static Texture2D[] LoadAndSplit(string path, int horizontalCount, int verticalCount, VectorInt size)
+		{
+			var t = Texture2D.LoadAndSplitFrom(path, horizontalCount, verticalCount, size);
+			logger.Info($"Loaded an image '{path}' and generate {horizontalCount * verticalCount} textures");
+			return t;
+		}
+
 		private static readonly Dictionary<int, TextureLoadingInfo> loadingList = new Dictionary<int, TextureLoadingInfo>();
+
+		private static readonly Logger logger = new Logger(nameof(ResourceManager));
 
 		private class TextureLoadingInfo
 		{
