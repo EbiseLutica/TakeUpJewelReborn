@@ -2,7 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using DotFeather;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SF = SixLabors.Fonts;
+using SI = SixLabors.ImageSharp;
 
 namespace TakeUpJewel
 {
@@ -60,7 +65,12 @@ namespace TakeUpJewel
 					fontMap[c] = i++;
 				}
 				nativeFontMap.Clear();
-				nativeFontGenerator = new TextDrawable("", DotFeather.Font.GetDefault(11), Color.White);
+
+				var collection = new SF.FontCollection();
+				collection.Install("Resources/Font/Font.ttf");
+				var family = collection.Families.First();
+				nativeFont = new SF.Font(family, 10, SF.FontStyle.Regular);
+
 				isInitialized = true;
 			}
 
@@ -69,7 +79,14 @@ namespace TakeUpJewel
 
 		private static Texture2D GetNativeFont(char c)
 		{
-			throw new NotImplementedException();
+			if (nativeFontMap.ContainsKey(c))
+				return nativeFontMap[c];
+			var (x, y, w, h) = SF.TextMeasurer.MeasureBounds(c.ToString(), new SF.RendererOptions(nativeFont));
+			using var img = new SI.Image<Rgba32>((int)(x + w), (int)(y + h));
+			img.Mutate((ctx) => ctx.DrawText(c.ToString(), nativeFont, SI.Color.White, default));
+			var tex = Texture2D.LoadFrom(img);
+			nativeFontMap[c] = tex;
+			return tex;
 		}
 
 		private void Render()
@@ -100,7 +117,12 @@ namespace TakeUpJewel
 					//それ以外なら、存在しない文字として出力する
 					target = 0;
 
-				Add(new Sprite((isSmallFont ? smallFont : font)[target])
+				var texture =
+					target == 0 && !isSmallFont
+						? GetNativeFont(Text[i])
+						: (isSmallFont ? smallFont : font)[target];
+
+				Add(new Sprite(texture)
 				{
 					Location = new Vector(tx, ty),
 					Color = Color,
@@ -186,7 +208,7 @@ namespace TakeUpJewel
 		private static readonly Dictionary<char, Texture2D> nativeFontMap = new Dictionary<char, Texture2D>();
 		private static Texture2D[] font = new Texture2D[0];
 		private static Texture2D[] smallFont = new Texture2D[0];
-		private static TextDrawable? nativeFontGenerator;
+		private static SixLabors.Fonts.Font nativeFont;
 		private static bool isInitialized;
 		private string text;
 		private Color color;
