@@ -21,7 +21,7 @@ namespace TakeUpJewel.Entities
             CollisionAIs.Add(new AiKillDefender(this));
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.Daemon;
+        public override Texture2D[] ImageHandle => ResourceManager.Daemon;
 
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;

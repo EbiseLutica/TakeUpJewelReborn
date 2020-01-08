@@ -20,7 +20,7 @@ namespace TakeUpJewel.Entities
             SetAnime(0, 1, 8);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.Fighter;
+        public override Texture2D[] ImageHandle => ResourceManager.Fighter;
 
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;

@@ -38,7 +38,7 @@ namespace TakeUpJewel
 
 		public void Initialize()
 		{
-			ResourceUtility.Init();
+			ResourceManager.Init();
 			DESound.Init();
 			bgmPlayer.Gain = 1;
 		}
@@ -47,7 +47,7 @@ namespace TakeUpJewel
 		{
 			if (id == null)
 				return;
-			bgmPlayer.Play(ResourceUtility.MusicList[id]);
+			bgmPlayer.Play(ResourceManager.MusicList[id]);
 		}
 
 		public void BgmStop(int time = 0)

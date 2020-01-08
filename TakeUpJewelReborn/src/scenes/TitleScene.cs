@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using DotFeather;
 using TakeUpJewel.Util;
-using static TakeUpJewel.Util.ResourceUtility;
+using static TakeUpJewel.Util.ResourceManager;
 
 namespace TakeUpJewel
 {

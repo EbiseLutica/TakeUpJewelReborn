@@ -29,7 +29,7 @@ namespace TakeUpJewel.Entities
 			SetGraphic(0);
 		}
 
-		public override Texture2D[] ImageHandle => ResourceUtility.TurcosShell;
+		public override Texture2D[] ImageHandle => ResourceManager.TurcosShell;
 
 
 		public override EntityGroup MyGroup => IsRunning ? EntityGroup.Enemy : EntityGroup.MonsterWeapon;

@@ -20,7 +20,7 @@ namespace TakeUpJewel.Entities
             SetAnime(0, 1, 8);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.Turbo;
+        public override Texture2D[] ImageHandle => ResourceManager.Turbo;
 
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;
@@ -61,7 +61,7 @@ namespace TakeUpJewel.Entities
             Size = new Size(32, 32);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.RollingRock;
+        public override Texture2D[] ImageHandle => ResourceManager.RollingRock;
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;
 

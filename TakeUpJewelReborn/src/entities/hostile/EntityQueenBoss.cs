@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using TakeUpJewel.AI;
 using TakeUpJewel.Data;
 using TakeUpJewel.Util;
-using static TakeUpJewel.Util.DevelopmentUtility;
+using static TakeUpJewel.Util.Misc;
 using Object = TakeUpJewel.Data.Object;
 
 namespace TakeUpJewel.Entities
@@ -77,7 +77,7 @@ namespace TakeUpJewel.Entities
 
 		public int Life { get; set; } = MaxLife;
 
-		public override Texture2D[] ImageHandle => ResourceUtility.Queen;
+		public override Texture2D[] ImageHandle => ResourceManager.Queen;
 
 
 		public override RectangleF Collision => new RectangleF(new Vector(2, 2).ToPoint(), Size);

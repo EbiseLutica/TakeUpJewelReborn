@@ -3,7 +3,7 @@ using DotFeather;
 using TakeUpJewel.AI;
 using TakeUpJewel.Data;
 using TakeUpJewel.Util;
-using static TakeUpJewel.Util.DevelopmentUtility;
+using static TakeUpJewel.Util.Misc;
 
 namespace TakeUpJewel.Entities
 {
@@ -22,7 +22,7 @@ namespace TakeUpJewel.Entities
             MainAi = new AiWalk(this, 1, 5, 5, 5, 5);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.Item;
+        public override Texture2D[] ImageHandle => ResourceManager.Item;
 
 
         public override EntityGroup MyGroup => EntityGroup.Stage;

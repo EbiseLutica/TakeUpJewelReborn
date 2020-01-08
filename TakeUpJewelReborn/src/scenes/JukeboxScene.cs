@@ -10,7 +10,7 @@ namespace TakeUpJewel
 	{
 		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
 		{
-			Root.Add(new Sprite(ResourceUtility.LoadTexture("bgjukebox.png")));
+			Root.Add(new Sprite(ResourceManager.LoadTexture("bgjukebox.png")));
 			Core.I.BgmStop();
 			menuItems = AudioList.Select((a, i) => new DEText("　" + a, Color.White)
 			{

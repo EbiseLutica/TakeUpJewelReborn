@@ -15,6 +15,6 @@ namespace TakeUpJewel.Entities
             MainAi = new AiFlySearch(this, 1, 0, 1, 4, 5);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.ModokeeCave;
+        public override Texture2D[] ImageHandle => ResourceManager.ModokeeCave;
     }
 }

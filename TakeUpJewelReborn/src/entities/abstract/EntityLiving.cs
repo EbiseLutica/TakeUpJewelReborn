@@ -164,7 +164,7 @@ namespace TakeUpJewel.Entities
 							{
 								DESound.Play(Sounds.Destroy);
 								Map[x / 16, y / 16, 0] = 0;
-								ParticleUtility.BrokenBlock(new Point(x, y), Parent, Mpts);
+								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						break;
 					case ObjectHitFlag.Damage:
@@ -293,7 +293,7 @@ namespace TakeUpJewel.Entities
 							{
 								DESound.Play(Sounds.Destroy);
 								Map[x / 16, y / 16, 0] = 0;
-								ParticleUtility.BrokenBlock(new Point(x, y), Parent, Mpts);
+								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
 						retval = ObjectHitFlag.Hit;
@@ -359,7 +359,7 @@ namespace TakeUpJewel.Entities
 							{
 								DESound.Play(Sounds.Destroy);
 								Map[x / 16, y / 16, 0] = 0;
-								ParticleUtility.BrokenBlock(new Point(x, y), Parent, Mpts);
+								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
 						retval = ObjectHitFlag.Hit;

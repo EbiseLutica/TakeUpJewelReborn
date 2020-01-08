@@ -34,7 +34,7 @@ namespace TakeUpJewel.Entities
 			Jump();
 		}
 
-		public override Texture2D[] ImageHandle => ResourceUtility.CameraMan;
+		public override Texture2D[] ImageHandle => ResourceManager.CameraMan;
 
 
 		public override EntityGroup MyGroup => EntityGroup.Enemy;
@@ -188,7 +188,7 @@ namespace TakeUpJewel.Entities
 		}
 
 
-		public override Texture2D[] ImageHandle => ResourceUtility.CameraMan;
+		public override Texture2D[] ImageHandle => ResourceManager.CameraMan;
 
 
 		public override EntityGroup MyGroup => EntityGroup.MonsterWeapon;

@@ -20,7 +20,7 @@ namespace TakeUpJewel.Entities
             Size = new Size(16, 16);
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.CommonMob;
+        public override Texture2D[] ImageHandle => ResourceManager.CommonMob;
 
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;

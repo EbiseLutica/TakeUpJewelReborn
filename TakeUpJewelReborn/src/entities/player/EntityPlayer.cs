@@ -60,17 +60,17 @@ namespace TakeUpJewel.Entities
 				switch (Form)
 				{
 					default:
-						return Core.I.CurrentGender == PlayerGender.Male ? ResourceUtility.BigPlayer : ResourceUtility.BigPlayerFemale;
+						return Core.I.CurrentGender == PlayerGender.Male ? ResourceManager.BigPlayer : ResourceManager.BigPlayerFemale;
 					case PlayerForm.Ice:
-						return Core.I.CurrentGender == PlayerGender.Male ? ResourceUtility.IcePlayer : ResourceUtility.IcePlayerFemale;
+						return Core.I.CurrentGender == PlayerGender.Male ? ResourceManager.IcePlayer : ResourceManager.IcePlayerFemale;
 					case PlayerForm.Magic:
 						return Core.I.CurrentGender == PlayerGender.Male
-							? ResourceUtility.MagicPlayer
-							: ResourceUtility.MagicPlayerFemale;
+							? ResourceManager.MagicPlayer
+							: ResourceManager.MagicPlayerFemale;
 					case PlayerForm.Fire:
 						return Core.I.CurrentGender == PlayerGender.Male
-							? ResourceUtility.FirePlayer
-							: ResourceUtility.FirePlayerFemale;
+							? ResourceManager.FirePlayer
+							: ResourceManager.FirePlayerFemale;
 				}
 			}
 		}

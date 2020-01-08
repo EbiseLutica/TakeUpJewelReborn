@@ -8,7 +8,7 @@ namespace TakeUpJewel.Util
 	/// <summary>
 	/// ゲームのリソースを取得し管理する静的クラスです。
 	/// </summary>
-	public static class ResourceUtility
+	public static class ResourceManager
 	{
 		public const int TextureWidth = 256;
 		public const int TextureHeight = 64;

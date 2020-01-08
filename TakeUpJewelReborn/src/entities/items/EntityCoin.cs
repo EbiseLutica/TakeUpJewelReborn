@@ -3,7 +3,7 @@ using DotFeather;
 using Newtonsoft.Json.Linq;
 using TakeUpJewel.Data;
 using TakeUpJewel.Util;
-using static TakeUpJewel.Util.DevelopmentUtility;
+using static TakeUpJewel.Util.Misc;
 
 namespace TakeUpJewel.Entities
 {
@@ -25,7 +25,7 @@ namespace TakeUpJewel.Entities
 			Velocity.Y = -12;
 		}
 
-		public override Texture2D[] ImageHandle => ResourceUtility.Item;
+		public override Texture2D[] ImageHandle => ResourceManager.Item;
 
 
 		public override EntityGroup MyGroup => EntityGroup.Stage;

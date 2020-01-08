@@ -20,7 +20,7 @@ namespace TakeUpJewel.Entities
             CollisionAIs.Add(new AiKillDefender(this));
         }
 
-        public override Texture2D[] ImageHandle => ResourceUtility.ModokeeGround;
+        public override Texture2D[] ImageHandle => ResourceManager.ModokeeGround;
 
 
         public override EntityGroup MyGroup => EntityGroup.Enemy;
