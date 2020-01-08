@@ -3,9 +3,9 @@ namespace TakeUpJewel
     /// <summary>
     /// mpt の最小単位を表します。
     /// </summary>
-    public class Object
+    public class Tile
     {
-        public Object(int handle, byte[,] mask)
+        public Tile(int handle, byte[,] mask)
         {
             ImageHandle = handle;
             HitMask = mask;

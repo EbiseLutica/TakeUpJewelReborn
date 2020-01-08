@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("FireWands", 33)]
 	public class EntityPepper : EntityLiving
 	{
-		public EntityPepper(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityPepper(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

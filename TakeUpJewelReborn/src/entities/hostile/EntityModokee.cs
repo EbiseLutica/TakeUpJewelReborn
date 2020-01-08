@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Modokee_Ground", 2)]
     public class EntityModokee : EntityFlying
     {
-        public EntityModokee(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityModokee(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

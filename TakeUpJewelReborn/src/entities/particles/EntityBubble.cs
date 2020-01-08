@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Bubble", -1)]
     public class EntityBubble : EntityParticleBase
     {
-        public EntityBubble(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
+        public EntityBubble(Vector p, Tile[] mpts, byte[,,] mp, EntityList par)
             : base(p, mpts, mp, par)
         {
             Velocity.Y = -1;

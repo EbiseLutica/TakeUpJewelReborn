@@ -14,7 +14,7 @@ namespace TakeUpJewel
 		protected AiKiller Killai;
 		public int Mutekitime;
 
-		public EntityTurcosShell(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityTurcosShell(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

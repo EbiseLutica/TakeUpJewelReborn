@@ -5,7 +5,7 @@ namespace TakeUpJewel
     [EntityRegistry("Star", -1)]
     public class EntityStar : EntityParticleBase
     {
-        public EntityStar(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
+        public EntityStar(Vector p, Tile[] mpts, byte[,,] mp, EntityList par)
             : base(p, mpts, mp, par)
         {
             Velocity.X = Core.GetRand(4) - 2;

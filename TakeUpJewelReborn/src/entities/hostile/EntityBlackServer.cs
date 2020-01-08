@@ -16,7 +16,7 @@ namespace TakeUpJewel
 		/// </summary>
 		private int _tick;
 
-		public EntityBlackServer(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityBlackServer(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;
@@ -92,7 +92,7 @@ namespace TakeUpJewel
 		private int _mode = 6;
 		private int _tick;
 
-		public EntitySaba(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntitySaba(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

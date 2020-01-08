@@ -11,7 +11,7 @@ namespace TakeUpJewel
 		private readonly int _defspeed = 0;
 		public int Life = 100;
 
-		public EntityIceWeapon(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityIceWeapon(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

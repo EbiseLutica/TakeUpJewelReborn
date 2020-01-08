@@ -11,7 +11,7 @@ namespace TakeUpJewel
 	{
 		public int Life = 40;
 
-		public Weapons(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public Weapons(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

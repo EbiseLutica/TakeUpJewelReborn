@@ -8,7 +8,7 @@ namespace TakeUpJewel
 	{
 		private const float Spdmax = 2;
 
-		public EntityPoisonMushroom(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityPoisonMushroom(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

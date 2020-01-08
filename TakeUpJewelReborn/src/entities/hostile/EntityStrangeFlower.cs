@@ -10,7 +10,7 @@ namespace TakeUpJewel
 		private int _nowstatus;
 		private int _tick;
 
-		public EntityStrangeFlower(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityStrangeFlower(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

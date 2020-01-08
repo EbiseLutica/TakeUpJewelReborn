@@ -12,7 +12,7 @@ namespace TakeUpJewel
 		private int _defspeed;
 		public int Life = 20;
 
-		public EntityFireWeapon(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityFireWeapon(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

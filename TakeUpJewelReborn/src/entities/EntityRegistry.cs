@@ -78,7 +78,7 @@ namespace TakeUpJewel
 			return Items.GetEnumerator();
 		}
 
-		public Entity CreateEntity(string name, Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public Entity CreateEntity(string name, Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			var data = GetDataByName(name);
 			if (data == null)
@@ -91,7 +91,7 @@ namespace TakeUpJewel
 			return (Entity)o;
 		}
 
-		public Entity CreateEntity(string name, Vector pnt, Object[] obj, byte[,,] chips, EntityList par, dynamic jsonobj)
+		public Entity CreateEntity(string name, Vector pnt, Tile[] obj, byte[,,] chips, EntityList par, dynamic jsonobj)
 		{
 			var e = CreateEntity(name, pnt, obj, chips, par);
 			if (jsonobj == null)
@@ -101,7 +101,7 @@ namespace TakeUpJewel
 			return e;
 		}
 
-		public Entity CreateEntity(int id, Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public Entity CreateEntity(int id, Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			var data = this[id];
 			if (data == null)
@@ -114,7 +114,7 @@ namespace TakeUpJewel
 			return (Entity)o;
 		}
 
-		public Entity CreateEntity(int id, Vector pnt, Object[] obj, byte[,,] chips, EntityList par, dynamic jsonobj)
+		public Entity CreateEntity(int id, Vector pnt, Tile[] obj, byte[,,] chips, EntityList par, dynamic jsonobj)
 		{
 			var e = CreateEntity(id, pnt, obj, chips, par);
 			if (jsonobj == null)

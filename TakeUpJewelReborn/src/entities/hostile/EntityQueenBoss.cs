@@ -55,7 +55,7 @@ namespace TakeUpJewel
 
 		protected int Tick;
 
-		public EntityQueenBoss(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityQueenBoss(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

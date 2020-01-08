@@ -5,7 +5,7 @@ namespace TakeUpJewel
 {
 	public class EntityParticleBase : EntityLiving
 	{
-		public EntityParticleBase(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityParticleBase(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

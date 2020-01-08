@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("Archer", 4)]
 	public class EntityArcher : EntityLiving
 	{
-		public EntityArcher(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityArcher(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;
@@ -37,7 +37,7 @@ namespace TakeUpJewel
 	[EntityRegistry("Arrow", 67)]
 	public class EntityArrow : EntityProjectile
 	{
-		public EntityArrow(Vector pnt, Object[] obj, byte[,,] chps, EntityList par)
+		public EntityArrow(Vector pnt, Tile[] obj, byte[,,] chps, EntityList par)
 		{
 			Mpts = obj;
 			Map = chps;

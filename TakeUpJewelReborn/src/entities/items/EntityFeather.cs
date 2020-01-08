@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("Feather", 37)]
 	public class EntityFeather : EntityLiving
 	{
-		public EntityFeather(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityFeather(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

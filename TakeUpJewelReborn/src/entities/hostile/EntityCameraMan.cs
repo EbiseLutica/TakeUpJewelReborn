@@ -19,7 +19,7 @@ namespace TakeUpJewel
 		/// </summary>
 		private int _timer;
 
-		public EntityCameraMan(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityCameraMan(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;
@@ -171,7 +171,7 @@ namespace TakeUpJewel
 	[EntityRegistry("CameraRazer", -1)]
 	public class EntityCameraRazer : EntityFlying
 	{
-		public EntityCameraRazer(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityCameraRazer(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

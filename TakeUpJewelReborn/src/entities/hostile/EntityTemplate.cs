@@ -6,7 +6,7 @@ namespace TakeUpJewel
     //[EntityRegistry("", 127)]
     public class EntityTemplate : EntityLiving
     {
-        public EntityTemplate(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityTemplate(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

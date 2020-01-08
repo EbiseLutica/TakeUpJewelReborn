@@ -15,7 +15,7 @@ namespace TakeUpJewel
         private ScriptRepeatingOption _option;
         private bool _triggered;
 
-        public EntityTrigger(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityTrigger(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

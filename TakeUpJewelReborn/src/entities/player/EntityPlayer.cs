@@ -29,7 +29,7 @@ namespace TakeUpJewel
 		/// </summary>
 		public int PowerupTime;
 
-		public EntityPlayer(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityPlayer(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

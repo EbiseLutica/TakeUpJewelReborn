@@ -36,11 +36,11 @@ namespace TakeUpJewel
 					origin.Parent));
 		}
 
-		public static void BrokenBlock(Point pos, EntityList collection, Object[] mptobjects)
+		public static void BrokenBlock(Point pos, EntityList collection, Tile[] tiles)
 		{
 			for (var i = 0; i < 3 + GetRand(3); i++)
 				collection.Add(Core.I.EntityRegistry.CreateEntity("BrokenBlock",
-					new Vector(pos.X + GetRand(8) - 4, pos.Y + GetRand(8) - 4), mptobjects, Core.I.CurrentMap.Chips, collection));
+					new Vector(pos.X + GetRand(8) - 4, pos.Y + GetRand(8) - 4), tiles, Core.I.CurrentMap.Chips, collection));
 		}
 	}
 }

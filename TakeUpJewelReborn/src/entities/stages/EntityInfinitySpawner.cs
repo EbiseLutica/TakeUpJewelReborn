@@ -10,7 +10,7 @@ namespace TakeUpJewel
 
 		private int _tick;
 
-		public EntityInfinitySpawner(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityInfinitySpawner(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

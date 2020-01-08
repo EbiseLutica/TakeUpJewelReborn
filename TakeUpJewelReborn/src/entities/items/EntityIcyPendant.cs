@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("IcyPendant", -1)]
 	public class EntityIcyPendant : EntityLiving
 	{
-		public EntityIcyPendant(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityIcyPendant(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

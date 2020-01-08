@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using DotFeather;
 using static TakeUpJewel.ResourceManager;
 
@@ -13,7 +13,7 @@ namespace TakeUpJewel
 		private bool _canExecuteScript;
 		private string _myScript;
 
-		public EntityTalkable(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityTalkable(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 			: base(pnt, obj, chips, par)
 		{
 			Location = pnt;

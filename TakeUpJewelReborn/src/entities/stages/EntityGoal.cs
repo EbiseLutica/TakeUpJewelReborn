@@ -8,7 +8,7 @@ namespace TakeUpJewel
         private int _next = 1;
         private dynamic? _obj = null;
 
-        public EntityGoal(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityGoal(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

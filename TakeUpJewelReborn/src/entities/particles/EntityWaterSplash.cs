@@ -5,7 +5,7 @@ namespace TakeUpJewel
     [EntityRegistry("WaterSplash", -1)]
     public class EntityWaterSplash : EntityParticleBase
     {
-        public EntityWaterSplash(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
+        public EntityWaterSplash(Vector p, Tile[] mpts, byte[,,] mp, EntityList par)
             : base(p, mpts, mp, par)
         {
             Velocity.X = Core.GetRand(2) - 1;

@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Solider", 6)]
     public class EntitySolider : EntityLiving
     {
-        public EntitySolider(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntitySolider(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

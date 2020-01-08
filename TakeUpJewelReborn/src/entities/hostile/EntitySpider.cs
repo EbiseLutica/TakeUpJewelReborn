@@ -8,7 +8,7 @@ namespace TakeUpJewel
     {
         protected float Accel = 0.1f;
 
-        public EntitySpider(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntitySpider(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = new Vector(pnt.X, pnt.Y + 64);
             Mpts = obj;
@@ -62,7 +62,7 @@ namespace TakeUpJewel
     {
         private string _targetTag = "";
 
-        public EntityString(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityString(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

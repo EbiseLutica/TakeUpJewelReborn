@@ -5,7 +5,7 @@ namespace TakeUpJewel
 {
     public class EntityPlayerGhost : EntitySprite
     {
-        public EntityPlayerGhost(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityPlayerGhost(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

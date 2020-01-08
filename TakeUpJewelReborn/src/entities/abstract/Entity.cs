@@ -50,7 +50,7 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 現在のマップチップ。
 		/// </summary>
-		public Object[] Mpts;
+		public Tile[] Mpts;
 
 		/// <summary>
 		/// 自分の親である EntityList。

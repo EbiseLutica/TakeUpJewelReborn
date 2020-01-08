@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	{
 		public int Life = 90;
 
-		public EntityPlayingCard(Vector pnt, Object[] obj, byte[,,] chips, EntityList par) : base(pnt, obj, chips, par)
+		public EntityPlayingCard(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par) : base(pnt, obj, chips, par)
 		{
 			if (Core.GetRand(2) == 0)
 				SetAnime(21, 24, 8);

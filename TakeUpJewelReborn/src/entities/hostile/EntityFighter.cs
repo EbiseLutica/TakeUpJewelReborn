@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Fighter", 14)]
     public class EntityFighter : EntityLiving
     {
-        public EntityFighter(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityFighter(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

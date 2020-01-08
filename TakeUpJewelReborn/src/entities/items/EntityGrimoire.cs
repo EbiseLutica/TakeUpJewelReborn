@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("Grimoire", 34)]
 	public class EntityGrimoire : EntityLiving
 	{
-		public EntityGrimoire(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityGrimoire(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

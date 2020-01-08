@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("SoulChocolate", 32)]
 	public class EntityChocolate : EntityFlying
 	{
-		public EntityChocolate(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityChocolate(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

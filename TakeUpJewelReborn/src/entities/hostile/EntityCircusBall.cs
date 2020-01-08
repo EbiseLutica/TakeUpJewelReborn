@@ -7,7 +7,7 @@ namespace TakeUpJewel
 	{
 		public int Life = 3;
 
-		public EntityCircusBall(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityCircusBall(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

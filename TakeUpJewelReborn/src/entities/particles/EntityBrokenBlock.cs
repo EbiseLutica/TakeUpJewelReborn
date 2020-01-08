@@ -5,7 +5,7 @@ namespace TakeUpJewel
 	[EntityRegistry("BrokenBlock", -1)]
 	public class EntityBrokenBlock : EntityParticleBase
 	{
-		public EntityBrokenBlock(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
+		public EntityBrokenBlock(Vector p, Tile[] mpts, byte[,,] mp, EntityList par)
 			: base(p, mpts, mp, par)
 		{
 			Velocity.X = Core.GetRand(4) - 2;

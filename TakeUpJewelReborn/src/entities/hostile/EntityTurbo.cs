@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Turbo", 17)]
     public class EntityTurbo : EntityLiving
     {
-        public EntityTurbo(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityTurbo(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;
@@ -52,7 +52,7 @@ namespace TakeUpJewel
     [EntityRegistry("RollingRock", 15)]
     public class EntityRollingRock : EntityTurbo
     {
-        public EntityRollingRock(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityRollingRock(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
             : base(pnt, obj, chips, par)
         {
             Size = new Size(32, 32);

@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Turcos_Green", 9)]
     public class EntityTurcos : EntityLiving
     {
-        public EntityTurcos(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityTurcos(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

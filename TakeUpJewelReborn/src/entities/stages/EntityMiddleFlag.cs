@@ -8,7 +8,7 @@ namespace TakeUpJewel
         private bool _flagged;
         private dynamic? _obj = null;
 
-        public EntityMiddleFlag(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityMiddleFlag(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;

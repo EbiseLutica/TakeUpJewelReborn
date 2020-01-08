@@ -11,7 +11,7 @@ namespace TakeUpJewel
 	{
 		private Items _item;
 
-		public EntityItemSpawner(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityItemSpawner(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

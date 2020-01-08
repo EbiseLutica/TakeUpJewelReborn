@@ -10,7 +10,7 @@ namespace TakeUpJewel
 		private bool _animating;
 		private WorkingType _worktype = WorkingType.Normal;
 
-		public EntityCoin(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityCoin(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

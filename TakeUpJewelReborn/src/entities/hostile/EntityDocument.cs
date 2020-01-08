@@ -6,7 +6,7 @@ namespace TakeUpJewel
 	[EntityRegistry("Document", -1)]
 	public class EntityDocument : EntityFlying
 	{
-		public EntityDocument(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+		public EntityDocument(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;

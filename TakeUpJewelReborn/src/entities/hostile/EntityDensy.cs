@@ -6,7 +6,7 @@ namespace TakeUpJewel
     [EntityRegistry("Densy", 88)]
     public class EntityDensy : EntityFlying
     {
-        public EntityDensy(Vector pnt, Object[] obj, byte[,,] chips, EntityList par)
+        public EntityDensy(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
         {
             Location = pnt;
             Mpts = obj;
