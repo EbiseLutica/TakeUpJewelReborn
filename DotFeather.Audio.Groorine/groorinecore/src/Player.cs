@@ -77,7 +77,7 @@ namespace Groorine
 			}
 
 			double firstTime = Time;
-			
+
 			for (var i = 0; i < buf.Length; i += 2)
 			{
 				double realTime = firstTime + GetTime(i);
@@ -95,7 +95,7 @@ namespace Groorine
 							long loop = CurrentFile.LoopStart.Value;
 							Tick = _preTick = (int)loop;
 							realTime = CurrentFile.Conductor.ToMilliSeconds(Tick);
-							
+
 							firstTime = realTime - GetTime(i);
 
 							_preTick = Tick = (int)CurrentFile.Conductor.ToTick(realTime);
@@ -115,7 +115,7 @@ namespace Groorine
 						}
 					}
 
-					
+
 					if (Tick != _preTick)
 					{
 						foreach (DataModel.Track t in CurrentFile.Tracks)
@@ -145,10 +145,13 @@ namespace Groorine
 							continue;
 						}
 
-						(short, short) sample = Tracks[t.Channel].Process(ti, SampleRate);
+						var (s1, s2) = Tracks[t.Channel].Process(ti, SampleRate);
 
-						buf[i] += sample.Item1;
-						buf[i + 1] += sample.Item2;
+						s1 = (short)(s1 * 2.5);
+						s2 = (short)(s2 * 2.5);
+
+						buf[i] += s1;
+						buf[i + 1] += s2;
 
 					}
 
@@ -168,7 +171,7 @@ namespace Groorine
 
 
 				_preTick = Tick;
-			
+
 
 			}
 			return buf;
@@ -201,7 +204,7 @@ namespace Groorine
 			set { SetProperty(ref _time, value); }
 		}
 
-		public long MaxTime => (long)(CurrentFile?.Conductor.ToMilliSeconds((int) CurrentFile.Length) ?? 0);
+		public long MaxTime => (long)(CurrentFile?.Conductor.ToMilliSeconds((int)CurrentFile.Length) ?? 0);
 
 		public bool IsPausing
 		{
@@ -304,7 +307,7 @@ namespace Groorine
 			static readonly float[] FreqTable;
 
 			public readonly short[] Rpns;
-			
+
 
 			static Track()
 			{
@@ -458,11 +461,11 @@ namespace Groorine
 				t.SampleTick = (int)at.Update();
 				return output;
 			}
-			
+
 			public static float GetFreq(int noteno) => (float)(441 * Pow(2, (noteno - 69) / 12.0));
 
 		}
-		
+
 	}
 
 	public class AudioTimer
