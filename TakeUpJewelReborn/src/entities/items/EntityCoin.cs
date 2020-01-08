@@ -70,7 +70,7 @@ namespace TakeUpJewel
 				{
 					case WorkingType.Normal:
 						IsDead = true;
-						Parent.Add(Core.I.EntityRegister.CreateEntity("Coin", Location, Mpts, Map, Parent,
+						Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
 							JObject.Parse(@"{""WorkingType"": 1}")));
 						break;
 					case WorkingType.FromBlock:

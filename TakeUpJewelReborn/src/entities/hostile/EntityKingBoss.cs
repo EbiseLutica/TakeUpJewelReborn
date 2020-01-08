@@ -135,7 +135,7 @@ namespace TakeUpJewel
 					{
 						_nowBehavior = KingBossBehaviorOption.ThrowChocolateToRight;
 						Tick = 120;
-						Parent.Add(Core.I.EntityRegister.CreateEntity("Bunyo", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+						Parent.Add(Core.I.EntityRegistry.CreateEntity("Bunyo", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 							Parent));
 
 						DESound.Play(Sounds.ItemSpawn);
@@ -185,7 +185,7 @@ namespace TakeUpJewel
 					if (Tick == 0)
 					{
 						_nowBehavior = KingBossBehaviorOption.ThrowChocolateToLeft;
-						Parent.Add(Core.I.EntityRegister.CreateEntity("SoulChocolate", new Vector(Location.X, Location.Y - 16), Mpts,
+						Parent.Add(Core.I.EntityRegistry.CreateEntity("SoulChocolate", new Vector(Location.X, Location.Y - 16), Mpts,
 							Map, Parent));
 						Tick = 120;
 

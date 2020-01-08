@@ -31,7 +31,8 @@ namespace TakeUpJewel
 
 		public Vector Camera { get; set; }
 
-		public EntityRegister EntityRegister { get; } = new EntityRegister();
+		public EntityRegistry EntityRegistry { get; } = new EntityRegistry();
+
 
 		public void Initialize()
 		{

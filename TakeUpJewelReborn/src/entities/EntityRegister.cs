@@ -11,11 +11,11 @@ namespace TakeUpJewel
 	/// <summary>
 	/// Entity の情報はここに保存され、ゲーム内で使用されます。
 	/// </summary>
-	public class EntityRegister : ICollection<EntityData>
+	public class EntityRegistry : ICollection<EntityData>
 	{
-		public EntityRegister()
+		public EntityRegistry()
 		{
-			logger = new Logger(nameof(EntityRegister));
+			logger = new Logger(nameof(EntityRegistry));
 
 			Items = new List<EntityData>();
 			foreach (var t in Assembly.GetExecutingAssembly().GetExportedTypes())

@@ -67,32 +67,32 @@ namespace TakeUpJewel
 			switch (_item)
 			{
 				case Items.Coin:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("Coin", Location, Mpts, Map, Parent,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
 						JObject.Parse(@"{""WorkingType"": 1}")));
 					break;
 				case Items.SoulChocolate:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("SoulChocolate", new Vector(Location.X, Location.Y - 16), Mpts,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("SoulChocolate", new Vector(Location.X, Location.Y - 16), Mpts,
 						Map, Parent));
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.Grimoire:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("Grimoire", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("Grimoire", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 						Parent));
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.FireWands:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("FireWands", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("FireWands", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 						Parent));
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.PepperOrPillow:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("FireWands", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("FireWands", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 							Parent)
 					);
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.IcyPendant:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("IcyPendant", new Vector(Location.X, Location.Y - 6), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("IcyPendant", new Vector(Location.X, Location.Y - 6), Mpts, Map,
 							Parent)
 					);
 					DESound.Play(Sounds.ItemSpawn);
@@ -105,13 +105,13 @@ namespace TakeUpJewel
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.LeafOrPillow:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("Grimoire", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("Grimoire", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 							Parent)
 					);
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 				case Items.Feather:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map,
 						Parent));
 					DESound.Play(Sounds.ItemSpawn);
 					break;
@@ -120,18 +120,18 @@ namespace TakeUpJewel
 					if (player.MutekiTime != 0)
 					{
 						Parent.Add((player.MutekiTime > 0) && player.IsItemMuteki
-								? Core.I.EntityRegister.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent)
-								: Core.I.EntityRegister.CreateEntity("Coin", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent,
+								? Core.I.EntityRegistry.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent)
+								: Core.I.EntityRegistry.CreateEntity("Coin", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent,
 									JObject.Parse(@"{""WorkingType"": 1}"))
 						);
 						DESound.Play(Sounds.ItemSpawn);
 					}
 					else
-						Parent.Add(Core.I.EntityRegister.CreateEntity("Coin", Location, Mpts, Map, Parent,
+						Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
 							JObject.Parse(@"{""WorkingType"": 1}")));
 					break;
 				case Items.PoisonMushroom:
-					Parent.Add(Core.I.EntityRegister.CreateEntity("PoisonMushroom", new Vector(Location.X, Location.Y - 16), Mpts,
+					Parent.Add(Core.I.EntityRegistry.CreateEntity("PoisonMushroom", new Vector(Location.X, Location.Y - 16), Mpts,
 						Map, Parent));
 					DESound.Play(Sounds.ItemSpawn);
 					break;
