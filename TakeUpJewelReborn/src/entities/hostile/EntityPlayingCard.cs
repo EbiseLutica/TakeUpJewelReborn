@@ -10,7 +10,7 @@ namespace TakeUpJewel.Entities
 
         public EntityPlayingCard(Vector pnt, Object[] obj, byte[,,] chips, EntityList par) : base(pnt, obj, chips, par)
         {
-            if (Game.GetRand(2) == 0)
+            if (Core.GetRand(2) == 0)
                 SetAnime(21, 24, 8);
             else
                 SetAnime(25, 28, 8);

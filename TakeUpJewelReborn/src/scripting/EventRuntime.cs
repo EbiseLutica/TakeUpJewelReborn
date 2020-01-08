@@ -49,17 +49,17 @@ namespace TakeUpJewel
                 {
                     case "bgm":
                         if (args == null)
-                            Game.I.BgmPlay();
+                            Core.I.BgmPlay();
                         else
-                            Game.I.BgmPlay(args[0]);
+                            Core.I.BgmPlay(args[0]);
                         break;
                     case "bgmstop":
 
                         int time;
                         if (args == null)
-                            Game.I.BgmStop();
+                            Core.I.BgmStop();
                         else if (int.TryParse(args[0], out time))
-                            Game.I.BgmStop(time);
+                            Core.I.BgmStop(time);
                         break;
                     case "se":
                         int id;
@@ -150,10 +150,10 @@ namespace TakeUpJewel
                         BalloonIsShowing = false;
                         break;
                     case "enstop":
-                        Game.I.IsFreezing = true;
+                        Core.I.IsFreezing = true;
                         break;
                     case "enstart":
-                        Game.I.IsFreezing = false;
+                        Core.I.IsFreezing = false;
                         break;
                     case "wait":
                         for (var i = 0; i < int.Parse(args[0]); i++)
@@ -199,18 +199,18 @@ namespace TakeUpJewel
                     case "teleport":
                     case "tp":
                         int level, area;
-                        Game.I.IsGoal = false;
-                        Game.I.Middle = VectorInt.Zero;
+                        Core.I.IsGoal = false;
+                        Core.I.Middle = VectorInt.Zero;
                         switch (args.Length)
                         {
                             case 1:
                                 int.TryParse(args[0], out level);
-                                Game.I.Load(level);
+                                Core.I.Load(level);
                                 break;
                             case 2:
                                 int.TryParse(args[0], out level);
                                 int.TryParse(args[1], out area);
-                                Game.I.Load(level, area);
+                                Core.I.Load(level, area);
                                 break;
                         }
                         break;
@@ -219,7 +219,7 @@ namespace TakeUpJewel
 
                 if (CurrentScript.IsEndOfScript)
                 {
-                    Game.I.IsFreezing = false;
+                    Core.I.IsFreezing = false;
                     MessageIsShowing = false;
                     BalloonIsShowing = false;
                     CurrentScript = null;

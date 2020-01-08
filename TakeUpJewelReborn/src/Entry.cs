@@ -17,7 +17,7 @@ namespace TakeUpJewel
 
             game.Load += (s, e) =>
             {
-                Game.I.Initialize();
+                Core.I.Initialize();
             };
 
             game.Update += (s, e) =>

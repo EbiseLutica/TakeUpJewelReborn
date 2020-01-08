@@ -24,7 +24,7 @@ namespace TakeUpJewel.Entities
         {
             if ((Parent.MainEntity != null && Parent.MainEntity.Location.X > Location.X + 8) && !_flagged)
             {
-                Game.I.Middle = new Vector(Location.X + 8, Location.Y + 8);
+                Core.I.Middle = new Vector(Location.X + 8, Location.Y + 8);
                 _flagged = true;
             }
             base.OnUpdate();

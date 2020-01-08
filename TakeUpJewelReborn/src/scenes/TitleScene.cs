@@ -133,10 +133,10 @@ namespace TakeUpJewel
 				switch (selectedIndex)
 				{
 					case 0:
-						Game.I.CurrentGender = PlayerGender.Male;
+						Core.I.CurrentGender = PlayerGender.Male;
 						break;
 					case 1:
-						Game.I.CurrentGender = PlayerGender.Female;
+						Core.I.CurrentGender = PlayerGender.Female;
 						break;
 					case 2:
 						state = State.Menu;
@@ -197,7 +197,7 @@ namespace TakeUpJewel
 			engine.Location = new Vector(Const.Width - engine.Width, Const.Height - engine.Height);
 			Root.Add(engine);
 
-			Game.I.BgmPlay("hometownv2.mid");
+			Core.I.BgmPlay("hometownv2.mid");
 			yield return null;
 			openingFinished = true;
 		}

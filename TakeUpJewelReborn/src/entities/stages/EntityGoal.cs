@@ -31,8 +31,8 @@ namespace TakeUpJewel.Entities
         {
             if (Parent.MainEntity != null && Parent.MainEntity.Location.X > Location.X + 8)
             {
-                Game.I.NextStage = _next;
-                Game.I.IsGoal = true;
+                Core.I.NextStage = _next;
+                Core.I.IsGoal = true;
             }
             base.OnUpdate();
         }

@@ -96,7 +96,7 @@ namespace TakeUpJewel
                                         buffer = buffer + '\n';
                                         break;
                                     case 'l':
-                                        buffer = buffer + (Game.I.CurrentGender == PlayerGender.Male ? "アレン" : "ルーシィ");
+                                        buffer = buffer + (Core.I.CurrentGender == PlayerGender.Male ? "アレン" : "ルーシィ");
                                         break;
                                     case '"':
                                         buffer = buffer + '"';

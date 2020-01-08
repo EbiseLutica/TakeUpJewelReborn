@@ -11,7 +11,7 @@ namespace TakeUpJewel
 		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
 		{
 			Root.Add(new Sprite(ResourceUtility.LoadTexture("bgjukebox.png")));
-			Game.I.BgmStop();
+			Core.I.BgmStop();
 			menuItems = AudioList.Select((a, i) => new DEText("　" + a, Color.White)
 			{
 				Location = new Vector(32, 32 + i * 12),
@@ -55,17 +55,17 @@ namespace TakeUpJewel
 				if (selectedIndex == menuItems.Length - 1)
 				{
 					DESound.Play(Sounds.Back);
-					Game.I.BgmStop();
+					Core.I.BgmStop();
 					router.ChangeScene<TitleScene>();
 				}
 				else
 				{
-					Game.I.BgmPlay(AudioFileList[selectedIndex]);
+					Core.I.BgmPlay(AudioFileList[selectedIndex]);
 				}
 			}
 			if (DFKeyboard.X.IsKeyDown)
 			{
-				Game.I.BgmStop(0);
+				Core.I.BgmStop(0);
 			}
 		}
 

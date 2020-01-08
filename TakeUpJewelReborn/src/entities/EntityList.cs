@@ -72,7 +72,7 @@ namespace TakeUpJewel.Entities
                 item = this[i];
                 if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
                     continue;
-                if (!Game.I.IsFreezing)
+                if (!Core.I.IsFreezing)
                 {
                     item.OnUpdate(); //更新処理をする
                     var living = item as EntityLiving;
@@ -101,7 +101,7 @@ namespace TakeUpJewel.Entities
             {
                 if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
                     continue;
-                item.OnUpdate(Game.I.Camera + item.Location, drawablesMap[item]);
+                item.OnUpdate(Core.I.Camera + item.Location, drawablesMap[item]);
             }
         }
 

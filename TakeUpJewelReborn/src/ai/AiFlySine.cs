@@ -35,7 +35,7 @@ namespace TakeUpJewel.AI
                 HostEntity.Velocity.X = _speed;
                 HostEntity.SetAnime(_rightAnimeStartIndex, _rightAnimeEndIndex, 8);
             }
-            if ((HostEntity.CollisionRight() == ObjectHitFlag.Hit) || (HostEntity.Location.X >= Game.I.CurrentMap.Size.X * 16 - 1))
+            if ((HostEntity.CollisionRight() == ObjectHitFlag.Hit) || (HostEntity.Location.X >= Core.I.CurrentMap.Size.X * 16 - 1))
             {
                 HostEntity.Velocity.X = -_speed;
                 HostEntity.SetAnime(_leftAnimeStartIndex, _leftAnimeEndIndex, 8);

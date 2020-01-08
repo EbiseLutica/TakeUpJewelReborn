@@ -39,8 +39,8 @@ namespace TakeUpJewel.Util
         /// </summary>
         /// <param name="pnt">座標。</param>
         /// <returns>マップの範囲から外れていれば true が返されます。</returns>
-        public static bool IsOutOfRange(this Point pnt) => (pnt.X < 0) || (pnt.X > Game.I.CurrentMap.Size.X * 16 - 1) ||
-                                                           (pnt.Y < 0) || (pnt.Y > Game.I.CurrentMap.Size.Y * 16 - 1);
+        public static bool IsOutOfRange(this Point pnt) => (pnt.X < 0) || (pnt.X > Core.I.CurrentMap.Size.X * 16 - 1) ||
+                                                           (pnt.Y < 0) || (pnt.Y > Core.I.CurrentMap.Size.Y * 16 - 1);
 
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace TakeUpJewel.Util
         /// </summary>
         /// <param name="pnt">座標。</param>
         /// <returns>マップの範囲から外れていれば true が返されます。</returns>
-        public static bool IsOutOfRange(this Vector pnt) => (pnt.X < 0) || (pnt.X > Game.I.CurrentMap.Size.X * 16 - 1) ||
-                                                            (pnt.Y < 0) || (pnt.Y > Game.I.CurrentMap.Size.Y * 16 - 1);
+        public static bool IsOutOfRange(this Vector pnt) => (pnt.X < 0) || (pnt.X > Core.I.CurrentMap.Size.X * 16 - 1) ||
+                                                            (pnt.Y < 0) || (pnt.Y > Core.I.CurrentMap.Size.Y * 16 - 1);
 
         /// <summary>
         /// 矩形同士の当たり判定を計算します。

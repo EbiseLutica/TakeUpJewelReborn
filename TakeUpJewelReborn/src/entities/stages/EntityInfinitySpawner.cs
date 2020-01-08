@@ -31,9 +31,9 @@ namespace TakeUpJewel.Entities
                 if (_obj!.IsDefined("Tag"))
                     _obj!.EntityData.Tag = _obj.Tag;
                 int spid = (int)_obj!.EntityID, posx = (int)_obj.PosX, posy = (int)_obj.PosY;
-                if (Game.I.EntityRegister.GetDataById(spid) != null)
+                if (Core.I.EntityRegister.GetDataById(spid) != null)
                     Parent.Add(
-                        Game.I.EntityRegister.CreateEntity(spid, new Vector(posx, posy), Mpts, Map, Parent, _obj.EntityData),
+                        Core.I.EntityRegister.CreateEntity(spid, new Vector(posx, posy), Mpts, Map, Parent, _obj.EntityData),
                         spid == 0);
                 _tick = 0;
             }

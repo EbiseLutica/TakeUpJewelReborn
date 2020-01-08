@@ -39,7 +39,7 @@ namespace TakeUpJewel.Entities
 
             var r = ent != null
                 ? Math.Atan2(Location.Y - ent.Location.Y, Location.X - ent.Location.X)
-                : DFMath.ToRadian(Game.GetRand(360));
+                : DFMath.ToRadian(Core.GetRand(360));
 
             float x = -(float)Math.Cos(r) * 5,
                 y = -(float)Math.Sin(r) * 5;
@@ -85,13 +85,13 @@ namespace TakeUpJewel.Entities
             if (Location.X < 0)
                 Kill();
 
-            if (Location.X > Game.I.CurrentMap.Size.X * 16 - 16)
+            if (Location.X > Core.I.CurrentMap.Size.X * 16 - 16)
                 Kill();
 
             if (Location.Y < 0)
                 Kill();
 
-            if (Location.Y > Game.I.CurrentMap.Size.Y * 16)
+            if (Location.Y > Core.I.CurrentMap.Size.Y * 16)
                 Kill(true, false);
 
             foreach (EntityLiving e in new List<Entity>(Parent.FindEntitiesByType<EntityLiving>()))

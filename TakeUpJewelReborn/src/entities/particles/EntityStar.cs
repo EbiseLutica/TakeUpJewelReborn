@@ -9,8 +9,8 @@ namespace TakeUpJewel.Entities
         public EntityStar(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
             : base(p, mpts, mp, par)
         {
-            Velocity.X = Game.GetRand(4) - 2;
-            Velocity.Y = -Game.GetRand(5) - 5;
+            Velocity.X = Core.GetRand(4) - 2;
+            Velocity.Y = -Core.GetRand(5) - 5;
             SetGraphic(1);
         }
 

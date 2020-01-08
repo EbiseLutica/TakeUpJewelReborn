@@ -43,8 +43,8 @@ namespace TakeUpJewel.Entities
 
         public override void OnUpdate()
         {
-            if ((Location.X < -Size.Width) || (Location.X > Game.I.CurrentMap.Size.X * 16) || (Location.Y < -Size.Height) ||
-                (Location.Y > Game.I.CurrentMap.Size.Y * 16))
+            if ((Location.X < -Size.Width) || (Location.X > Core.I.CurrentMap.Size.X * 16) || (Location.Y < -Size.Height) ||
+                (Location.Y > Core.I.CurrentMap.Size.Y * 16))
                 Kill(true, false);
             base.OnUpdate();
         }

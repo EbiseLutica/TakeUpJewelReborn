@@ -81,7 +81,7 @@ namespace TakeUpJewel.Entities
         /// </summary>
         public virtual void ControlAnime()
         {
-            if ((AnimeSpeed > 0) && (Game.I.Tick % AnimeSpeed == 0))
+            if ((AnimeSpeed > 0) && (Core.I.Tick % AnimeSpeed == 0))
             {
                 if (Ptranime < AnimeStartIndex) // 現在位置が始点より小さければ始点に戻す。
                     Ptranime = AnimeStartIndex;

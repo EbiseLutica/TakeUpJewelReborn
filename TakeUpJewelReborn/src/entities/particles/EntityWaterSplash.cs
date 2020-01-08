@@ -9,7 +9,7 @@ namespace TakeUpJewel.Entities
         public EntityWaterSplash(Vector p, Object[] mpts, byte[,,] mp, EntityList par)
             : base(p, mpts, mp, par)
         {
-            Velocity.X = Game.GetRand(2) - 1;
+            Velocity.X = Core.GetRand(2) - 1;
             Velocity.Y = -4;
             SetGraphic(0);
         }
