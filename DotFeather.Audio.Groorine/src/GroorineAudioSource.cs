@@ -23,33 +23,30 @@ namespace DotFeather
 
 		public int Latency { get; }
 
-		public Player Groorine { get; }
-
 		public GroorineAudioSource(Stream midi, int latency = 20, int sampleRate = 44100)
 		{
 			data = SmfParser.Parse(midi);
 			Latency = latency;
 			SampleRate = sampleRate;
-			Groorine = new Player(sampleRate);
-			Groorine.Load(data);
-			buffer = Groorine.CreateBuffer(Latency);
 		}
 
 		public IEnumerable<(short left, short right)> EnumerateSamples(int? loopStart)
 		{
-			Groorine.Play();
-			while (Groorine.IsPlaying)
+			var player = new Player(SampleRate);
+			var buffer = player.CreateBuffer(Latency);
+			player.Load(data);
+			player.Play();
+			while (player.IsPlaying)
 			{
-				Groorine.GetBuffer(buffer);
+				player.GetBuffer(buffer);
 				for (var i = 0; i < buffer.Length; i += 2)
 				{
 					yield return (buffer[i], buffer[i + 1]);
 				}
 			}
-			Groorine.Stop();
+			player.Stop();
 		}
 
 		private MidiFile data;
-		private short[] buffer;
 	}
 }
