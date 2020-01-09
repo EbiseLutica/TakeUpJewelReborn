@@ -11,7 +11,7 @@ namespace TakeUpJewel
 		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
 		{
 			BackgroundColor = Color.Black;
-			text = new DEText($"Level {Core.I.CurrentLevel} - {Core.I.CurrentArea} {Core.I.CurrentLevelData?.Desc ?? "No Description"}", Color.White);
+			text = new DEText($"Level {Core.I.CurrentLevel} {Core.I.CurrentLevelData?.Desc ?? "No Description"}", Color.White);
 			text.Location = new Vector(Const.Width / 2 - text.Width / 2, Const.Height / 2 - text.Height);
 			Root.Add(text);
 			game.StartCoroutine(Main())
