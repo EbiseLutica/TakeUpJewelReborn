@@ -88,6 +88,7 @@ namespace TakeUpJewel
 				// レベルが以前と異なる場合は、レベル情報の読み込みをする
 				CurrentLevel = level;
 				CurrentLevelData = DynamicJson.Parse(File.ReadAllText(lvldatPath));
+				Time = CurrentLevelData.Time;
 				logger.Info($"Loaded Level {level} - {CurrentLevelData.Desc}");
 			}
 

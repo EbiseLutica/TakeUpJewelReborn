@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DotFeather;
 
@@ -67,13 +68,31 @@ namespace TakeUpJewel
 
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
 		{
+			if (!game.IsFocused) return;
+			Core.I._SetTick(Core.I.Tick + 1);
 			ControlCamera();
 			RenderMap();
 
-			Core.I.Entities.Draw();
-			Core.I.Entities.Update();
+			EntityList entities = Core.I.Entities;
+			entities.Draw();
+			entities.Update();
+
+			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
+			{
+				game.StartCoroutine(HandleDying(router, game));
+			}
 
 			stage.Location = Core.I.Camera;
+		}
+
+		private IEnumerator HandleDying(Router router, GameBase game)
+		{
+			handlingDying = true;
+			Core.I.BgmPlay("zannnenn.mid");
+			yield return new WaitForSeconds(5);
+			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
+			Root.Clear();
+			router.ChangeScene<StageScene>();
 		}
 
 		private void RenderMap()
@@ -148,5 +167,6 @@ namespace TakeUpJewel
 		private Container entitiesLayer = new Container();
 		private Tilemap backTile;
 		private Tilemap foreTile;
+		private bool handlingDying;
 	}
 }

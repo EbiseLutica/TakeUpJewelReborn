@@ -14,15 +14,6 @@ namespace TakeUpJewel
 			this.router = router;
 			this.game = game;
 
-			switch (Core.I.RunningMode)
-			{
-				case "debug-stage":
-					Core.I.LoadLevel(1, 1);
-					router.ChangeScene<PreStageScene>();
-					return;
-			}
-
-
 			menuItems = new (DEText, Action)[]
 			{
 				(new DEText(" はじめる", Color.Yellow), () =>
@@ -59,6 +50,18 @@ namespace TakeUpJewel
 
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
 		{
+			if (isFirstUpdate)
+			{
+				switch (Core.I.RunningMode)
+				{
+					case "debug-stage":
+						Core.I.LoadLevel(1, 1);
+						router.ChangeScene<PreStageScene>();
+						return;
+				}
+				isFirstUpdate = false;
+			}
+
 			if (!openingFinished) return;
 
 			switch (state)
@@ -292,6 +295,8 @@ namespace TakeUpJewel
 
 		private Router router;
 		private GameBase game;
+
+		private bool isFirstUpdate = true;
 
 		enum State
 		{
