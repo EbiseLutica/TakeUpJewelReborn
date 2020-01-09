@@ -82,33 +82,34 @@ namespace TakeUpJewel
 
 			if (Core.I.CurrentMap == null) return;
 
-			var (width, height) = Core.I.CurrentMap.Size;
-			var (cx, cy) = Core.I.Camera;
-			var (mx, my) = main.Location;
+			if ((main.Location.X + Core.I.Camera.X > Const.Width / 2) &&
+							(Core.I.Camera.X > -Core.I.CurrentMap.Size.X * 16 + Const.Width))
+				Core.I.Camera = new Vector(-(int)main.Location.X + Const.Width / 2, Core.I.Camera.Y);
 
-			if ((mx + cx > Const.Width / 2) && (cx > -width * 16 + Const.Width))
-				Core.I.Camera = new Vector(-(int)mx + Const.Width / 2, cy);
+			if ((Core.I.CurrentMap.Size.X * 16 - main.Location.X > Const.Width / 2) &&
+				/*main.Velocity.X < 0 &&*/ (Core.I.Camera.X < 0))
+				Core.I.Camera = new Vector(-(int)main.Location.X + Const.Width / 2, Core.I.Camera.Y);
 
-			if ((width * 16 - mx > Const.Width / 2) && cx < 0)
-				Core.I.Camera = new Vector(-(int)mx + Const.Width / 2, cy);
+			if ((main.Location.Y + Core.I.Camera.Y > Const.Height / 2) &&
+				/*main.Velocity.Y > 0 &&*/
+				(Core.I.Camera.Y > -Core.I.CurrentMap.Size.Y * 16 + Const.Height))
+				Core.I.Camera = new Vector(Core.I.Camera.X, -(int)main.Location.Y + Const.Height / 2);
 
-			if ((my + cy > Const.Height / 2) && (cy > -height * 16 + Const.Height))
-				Core.I.Camera = new Vector(cx, -(int)my + Const.Height / 2);
+			if ((Core.I.CurrentMap.Size.Y * 16 - main.Location.Y > Const.Height / 2) &&
+				/*main.Velocity.Y < 0 &&*/ (Core.I.Camera.Y < 0))
+				Core.I.Camera = new Vector(Core.I.Camera.X, -(int)main.Location.Y + Const.Height / 2);
 
-			if ((height * 16 - my > Const.Height / 2) && cy < 0)
-				Core.I.Camera = new Vector(cx, -(int)my + Const.Height / 2);
+			if (Core.I.Camera.X > 0)
+				Core.I.Camera = new Vector(0, Core.I.Camera.Y);
 
-			if (cx > 0)
-				Core.I.Camera = new Vector(0, cy);
+			if (Core.I.Camera.Y > 0)
+				Core.I.Camera = new Vector(Core.I.Camera.X, 0);
 
-			if (cy > 0)
-				Core.I.Camera = new Vector(cx, 0);
+			if (Core.I.Camera.X < -Core.I.CurrentMap.Size.X * 16 + Const.Width)
+				Core.I.Camera = new Vector(-Core.I.CurrentMap.Size.X * 16 + Const.Width, Core.I.Camera.Y);
 
-			if (cx < -width * 16 + Const.Width)
-				Core.I.Camera = new Vector(-width * 16 + Const.Width, cy);
-
-			if (cy < -height * 16 + Const.Height)
-				Core.I.Camera = new Vector(cx, -height * 16 + Const.Height);
+			if (Core.I.Camera.Y < -Core.I.CurrentMap.Size.Y * 16 + Const.Height)
+				Core.I.Camera = new Vector(Core.I.Camera.X, -Core.I.CurrentMap.Size.Y * 16 + Const.Height);
 		}
 
 		private Container stage = new Container();
