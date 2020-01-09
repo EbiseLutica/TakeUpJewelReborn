@@ -13,6 +13,16 @@ namespace TakeUpJewel
 		{
 			this.router = router;
 			this.game = game;
+
+			switch (Core.I.RunningMode)
+			{
+				case "debug-stage":
+					Core.I.LoadLevel(1, 1);
+					router.ChangeScene<PreStageScene>();
+					return;
+			}
+
+
 			menuItems = new (DEText, Action)[]
 			{
 				(new DEText(" はじめる", Color.Yellow), () =>
