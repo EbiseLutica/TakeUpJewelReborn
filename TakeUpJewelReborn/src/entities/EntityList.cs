@@ -13,6 +13,8 @@ namespace TakeUpJewel
 	{
 		public Entity MainEntity { get; private set; }
 
+		public IEnumerable<IDrawable> Drawables => drawablesMap.Values;
+
 		/// <summary>
 		/// タグを使って Entity を探します。
 		/// </summary>
@@ -53,13 +55,14 @@ namespace TakeUpJewel
 			{
 				// IDrawable のマッピングを行う
 				drawablesMap[visible] = visible.OnSpawn();
+				visible.OnUpdate(visible.Location, drawablesMap[visible]);
 			}
 
 			if (isMain)
 				MainEntity = item;
 		}
 
-		public void Update(ref byte[,,] chips)
+		public void Update()
 		{
 			//foreach だと削除・追加時にしぬので、forでやる
 			for (var i = 0; i < Count; i++)
@@ -101,7 +104,7 @@ namespace TakeUpJewel
 			{
 				if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
 					continue;
-				item.OnUpdate(Core.I.Camera + item.Location, drawablesMap[item]);
+				item.OnUpdate(item.Location, drawablesMap[item]);
 			}
 		}
 

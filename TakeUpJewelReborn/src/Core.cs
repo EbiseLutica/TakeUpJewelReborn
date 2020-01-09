@@ -19,6 +19,8 @@ namespace TakeUpJewel
 
 		public PlayerGender CurrentGender { get; set; }
 
+		public PlayerForm CurrentForm { get; set; } = PlayerForm.Big;
+
 		public bool IsFreezing { get; set; }
 
 		public bool IsGoal { get; set; }
@@ -45,10 +47,13 @@ namespace TakeUpJewel
 		public int CurrentArea { get; private set; }
 		public AreaInfo? CurrentAreaInfo { get; private set; }
 		public MapData? CurrentMap { get; private set; }
+		public DotFeather.Tile[] Mpts { get; private set; } = new DotFeather.Tile[0];
 
 		public EntityList Entities { get; private set; } = new EntityList();
 
 		public Tile[] Tiles { get; private set; } = new Tile[0];
+
+		public string RunningMode { get; internal set; } = "";
 
 		public void Initialize()
 		{
@@ -91,11 +96,16 @@ namespace TakeUpJewel
 			CurrentArea = area;
 			CurrentAreaInfo = DynamicJson.Parse(File.ReadAllText(areaPath));
 			logger.Info("Loaded Area {area}");
+
+			// タイルチップを読み込む
 			ResourceManager.GetMpt(CurrentAreaInfo.Mpt);
 			LoadMasks(CurrentAreaInfo.Mpt);
+			Mpts = ResourceManager.MapChip.Select(c => new DotFeather.Tile(c)).ToArray();
 
 			// エンティティを読み込む
 			dynamic spdata = DynamicJson.Parse(File.ReadAllText(spdataPath));
+
+			Entities.Clear();
 
 			foreach (dynamic? entity in spdata)
 			{
@@ -108,6 +118,8 @@ namespace TakeUpJewel
 
 				var summoned = EntityRegistry.CreateEntity(id, pos, Tiles, CurrentMap.Chips, Entities, data);
 				logger.Info($"Summoned entity ID:{id} at {pos} with data {data ?? null}");
+
+				Entities.Add(summoned, id == 0);
 			}
 		}
 
