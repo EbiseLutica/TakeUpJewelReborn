@@ -5,12 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "Launch",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/TakeUpJewelReborn.dll",
             "args": [],
+            "cwd": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Debug Stage",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/TakeUpJewelReborn.dll",
+            "args": [
+                "debug-stage"
+            ],
             "cwd": "${workspaceFolder}/TakeUpJewelReborn/bin/Debug/netcoreapp3.1/",
             "console": "integratedTerminal",
             "stopAtEntry": false
