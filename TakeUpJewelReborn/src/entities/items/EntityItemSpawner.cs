@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using DotFeather;
-using Newtonsoft.Json.Linq;
+using Codeplex.Data;
 
 namespace TakeUpJewel
 {
@@ -68,7 +68,7 @@ namespace TakeUpJewel
 			{
 				case Items.Coin:
 					Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
-						JObject.Parse(@"{""WorkingType"": 1}")));
+						DynamicJson.Parse(@"{""WorkingType"": 1}")));
 					break;
 				case Items.SoulChocolate:
 					Parent.Add(Core.I.EntityRegistry.CreateEntity("SoulChocolate", new Vector(Location.X, Location.Y - 16), Mpts,
@@ -122,13 +122,13 @@ namespace TakeUpJewel
 						Parent.Add((player.MutekiTime > 0) && player.IsItemMuteki
 								? Core.I.EntityRegistry.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent)
 								: Core.I.EntityRegistry.CreateEntity("Coin", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent,
-									JObject.Parse(@"{""WorkingType"": 1}"))
+									DynamicJson.Parse(@"{""WorkingType"": 1}"))
 						);
 						DESound.Play(Sounds.ItemSpawn);
 					}
 					else
 						Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
-							JObject.Parse(@"{""WorkingType"": 1}")));
+							DynamicJson.Parse(@"{""WorkingType"": 1}")));
 					break;
 				case Items.PoisonMushroom:
 					Parent.Add(Core.I.EntityRegistry.CreateEntity("PoisonMushroom", new Vector(Location.X, Location.Y - 16), Mpts,

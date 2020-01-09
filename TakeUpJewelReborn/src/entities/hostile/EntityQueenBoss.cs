@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
 using System.Globalization;
 using DotFeather;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Codeplex.Data;
 
 namespace TakeUpJewel
 {
@@ -123,7 +122,7 @@ namespace TakeUpJewel
 						SetGraphic(17);
 						Parent.Add(
 							new EntityCircusBall(Location, Mpts, Map, Parent).SetEntityData(
-								JObject.FromObject(new { SpeedX = -2.0f })));
+								DynamicJson.Parse(DynamicJson.Serialize(new { SpeedX = -2.0f }))));
 					}
 					if (Tick == 0)
 					{
@@ -155,7 +154,7 @@ namespace TakeUpJewel
 						DESound.Play(Sounds.ShootArrow);
 						Parent.Add(
 							new EntityCircusBall(Location, Mpts, Map, Parent).SetEntityData(
-								JObject.FromObject(new { SpeedX = 2.0f })));
+								DynamicJson.Parse(DynamicJson.Serialize(new { SpeedX = 2.0f }))));
 						SetGraphic(19);
 					}
 					if (Tick == 0)

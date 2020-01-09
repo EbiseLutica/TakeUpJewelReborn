@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using DotFeather;
-using Newtonsoft.Json.Linq;
+using Codeplex.Data;
 
 namespace TakeUpJewel
 {
@@ -248,14 +248,14 @@ namespace TakeUpJewel
 							DESound.Play(Sounds.ShootFire);
 							Parent.Add(
 								new EntityFireWeapon(Location, Mpts, Map, Parent).SetEntityData(
-									JObject.Parse(@"{""SpeedX"": " +
+									DynamicJson.Parse(@"{""SpeedX"": " +
 													  (Direction == Direction.Right ? EntityFireWeapon.SpeedX : -EntityFireWeapon.SpeedX) + "}")));
 							break;
 						case PlayerForm.Ice:
 							DESound.Play(Sounds.ShootFire);
 							Parent.Add(
 								new EntityIceWeapon(Location, Mpts, Map, Parent).SetEntityData(
-									JObject.Parse(@"{""SpeedX"": " +
+									DynamicJson.Parse(@"{""SpeedX"": " +
 													  (Direction == Direction.Right ? EntityIceWeapon.SpeedX : -EntityIceWeapon.SpeedX) + "}")));
 							break;
 						case PlayerForm.Magic:

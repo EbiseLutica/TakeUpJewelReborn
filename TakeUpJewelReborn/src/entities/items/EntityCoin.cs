@@ -1,6 +1,6 @@
 using System.Drawing;
 using DotFeather;
-using Newtonsoft.Json.Linq;
+using Codeplex.Data;
 
 namespace TakeUpJewel
 {
@@ -71,7 +71,7 @@ namespace TakeUpJewel
 					case WorkingType.Normal:
 						IsDead = true;
 						Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
-							JObject.Parse(@"{""WorkingType"": 1}")));
+							DynamicJson.Parse(@"{""WorkingType"": 1}")));
 						break;
 					case WorkingType.FromBlock:
 						Velocity.Y *= 0.8f;

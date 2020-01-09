@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace TakeUpJewel
+﻿namespace TakeUpJewel
 {
 
 	public class AiArch : AiBase
@@ -26,7 +24,7 @@ namespace TakeUpJewel
 					// HostEntity.Parent.Add(Game.I.EntityRegister.CreateEntity("Arrow",
 					//     new Vector(HostEntity.Location.X + (HostEntity.Direction == Direction.Left ? 0 : HostEntity.Size.Width),
 					//         HostEntity.Location.Y + HostEntity.Size.Height / 2), GameEngine.Mptobjects, Game.I.CurrentMap.Chips, HostEntity.Parent,
-					//     JObject.Parse("{\"Speed\": " + speed + " }")));
+					//     DynamicJson.Parse("{\"Speed\": " + speed + " }")));
 				}
 				_tick = -1;
 				_nowstatus = (_nowstatus + 1) % 4;
