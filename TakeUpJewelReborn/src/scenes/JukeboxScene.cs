@@ -75,6 +75,7 @@ namespace TakeUpJewel
 
 		private static readonly string[] AudioList =
 		{
+			"スパイウェ団より",
 			"レジスタ街",
 			"シーケンシャル平野",
 			"エンカプセル洞窟",
@@ -93,6 +94,7 @@ namespace TakeUpJewel
 
 		private static readonly string[] AudioFileList =
 		{
+			"prologue.mid",
 			"registertown.mid",
 			"hometownv2.mid",
 			"流れる水の働き.mid",
