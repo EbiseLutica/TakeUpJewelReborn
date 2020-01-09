@@ -20,15 +20,10 @@ namespace TakeUpJewel
 			Root.Add(bg);
 
 			// タイル
-			var backTile = new Tilemap(Vector.One * 16);
-			var foreTile = new Tilemap(Vector.One * 16);
-			var chips = map.Chips;
-			for (var y = 0; y < map.Size.Y; y++)
-				for (var x = 0; x < map.Size.X; x++)
-				{
-					backTile[x, y] = Core.I.Mpts[chips[x, y, 1]];
-					foreTile[x, y] = Core.I.Mpts[chips[x, y, 0]];
-				}
+			backTile = new Tilemap(Vector.One * 16);
+			foreTile = new Tilemap(Vector.One * 16);
+
+			RenderMap();
 
 			// エンティティ
 
@@ -73,11 +68,25 @@ namespace TakeUpJewel
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
 		{
 			ControlCamera();
+			RenderMap();
 
 			Core.I.Entities.Draw();
 			Core.I.Entities.Update();
 
 			stage.Location = Core.I.Camera;
+		}
+
+		private void RenderMap()
+		{
+			if (!(Core.I.CurrentMap is MapData map)) return;
+
+			var chips = map.Chips;
+			for (var y = 0; y < map.Size.Y; y++)
+				for (var x = 0; x < map.Size.X; x++)
+				{
+					backTile[x, y] = Core.I.Mpts[chips[x, y, 1]];
+					foreTile[x, y] = Core.I.Mpts[chips[x, y, 0]];
+				}
 		}
 
 		public override void OnDestroy(Router router)
@@ -137,5 +146,7 @@ namespace TakeUpJewel
 
 		private Container stage = new Container();
 		private Container entitiesLayer = new Container();
+		private Tilemap backTile;
+		private Tilemap foreTile;
 	}
 }
