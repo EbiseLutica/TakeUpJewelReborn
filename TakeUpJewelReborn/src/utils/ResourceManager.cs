@@ -99,7 +99,7 @@ namespace TakeUpJewel
 			MesBox = Load("Resources/Graphics/uimesbox.png");
 			BgJukeBox = Load("Resources/Graphics/bgjukebox.png");
 			BgBreakTime = Load("Resources/Graphics/bgbreaktime.png");
-			foreach (var s in Directory.GetFiles("./Resources/Music"))
+			foreach (var s in Directory.GetFiles("./Resources/Music", "*.mid"))
 			{
 				MusicList[Path.GetFileName(s)] = new GroorineAudioSource(File.OpenRead(s));
 				logger.Info($"Loaded music '{Path.GetFileName(s)}'");
