@@ -35,6 +35,8 @@ namespace TakeUpJewel
 			return this.OfType<T>();
 		}
 
+		public IDrawable? GetDrawableByEntity(EntityVisible entity) => drawablesMap.TryGetValue(entity, out var d) ? d : null;
+
 		public override void Add(Entity item)
 		{
 			Add(item, false);
@@ -60,6 +62,8 @@ namespace TakeUpJewel
 
 			if (isMain)
 				MainEntity = item;
+
+			EntityAdded?.Invoke(this, item);
 		}
 
 		public void Update()
@@ -69,7 +73,10 @@ namespace TakeUpJewel
 			{
 				var item = this[i];
 				if (item.IsDead) //死んだら消す
+				{
 					Remove(item);
+					EntityRemoved?.Invoke(this, item);
+				}
 				if (i >= Count)
 					break;
 				item = this[i];
@@ -107,6 +114,10 @@ namespace TakeUpJewel
 				item.OnUpdate(item.Location, drawablesMap[item]);
 			}
 		}
+
+		public event EventHandler<Entity>? EntityAdded;
+
+		public event EventHandler<Entity>? EntityRemoved;
 
 		private Dictionary<EntityVisible, IDrawable> drawablesMap = new Dictionary<EntityVisible, IDrawable>();
 	}

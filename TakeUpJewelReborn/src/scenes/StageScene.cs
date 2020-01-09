@@ -35,7 +35,9 @@ namespace TakeUpJewel
 			stage.Add(backTile);
 
 			foreach (var d in Core.I.Entities.Drawables)
-				stage.Add(d);
+				entitiesLayer.Add(d);
+
+			stage.Add(entitiesLayer);
 
 			stage.Add(foreTile);
 
@@ -47,12 +49,12 @@ namespace TakeUpJewel
 				Root.Add(f);
 			}
 
+			var main = Core.I.Entities.MainEntity;
+
 			if (Core.I.Middle != Vector.Zero)
 			{
-				Core.I.Entities.MainEntity.Location = Core.I.Middle;
+				main.Location = Core.I.Middle;
 			}
-
-			var main = Core.I.Entities.MainEntity;
 
 			if (main is EntityPlayer player)
 			{
@@ -63,6 +65,9 @@ namespace TakeUpJewel
 
 			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
 			Root.Add(stage);
+
+			Core.I.Entities.EntityAdded += EntityAdded;
+			Core.I.Entities.EntityRemoved += EntityRemoved;
 		}
 
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
@@ -73,6 +78,24 @@ namespace TakeUpJewel
 			Core.I.Entities.Update();
 
 			stage.Location = Core.I.Camera;
+		}
+
+		public override void OnDestroy(Router router)
+		{
+			Core.I.Entities.EntityAdded -= EntityAdded;
+			Core.I.Entities.EntityRemoved -= EntityRemoved;
+		}
+
+		private void EntityAdded(object? sender, Entity e)
+		{
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
+				entitiesLayer.Add(d);
+		}
+
+		private void EntityRemoved(object? sender, Entity e)
+		{
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
+				entitiesLayer.Remove(d);
 		}
 
 		private void ControlCamera()
@@ -113,5 +136,6 @@ namespace TakeUpJewel
 		}
 
 		private Container stage = new Container();
+		private Container entitiesLayer = new Container();
 	}
 }
