@@ -62,7 +62,7 @@ namespace TakeUpJewel
 					break;
 
 				case State.Help:
-					if (DFKeyboard.Z.IsKeyDown)
+					if (game.IsFocused && DFKeyboard.Z.IsKeyDown)
 					{
 						Root.Remove(helpImage);
 						state = State.Menu;
@@ -73,6 +73,8 @@ namespace TakeUpJewel
 
 		private void UpdateMenu()
 		{
+			if (!game.IsFocused) return;
+
 			if (DFKeyboard.Up.IsKeyDown)
 			{
 				selectedIndex--;
@@ -104,6 +106,8 @@ namespace TakeUpJewel
 
 		private void UpdateGenderSelector()
 		{
+			if (!game.IsFocused) return;
+
 			if (DFKeyboard.Up.IsKeyDown)
 			{
 				selectedIndex--;
@@ -178,11 +182,11 @@ namespace TakeUpJewel
 
 			var time = 0f;
 
-			while (time < 2.5f && !DFKeyboard.Z.IsKeyDown)
+			do
 			{
 				yield return null;
 				time += Time.DeltaTime;
-			}
+			} while (time < 2.5f && !DFKeyboard.Z.IsKeyDown);
 
 			game.StopCoroutine(flash);
 

@@ -21,9 +21,24 @@ namespace TakeUpJewel
 
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
 		{
-			text.Location += Vector.Up * 16 * e.DeltaTime;
+			if (!game.IsFocused) return;
+
+			// この画面に移行した瞬間はZキーを押しているので、
+			// 一回離してからZキーを押さないと、高速字送りしないようにする
+			if (DFKeyboard.Z.IsKeyUp)
+				keyUpPressed = true;
+
+			text.Location += Vector.Up * (DFKeyboard.Z && keyUpPressed ? 128 : 32) * e.DeltaTime;
+
+			if (text.Location.Y < -text.Height)
+			{
+				Core.I.LoadLevel(1, 1);
+				router.ChangeScene<PreStageScene>();
+				Core.I.BgmStop();
+			}
 		}
 
 		private DEText text;
+		private bool keyUpPressed;
 	}
 }

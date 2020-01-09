@@ -40,6 +40,7 @@ namespace TakeUpJewel
 					item.Text = "　" + item.Text.Substring(1);
 				}
 			}
+			if (!game.IsFocused) return;
 
 			if (DFKeyboard.Up.IsKeyDown)
 				selectedIndex--;
