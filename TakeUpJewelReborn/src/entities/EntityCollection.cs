@@ -3,63 +3,62 @@ using System.Collections.Generic;
 
 namespace TakeUpJewel
 {
-    /// <summary>
-    /// Entity のコレクションを表します。
-    /// </summary>
-    public abstract class EntityCollection : ICollection<Entity>
-    {
-        protected EntityCollection()
-        {
-            Items = new List<Entity>();
-        }
+	/// <summary>
+	/// Entity のコレクションを表します。
+	/// </summary>
+	public abstract class EntityCollection : ICollection<Entity>
+	{
+		protected EntityCollection()
+		{
+			Items = new List<Entity>();
+		}
 
-        public List<Entity> Items { get; protected set; }
+		public List<Entity> Items { get; protected set; }
 
-        public Entity this[int i]
-        {
-            get { return Items[i]; }
-            set { Items[i] = value; }
-        }
+		public Entity this[int i]
+		{
+			get { return Items[i]; }
+			set { Items[i] = value; }
+		}
 
-        public virtual void Add(Entity item)
-        {
-            if (Contains(item) == false)
-                Items.Add(item);
-        }
+		public virtual void Add(Entity item)
+		{
+			if (Contains(item) == false)
+				Items.Add(item);
+		}
 
+		public bool IsReadOnly => false;
 
-        public bool IsReadOnly => false;
+		public virtual void Clear()
+		{
+			Items.Clear();
+		}
 
-        public void Clear()
-        {
-            Items.Clear();
-        }
+		public int Count => Items.Count;
 
-        public int Count => Items.Count;
+		public bool Contains(Entity item)
+		{
+			return Items.Contains(item);
+		}
 
-        public bool Contains(Entity item)
-        {
-            return Items.Contains(item);
-        }
+		public void CopyTo(Entity[] array, int arrayIndex)
+		{
+			Items.CopyTo(array, arrayIndex);
+		}
 
-        public void CopyTo(Entity[] array, int arrayIndex)
-        {
-            Items.CopyTo(array, arrayIndex);
-        }
+		public virtual bool Remove(Entity item)
+		{
+			return Items.Remove(item);
+		}
 
-        public bool Remove(Entity item)
-        {
-            return Items.Remove(item);
-        }
+		public IEnumerator<Entity> GetEnumerator()
+		{
+			return Items.GetEnumerator();
+		}
 
-        public IEnumerator<Entity> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
-    }
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return Items.GetEnumerator();
+		}
+	}
 }

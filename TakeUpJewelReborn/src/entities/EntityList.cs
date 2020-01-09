@@ -42,6 +42,20 @@ namespace TakeUpJewel
 			Add(item, false);
 		}
 
+		public override bool Remove(Entity item)
+		{
+			EntityRemoved?.Invoke(this, item);
+			if (item is EntityVisible visible)
+				drawablesMap.Remove(visible);
+			return base.Remove(item);
+		}
+
+		public override void Clear()
+		{
+			base.Clear();
+			drawablesMap.Clear();
+		}
+
 		public void Add(Entity item, bool isMain)
 		{
 			Items.Add(item);
@@ -75,7 +89,6 @@ namespace TakeUpJewel
 				if (item.IsDead) //死んだら消す
 				{
 					Remove(item);
-					EntityRemoved?.Invoke(this, item);
 				}
 				if (i >= Count)
 					break;
