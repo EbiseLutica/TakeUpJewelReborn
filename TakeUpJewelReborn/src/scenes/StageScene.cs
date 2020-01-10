@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using DotFeather;
 
 namespace TakeUpJewel
@@ -62,6 +63,15 @@ namespace TakeUpJewel
 			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
 			Root.Add(stage);
 
+			hud = new DEText("", Color.White);
+			shadow = new DEText("", Color.Black)
+			{
+				Location = Vector.One
+			};
+
+			Root.Add(shadow);
+			Root.Add(hud);
+
 			Core.I.Entities.EntityAdded += EntityAdded;
 			Core.I.Entities.EntityRemoved += EntityRemoved;
 		}
@@ -76,6 +86,11 @@ namespace TakeUpJewel
 			EntityList entities = Core.I.Entities;
 			entities.Draw();
 			entities.Update();
+
+			hudText = $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (entities.MainEntity as EntityPlayer)?.Life ?? 0)}
+Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
+
+			hud.Text = shadow.Text = hudText;
 
 			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
 			{
@@ -168,5 +183,7 @@ namespace TakeUpJewel
 		private Tilemap backTile;
 		private Tilemap foreTile;
 		private bool handlingDying;
+		private DEText hud, shadow;
+		private string hudText = "";
 	}
 }
