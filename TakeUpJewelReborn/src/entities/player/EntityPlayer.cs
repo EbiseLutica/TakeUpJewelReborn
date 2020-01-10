@@ -84,10 +84,6 @@ namespace TakeUpJewel
 			Size = new Size(12, 30);
 			if (!IsDying && !Core.I.IsGoal)
 				InputControl();
-			if (Core.I.IsGoal)
-			{
-				Velocity = Vector.Right * 1.4f;
-			}
 			AnimeControl();
 			if (!IsDying)
 				ProcessGod();

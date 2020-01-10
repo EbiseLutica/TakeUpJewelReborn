@@ -41,9 +41,15 @@ namespace TakeUpJewel
 			hud.Text = shadow.Text = GenerateHUD();
 
 			// プレイヤーの死亡処理
-			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
+			if (!handlingDying && !Core.I.IsFreezing && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
 			{
 				game.StartCoroutine(HandleDying(router, game));
+			}
+
+			// ゴールハンドリング
+			if (!handlingGoal && !handlingDying && !Core.I.IsFreezing && Core.I.IsGoal)
+			{
+				game.StartCoroutine(HandleGoal(router, game));
 			}
 
 			stage.Location = Core.I.Camera;
@@ -63,6 +69,24 @@ namespace TakeUpJewel
 			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
 			Root.Clear();
 			router.ChangeScene<StageScene>();
+		}
+
+		private IEnumerator HandleGoal(Router router, GameBase game)
+		{
+			handlingGoal = true;
+			Core.I.BgmPlay("jingle_gameclear.mid");
+
+			var time = 0f;
+			var main = Core.I.Entities.MainEntity;
+			while (true)
+			{
+				time += Time.DeltaTime;
+				if (time > 8) break;
+
+				main.Velocity = Vector.Right * 1.4f;
+
+				yield return null;
+			}
 		}
 
 		private void EntityAdded(object? sender, Entity e)
@@ -200,5 +224,6 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 		private Tilemap foreTile;
 		private bool handlingDying;
 		private DEText hud, shadow;
+		private bool handlingGoal;
 	}
 }
