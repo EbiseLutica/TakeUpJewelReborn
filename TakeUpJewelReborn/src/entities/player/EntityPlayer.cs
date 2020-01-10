@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using DotFeather;
 using Codeplex.Data;
@@ -17,12 +17,12 @@ namespace TakeUpJewel
 		/// <summary>
 		/// アイテムによって無敵になったかどうか。
 		/// </summary>
-		public bool IsItemMuteki;
+		public bool AteGodItem;
 
 		/// <summary>
 		/// 無敵時間。0のときは無敵ではないが、0以上の時は無敵である。
 		/// </summary>
-		public int MutekiTime;
+		public int GodTime;
 
 		/// <summary>
 		/// パワーアップ時間。0より大きいと、Big : Mini 間のパワーアップアニメを再生する。
@@ -82,7 +82,7 @@ namespace TakeUpJewel
 		{
 			base.OnUpdate();
 			Size = new Size(12, 30);
-			if (!IsDying)
+			if (!IsDying && !Core.I.IsGoal)
 				InputControl();
 			if (Core.I.IsGoal)
 			{
@@ -90,8 +90,7 @@ namespace TakeUpJewel
 			}
 			AnimeControl();
 			if (!IsDying)
-				ProcessMuteki();
-			//FontUtility.DrawMiniString((int)Location.X - 9 + GameEngine.camera.X, (int)Location.Y + GameEngine.camera.Y, "" + AnimeSpeed, 0xffffff);
+				ProcessGod();
 		}
 
 		public override void Move()
@@ -106,21 +105,21 @@ namespace TakeUpJewel
 				base.UpdateGravity();
 		}
 
-		private void ProcessMuteki()
+		private void ProcessGod()
 		{
 			if (PowerupTime > 0)
 				PowerupTime--;
-			if (MutekiTime > 0)
+			if (GodTime > 0)
 			{
-				MutekiTime--;
-				if ((MutekiTime == 90) && IsItemMuteki)
+				GodTime--;
+				if ((GodTime == 90) && AteGodItem)
 					DESound.Play(Sounds.WarningMuteki);
-				if ((MutekiTime == 0) && IsItemMuteki)
+				if ((GodTime == 0) && AteGodItem)
 				{
-					IsItemMuteki = false;
+					AteGodItem = false;
 					Core.I.BgmStop();
-					// todo
-					// Game.I.BgmPlay(GameEngine.Areainfo.Music);
+					if (Core.I.CurrentAreaInfo != null)
+						Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
 				}
 			}
 		}
@@ -157,36 +156,16 @@ namespace TakeUpJewel
 			if (DFKeyboard.Left)
 			{
 				Direction = Direction.Left;
-				/*
-				if (Velocity.X > 0)
-				{
-					Velocity.X *= spddivition;
-					if (Velocity.X < 0.4f && Velocity.X > -0.4f)
-						Velocity.X = 0;
-				}
-				else
-				{*/
-
 				Velocity.X -= _spdAddition;
 				if (Velocity.X < -_spdlimit)
 					Velocity.X = -_spdlimit;
-				//}
 			}
 			else if (DFKeyboard.Right)
 			{
 				Direction = Direction.Right;
-				/*if (Velocity.X < 0)
-				{
-					Velocity.X *= spddivition;
-					if (Velocity.X < 0.4f && Velocity.X > -0.4f)
-						Velocity.X = 0;
-				}
-				else
-				{*/
 				Velocity.X += _spdAddition;
 				if (Velocity.X > _spdlimit)
 					Velocity.X = _spdlimit;
-				//}
 			}
 			else
 			{
@@ -233,13 +212,10 @@ namespace TakeUpJewel
 				_flowtimer = 0;
 			else
 				_flowtimer++;
-			//if (!DFKeyboard.Z && IsJumping)
-			//	Velocity.Y += 0.1f;
 
 			if (!DFKeyboard.Z && IsJumping)
 				Velocity.Y += 0.1f;
 
-			//FontUtility.DrawMiniString((int)Location.X + ks.camera.X, (int)Location.Y + ks.camera.Y - 10, Velocity.Y.ToString(), 0xffffff);
 			if (DFKeyboard.ShiftLeft)
 			{
 				_spdAddition = 0.4f;
@@ -273,7 +249,7 @@ namespace TakeUpJewel
 					var e = entity;
 					if (e.IsDying)
 						continue;
-					if ((MutekiTime > 0) && IsItemMuteki &&
+					if ((GodTime > 0) && AteGodItem &&
 						((e.MyGroup == EntityGroup.Enemy) || (e.MyGroup == EntityGroup.MonsterWeapon)) &&
 						new RectangleF(e.Location.X, e.Location.Y, e.Size.Width, e.Size.Height).CheckCollision(new RectangleF(Location.X,
 							Location.Y, Size.Width, Size.Height)))
@@ -283,11 +259,8 @@ namespace TakeUpJewel
 				foreach (EntityTurcosShell e in Parent.FindEntitiesByType<EntityTurcosShell>())
 				{
 					if (e.IsRunning)
-						continue;
-					//if (e.mutekitime > 0)
-					//	continue;
-					if (new RectangleF(Location.ToPoint(), Size).CheckCollision(new RectangleF(e.Location.ToPoint(), e.Size)))
-						e.Owner = this;
+						if (new RectangleF(Location.ToPoint(), Size).CheckCollision(new RectangleF(e.Location.ToPoint(), e.Size)))
+							e.Owner = this;
 				}
 				_lshifted = true;
 			}
@@ -327,10 +300,10 @@ namespace TakeUpJewel
 				base.Kill();
 				return;
 			}
-			if (MutekiTime > 0)
+			if (GodTime > 0)
 				return;
 			DESound.Play(Sounds.PowerDown);
-			MutekiTime = 240;
+			GodTime = 240;
 			Life--;
 
 			if (Form != PlayerForm.Big)
@@ -340,7 +313,6 @@ namespace TakeUpJewel
 			{
 				SetGraphic(5);
 				base.Kill();
-				//SoundUtility.PlaySound(Sounds.PlayerMiss);
 			}
 
 			Velocity *= 0;
@@ -352,7 +324,7 @@ namespace TakeUpJewel
 
 			base.OnUpdate(p, d);
 
-			var cond = (MutekiTime > 0) && (PowerupTime == 0) && MutekiTime % 8 < 4;
+			var cond = (GodTime > 0) && (PowerupTime == 0) && GodTime % 8 < 4;
 
 			sprite.Color = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
 			sprite.Location = new Vector(p.X, p.Y + ((Core.I.Tick % 8 < 4) && (PowerupTime > 0) ? 16 : 0));
@@ -384,8 +356,8 @@ namespace TakeUpJewel
 
 		internal void SetMuteki()
 		{
-			IsItemMuteki = true;
-			MutekiTime = 600;
+			AteGodItem = true;
+			GodTime = 600;
 
 			DESound.Play(Sounds.PowerUp);
 			Core.I.BgmPlay("muteki.mid");
