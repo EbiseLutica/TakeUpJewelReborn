@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using DotFeather;
 using Codeplex.Data;
@@ -84,6 +84,10 @@ namespace TakeUpJewel
 			Size = new Size(12, 30);
 			if (!IsDying)
 				InputControl();
+			if (Core.I.IsGoal)
+			{
+				Velocity = Vector.Right * 1.4f;
+			}
 			AnimeControl();
 			if (!IsDying)
 				ProcessMuteki();
