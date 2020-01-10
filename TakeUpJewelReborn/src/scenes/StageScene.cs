@@ -28,19 +28,19 @@ namespace TakeUpJewel
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
 		{
 			if (!game.IsFocused) return;
+
 			Core.I._SetTick(Core.I.Tick + 1);
+
 			ControlCamera();
 			RenderMap();
 
-			EntityList entities = Core.I.Entities;
+			var entities = Core.I.Entities;
 			entities.Draw();
 			entities.Update();
 
-			hudText = $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (entities.MainEntity as EntityPlayer)?.Life ?? 0)}
-Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
+			hud.Text = shadow.Text = GenerateHUD();
 
-			hud.Text = shadow.Text = hudText;
-
+			// プレイヤーの死亡処理
 			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
 			{
 				game.StartCoroutine(HandleDying(router, game));
@@ -100,6 +100,12 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 
 			Root.Add(shadow);
 			Root.Add(hud);
+		}
+
+		private string GenerateHUD()
+		{
+			return $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (Core.I.Entities.MainEntity as EntityPlayer)?.Life ?? 0)}
+Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 		}
 
 		private void InitializeMap(AreaInfo area)
@@ -194,6 +200,5 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 		private Tilemap foreTile;
 		private bool handlingDying;
 		private DEText hud, shadow;
-		private string hudText = "";
 	}
 }

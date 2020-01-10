@@ -16,7 +16,6 @@ namespace TakeUpJewel
 			Parent = par;
 		}
 
-
 		public override EntityGroup MyGroup => EntityGroup.Stage;
 
 		public override Entity SetEntityData(dynamic jsonobj)
