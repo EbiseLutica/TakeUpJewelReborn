@@ -74,7 +74,7 @@ namespace TakeUpJewel
 			bgmPlayer.Stop(time / 1000f);
 		}
 
-		public void LoadLevel(int level, int area = 1)
+		public void LoadLevel(int level, int? area = null)
 		{
 			var baseDir = Path.Combine("Resources/Levels", "Level " + level);
 			var lvldatPath = Path.Combine(baseDir, "lvldat.json");
@@ -92,9 +92,11 @@ namespace TakeUpJewel
 				logger.Info($"Loaded Level {level} - {CurrentLevelData.Desc}");
 			}
 
+			var a = area ?? CurrentLevelData!.FirstArea;
+
 			// エリアを読み込む
 			CurrentMap = MapLoader.Load(mapPath);
-			CurrentArea = area;
+			CurrentArea = a;
 			CurrentAreaInfo = DynamicJson.Parse(File.ReadAllText(areaPath));
 			logger.Info("Loaded Area {area}");
 
