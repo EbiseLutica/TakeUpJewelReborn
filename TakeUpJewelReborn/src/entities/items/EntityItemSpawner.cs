@@ -42,14 +42,7 @@ namespace TakeUpJewel
 				if (m.IsRunning &&
 					new RectangleF(Location.X - 4, Location.Y + 8, 24, 8).CheckCollision(new RectangleF(m.Location.X, m.Location.Y, m.Size.Width, m.Size.Height)))
 				{
-					try
-					{
-						OpenItem((EntityPlayer)Parent.First(s => s is EntityPlayer));
-					}
-					catch
-					{
-						// 握りつぶす
-					}
+					OpenItem((EntityPlayer)Parent.FirstOrDefault(s => s is EntityPlayer));
 					break;
 				}
 			}
@@ -62,7 +55,7 @@ namespace TakeUpJewel
 			return base.SetEntityData((object)jsonobj);
 		}
 
-		private void OpenItem(EntityPlayer player)
+		private void OpenItem(EntityPlayer? player)
 		{
 			switch (_item)
 			{
@@ -117,7 +110,7 @@ namespace TakeUpJewel
 					break;
 
 				case Items.FeatherOrCoin:
-					if (player.GodTime != 0)
+					if (player != null && player.GodTime != 0)
 					{
 						Parent.Add((player.GodTime > 0) && player.AteGodItem
 								? Core.I.EntityRegistry.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent)
@@ -126,9 +119,7 @@ namespace TakeUpJewel
 						);
 						DESound.Play(Sounds.ItemSpawn);
 					}
-					else
-						Parent.Add(Core.I.EntityRegistry.CreateEntity("Coin", Location, Mpts, Map, Parent,
-							DynamicJson.Parse(@"{""WorkingType"": 1}")));
+					else goto case Items.Coin;
 					break;
 				case Items.PoisonMushroom:
 					Parent.Add(Core.I.EntityRegistry.CreateEntity("PoisonMushroom", new Vector(Location.X, Location.Y - 16), Mpts,
@@ -137,7 +128,7 @@ namespace TakeUpJewel
 					break;
 			}
 			Map[(int)(Location.X / 16), (int)(Location.Y / 16), 0] = 10;
-			Kill(); //役目が終わったので殺す
+			Kill();
 		}
 	}
 }
