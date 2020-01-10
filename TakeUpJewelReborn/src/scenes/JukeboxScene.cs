@@ -94,20 +94,20 @@ namespace TakeUpJewel
 
 		private static readonly string[] AudioFileList =
 		{
-			"prologue.mid",
-			"registertown.mid",
-			"hometownv2.mid",
-			"流れる水の働き.mid",
-			"c006.mid",
-			"jingle_gameclear.mid",
-			"team-spyway.mid",
-			"zannnenn.mid",
-			"IcyHeart.mid",
+			"bgm_prologue.mid",
+			"bgm_resistor.mid",
+			"bgm_sequencial.mid",
+			"bgm_encapsule.mid",
+			"bgm_refactor.mid",
+			"jingle_goal.mid",
+			"bgm_spyway.mid",
+			"bgm_miss.mid",
+			"bgm_gameover.mid",
 			"icypulse_rec.mid",
-			"c014.mid",
-			"fanfare.mid",
+			"bgm_vsking.mid",
+			"jingle_defeatboss.mid",
 			"omedeto.mid",
-			"草原をゆくv5.mid",
+			"bgm_ending.mid",
 		};
 	}
 }

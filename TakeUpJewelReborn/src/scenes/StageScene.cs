@@ -64,7 +64,7 @@ namespace TakeUpJewel
 		private IEnumerator HandleDying(Router router, GameBase game)
 		{
 			handlingDying = true;
-			Core.I.BgmPlay("zannnenn.mid");
+			Core.I.BgmPlay("bgm_miss.mid");
 			yield return new WaitForSeconds(5);
 			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
 			Root.Clear();
@@ -74,7 +74,7 @@ namespace TakeUpJewel
 		private IEnumerator HandleGoal(Router router, GameBase game)
 		{
 			handlingGoal = true;
-			Core.I.BgmPlay("jingle_gameclear.mid");
+			Core.I.BgmPlay("jingle_goal.mid");
 
 			var time = 0f;
 			var main = Core.I.Entities.MainEntity;

@@ -217,7 +217,7 @@ namespace TakeUpJewel
 			engine.Location = new Vector(Const.Width - engine.Width, Const.Height - engine.Height);
 			Root.Add(engine);
 
-			Core.I.BgmPlay("hometownv2.mid");
+			Core.I.BgmPlay("bgm_sequencial.mid");
 			yield return null;
 			openingFinished = true;
 		}

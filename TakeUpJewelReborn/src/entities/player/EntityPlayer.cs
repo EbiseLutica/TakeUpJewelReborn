@@ -356,7 +356,7 @@ namespace TakeUpJewel
 			GodTime = 600;
 
 			DESound.Play(Sounds.PowerUp);
-			Core.I.BgmPlay("muteki.mid");
+			Core.I.BgmPlay("bgm_god.mid");
 		}
 	}
 }

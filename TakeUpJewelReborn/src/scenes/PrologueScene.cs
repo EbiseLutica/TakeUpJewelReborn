@@ -16,7 +16,7 @@ namespace TakeUpJewel
 			}
 
 			BackgroundColor = Color.White;
-			Core.I.BgmPlay("prologue.mid");
+			Core.I.BgmPlay("bgm_prologue.mid");
 			var file = Core.I.CurrentGender == PlayerGender.Male ? "male" : "female";
 
 			var prologue = File.ReadAllText($"Resources/Document/prolog-{file}.txt");
