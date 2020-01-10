@@ -117,9 +117,9 @@ namespace TakeUpJewel
 					break;
 
 				case Items.FeatherOrCoin:
-					if (player.MutekiTime != 0)
+					if (player.GodTime != 0)
 					{
-						Parent.Add((player.MutekiTime > 0) && player.IsItemMuteki
+						Parent.Add((player.GodTime > 0) && player.AteGodItem
 								? Core.I.EntityRegistry.CreateEntity("Feather", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent)
 								: Core.I.EntityRegistry.CreateEntity("Coin", new Vector(Location.X, Location.Y - 16), Mpts, Map, Parent,
 									DynamicJson.Parse(@"{""WorkingType"": 1}"))
@@ -136,7 +136,6 @@ namespace TakeUpJewel
 					DESound.Play(Sounds.ItemSpawn);
 					break;
 			}
-			//PlaySound(Sounds.ItemSpawn);
 			Map[(int)(Location.X / 16), (int)(Location.Y / 16), 0] = 10;
 			Kill(); //役目が終わったので殺す
 		}

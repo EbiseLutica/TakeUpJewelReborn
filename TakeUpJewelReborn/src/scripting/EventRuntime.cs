@@ -16,7 +16,7 @@ namespace TakeUpJewel
 
 		private static readonly Queue<EventScript> EventScriptQueue = new Queue<EventScript>();
 
-		public static EventScript CurrentScript { get; private set; }
+		public static EventScript? CurrentScript { get; private set; }
 
 		public static bool MessageIsShowing { get; private set; }
 
@@ -24,7 +24,7 @@ namespace TakeUpJewel
 
 		public static UpDown MesPos { get; private set; }
 
-		public static string MesBuffer { get; private set; }
+		public static string MesBuffer { get; private set; } = "";
 
 		public static bool IsWaitingResponse { get; private set; }
 

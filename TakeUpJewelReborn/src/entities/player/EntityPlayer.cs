@@ -311,7 +311,7 @@ namespace TakeUpJewel
 				base.Kill();
 			}
 
-			Velocity *= 0;
+			Velocity = Vector.Zero;
 		}
 
 		public override void OnUpdate(Vector p, IDrawable d)
