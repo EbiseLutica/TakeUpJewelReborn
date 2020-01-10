@@ -16,6 +16,94 @@ namespace TakeUpJewel
 				throw new InvalidOperationException();
 			}
 
+			InitializeMap(area);
+			InitializeHUD();
+
+			Core.I.Entities.EntityAdded += EntityAdded;
+			Core.I.Entities.EntityRemoved += EntityRemoved;
+
+			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
+		}
+
+		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		{
+			if (!game.IsFocused) return;
+			Core.I._SetTick(Core.I.Tick + 1);
+			ControlCamera();
+			RenderMap();
+
+			EntityList entities = Core.I.Entities;
+			entities.Draw();
+			entities.Update();
+
+			hudText = $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (entities.MainEntity as EntityPlayer)?.Life ?? 0)}
+Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
+
+			hud.Text = shadow.Text = hudText;
+
+			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
+			{
+				game.StartCoroutine(HandleDying(router, game));
+			}
+
+			stage.Location = Core.I.Camera;
+		}
+
+		public override void OnDestroy(Router router)
+		{
+			Core.I.Entities.EntityAdded -= EntityAdded;
+			Core.I.Entities.EntityRemoved -= EntityRemoved;
+		}
+
+		private IEnumerator HandleDying(Router router, GameBase game)
+		{
+			handlingDying = true;
+			Core.I.BgmPlay("zannnenn.mid");
+			yield return new WaitForSeconds(5);
+			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
+			Root.Clear();
+			router.ChangeScene<StageScene>();
+		}
+
+		private void EntityAdded(object? sender, Entity e)
+		{
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
+				entitiesLayer.Add(d);
+		}
+
+		private void EntityRemoved(object? sender, Entity e)
+		{
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
+				entitiesLayer.Remove(d);
+		}
+
+		private void RenderMap()
+		{
+			if (!(Core.I.CurrentMap is MapData map)) return;
+
+			var chips = map.Chips;
+			for (var y = 0; y < map.Size.Y; y++)
+				for (var x = 0; x < map.Size.X; x++)
+				{
+					backTile[x, y] = Core.I.Mpts[chips[x, y, 1]];
+					foreTile[x, y] = Core.I.Mpts[chips[x, y, 0]];
+				}
+		}
+
+		private void InitializeHUD()
+		{
+			hud = new DEText("", Color.White);
+			shadow = new DEText("", Color.Black)
+			{
+				Location = Vector.One
+			};
+
+			Root.Add(shadow);
+			Root.Add(hud);
+		}
+
+		private void InitializeMap(AreaInfo area)
+		{
 			// Background
 			var bg = new Sprite(ResourceManager.LoadTexture(area.BG));
 			bg.ZOrder = -2;
@@ -60,85 +148,7 @@ namespace TakeUpJewel
 
 			Core.I.Camera = -main.Location;
 
-			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
 			Root.Add(stage);
-
-			hud = new DEText("", Color.White);
-			shadow = new DEText("", Color.Black)
-			{
-				Location = Vector.One
-			};
-
-			Root.Add(shadow);
-			Root.Add(hud);
-
-			Core.I.Entities.EntityAdded += EntityAdded;
-			Core.I.Entities.EntityRemoved += EntityRemoved;
-		}
-
-		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
-		{
-			if (!game.IsFocused) return;
-			Core.I._SetTick(Core.I.Tick + 1);
-			ControlCamera();
-			RenderMap();
-
-			EntityList entities = Core.I.Entities;
-			entities.Draw();
-			entities.Update();
-
-			hudText = $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (entities.MainEntity as EntityPlayer)?.Life ?? 0)}
-Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
-
-			hud.Text = shadow.Text = hudText;
-
-			if (!handlingDying && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
-			{
-				game.StartCoroutine(HandleDying(router, game));
-			}
-
-			stage.Location = Core.I.Camera;
-		}
-
-		private IEnumerator HandleDying(Router router, GameBase game)
-		{
-			handlingDying = true;
-			Core.I.BgmPlay("zannnenn.mid");
-			yield return new WaitForSeconds(5);
-			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
-			Root.Clear();
-			router.ChangeScene<StageScene>();
-		}
-
-		private void RenderMap()
-		{
-			if (!(Core.I.CurrentMap is MapData map)) return;
-
-			var chips = map.Chips;
-			for (var y = 0; y < map.Size.Y; y++)
-				for (var x = 0; x < map.Size.X; x++)
-				{
-					backTile[x, y] = Core.I.Mpts[chips[x, y, 1]];
-					foreTile[x, y] = Core.I.Mpts[chips[x, y, 0]];
-				}
-		}
-
-		public override void OnDestroy(Router router)
-		{
-			Core.I.Entities.EntityAdded -= EntityAdded;
-			Core.I.Entities.EntityRemoved -= EntityRemoved;
-		}
-
-		private void EntityAdded(object? sender, Entity e)
-		{
-			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
-				entitiesLayer.Add(d);
-		}
-
-		private void EntityRemoved(object? sender, Entity e)
-		{
-			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
-				entitiesLayer.Remove(d);
 		}
 
 		private void ControlCamera()
