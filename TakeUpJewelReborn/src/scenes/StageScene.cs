@@ -83,7 +83,7 @@ namespace TakeUpJewel
 				time += Time.DeltaTime;
 				if (time > 8) break;
 
-				main.Velocity = Vector.Right * 1.4f;
+				main.Velocity = new Vector(1.4f, main.Velocity.Y);
 
 				yield return null;
 			}

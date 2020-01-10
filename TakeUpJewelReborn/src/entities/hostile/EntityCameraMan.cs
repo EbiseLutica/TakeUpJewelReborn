@@ -97,7 +97,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			if (!IsDying)
 				if (!_isTension)
 				{
@@ -116,8 +115,6 @@ namespace TakeUpJewel
 					_tick++;
 					if (_tick == 0)
 					{
-						//TODO: 効果音発生
-
 						if (((Math.Abs(Location.X - Parent.MainEntity.Location.X) >= 64) && (Location.Y > Parent.MainEntity.Location.Y)) ||
 							(Parent.MainEntity.Location.Y > Location.Y + Size.Height))
 						{
@@ -208,7 +205,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			if ((Location.X < -Size.Width) || (Location.Y < -Size.Height) || (Location.X > Core.I.CurrentMap.Size.X * 16) ||
 				(Location.Y > Core.I.CurrentMap.Size.Y * 16))
 				Kill();

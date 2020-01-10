@@ -71,7 +71,6 @@ namespace TakeUpJewel
 			}
 		}
 
-
 		public override RectangleF Collision => new RectangleF(new Vector(2, 2).ToPoint(), Size);
 
 		public override EntityGroup MyGroup => EntityGroup.Friend;

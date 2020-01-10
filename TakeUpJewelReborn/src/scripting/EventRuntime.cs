@@ -171,28 +171,25 @@ namespace TakeUpJewel
 						// Seq.Sm.Channels[ch].Volume = val;
 						break;
 					case "mpt":
+						if (Core.I.CurrentMap is MapData map)
+						{
+							int.TryParse(args[0], out var x);
+							int.TryParse(args[1], out var y);
+							var z = args[2];
+							if ((z != "表") && (z != "裏"))
+								break;
+							if (x < 0)
+								x = 0;
+							if (x > map.Size.X - 1)
+								x = map.Size.X - 1;
+							if (y < 0)
+								y = 0;
+							if (y > map.Size.Y - 1)
+								y = map.Size.Y - 1;
 
-						int x, y;
-						int.TryParse(args[0], out x);
-						int.TryParse(args[1], out y);
-						var z = args[2];
-						if ((z != "表") && (z != "裏"))
-							break;
-						if (x < 0)
-							x = 0;
-						// todo
-						// if (x > Chips.GetLength(0) - 1)
-						//     x = Chips.GetLength(0) - 1;
-						if (y < 0)
-							y = 0;
-						// if (y > Chips.GetLength(1) - 1)
-						//     y = Chips.GetLength(1) - 1;
-
-
-						byte chip;
-
-						byte.TryParse(args[3], out chip);
-						// Chips[x, y, z == "表" ? 0 : 1] = chip;
+							byte.TryParse(args[3], out var chip);
+							map.Chips[x, y, z == "表" ? 0 : 1] = chip;
+						}
 
 						break;
 					case "teleport":

@@ -35,7 +35,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			base.OnUpdate();
 			if (IsOnLand)
 				Velocity.Y = -1f;

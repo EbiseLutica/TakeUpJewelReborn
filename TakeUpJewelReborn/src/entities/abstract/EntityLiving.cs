@@ -109,9 +109,12 @@ namespace TakeUpJewel
 
 		public virtual void Dying()
 		{
-			if (DyingTick == 0)
-				IsDead = true;
 			DyingTick--;
+			if (DyingTick <= 0)
+			{
+				IsDead = true;
+				DyingTick = 0;
+			}
 		}
 
 		/// <summary>
@@ -401,15 +404,25 @@ namespace TakeUpJewel
 				SetCrushedAnime();
 			if (!IsCrushed && !IsFall)
 				DESound.Play(KilledSound);
-			Velocity = IsCrushed ? Vector.Zero : new Vector(6.0f, -4.0f);
+			Velocity = Vector.Zero;
 		}
 
 		public override void OnUpdate(Vector p, IDrawable d)
 		{
 			base.OnUpdate(p, d);
-			if (!IsFall)
+			if (IsDying)
 			{
-				d.Angle = DFMath.ToRadian(MathF.Max(-90, -((DyingMax - DyingTick) * (90f / 28f))));
+				OnDyingAnimation(d);
+			}
+		}
+
+		public virtual void OnDyingAnimation(IDrawable d)
+		{
+			var lerp = DFMath.Lerp((DyingMax - DyingTick) / (float)DyingMax, 1, 0);
+			if (d is Sprite s)
+			{
+				s.Color = Color.FromArgb(255, (int)(lerp * 255), (int)(lerp * 255));
+				s.Location += Vector.Right * lerp;
 			}
 		}
 	}

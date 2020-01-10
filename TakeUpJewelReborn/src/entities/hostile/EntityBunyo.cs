@@ -43,5 +43,11 @@ namespace TakeUpJewel
 		{
 			SetGraphic(3);
 		}
+
+		public override void OnDyingAnimation(IDrawable d)
+		{
+			if (!IsCrushed)
+				base.OnDyingAnimation(d);
+		}
 	}
 }

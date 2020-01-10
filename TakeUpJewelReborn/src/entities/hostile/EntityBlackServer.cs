@@ -44,8 +44,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
-
 			switch (_nowstatus)
 			{
 				case 0:
@@ -126,7 +124,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			if ((_mode < 9) && (_tick > 8))
 				_mode++;
 			_tick++;

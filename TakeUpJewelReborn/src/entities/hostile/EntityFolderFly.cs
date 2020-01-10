@@ -38,7 +38,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			if ((_tick > 140) && !IsDying)
 			{
 				_tick = 0;

@@ -43,7 +43,6 @@ namespace TakeUpJewel
 		/// <param name="ks"></param>
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			foreach (EntityPlayer ep in Parent.FindEntitiesByType<EntityPlayer>())
 			{
 				if (ep.IsDying)
@@ -82,7 +81,6 @@ namespace TakeUpJewel
 		/// <returns></returns>
 		public override Entity SetEntityData(dynamic jsonobj)
 		{
-			//TODO: メタデータに埋め込まれたスクリプトを取得する
 			if (jsonobj.Script())
 				_myScript = jsonobj.Script;
 			base.SetEntityData((object)jsonobj);

@@ -93,12 +93,14 @@ namespace TakeUpJewel
 				if (i >= Count)
 					break;
 				item = this[i];
-				if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width)
+
+				var living = item as EntityLiving;
+				if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width && (living == null || !living.IsDying))
 					continue;
+
 				if (!Core.I.IsFreezing)
 				{
 					item.OnUpdate(); //更新処理をする
-					var living = item as EntityLiving;
 					if (living != null)
 					{
 						if ((living.MainAi != null) && !living.MainAi.IsInitialized)

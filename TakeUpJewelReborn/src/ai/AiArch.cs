@@ -1,4 +1,7 @@
-﻿namespace TakeUpJewel
+﻿using Codeplex.Data;
+using DotFeather;
+
+namespace TakeUpJewel
 {
 
 	public class AiArch : AiBase
@@ -15,16 +18,15 @@
 		{
 			if (((_nowstatus != 2) && (_nowstatus != 0) && (_tick == 15)) || (_tick == 30))
 			{
-				if (_nowstatus == 2)
+				if (_nowstatus == 2 && Core.I.CurrentMap != null)
 				{
 					DESound.Play(Sounds.ShootArrow);
 
-					// TODO: Arrow を実装したら、ここのコメントアウトを外す
 					var speed = HostEntity.Direction == Direction.Right ? Core.GetRand(4) + 1 : -Core.GetRand(4) - 1;
-					// HostEntity.Parent.Add(Game.I.EntityRegister.CreateEntity("Arrow",
-					//     new Vector(HostEntity.Location.X + (HostEntity.Direction == Direction.Left ? 0 : HostEntity.Size.Width),
-					//         HostEntity.Location.Y + HostEntity.Size.Height / 2), GameEngine.Mptobjects, Game.I.CurrentMap.Chips, HostEntity.Parent,
-					//     DynamicJson.Parse("{\"Speed\": " + speed + " }")));
+					HostEntity.Parent.Add(Core.I.EntityRegistry.CreateEntity("Arrow",
+						new Vector(HostEntity.Location.X + (HostEntity.Direction == Direction.Left ? 0 : HostEntity.Size.Width),
+							HostEntity.Location.Y + HostEntity.Size.Height / 2), Core.I.Tiles, Core.I.CurrentMap.Chips, HostEntity.Parent,
+						DynamicJson.Parse("{\"Speed\": " + speed + " }")));
 				}
 				_tick = -1;
 				_nowstatus = (_nowstatus + 1) % 4;

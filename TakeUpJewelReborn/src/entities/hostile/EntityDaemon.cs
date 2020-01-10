@@ -20,7 +20,6 @@ namespace TakeUpJewel
 
 		public override Texture2D[] ImageHandle => ResourceManager.Daemon;
 
-
 		public override EntityGroup MyGroup => EntityGroup.Enemy;
 
 		public override RectangleF Collision => new RectangleF(2, 2, 12, 14);
@@ -40,6 +39,12 @@ namespace TakeUpJewel
 		public override void SetCrushedAnime()
 		{
 			SetGraphic(4);
+		}
+
+		public override void OnDyingAnimation(IDrawable d)
+		{
+			if (!IsCrushed)
+				base.OnDyingAnimation(d);
 		}
 	}
 }

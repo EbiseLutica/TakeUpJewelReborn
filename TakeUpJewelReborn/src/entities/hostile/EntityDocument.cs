@@ -41,7 +41,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 
 			if ((Location.X < -Size.Width) || (Location.Y < -Size.Height) || (Location.X > Core.I.CurrentMap.Size.X * 16) ||
 				(Location.Y > Core.I.CurrentMap.Size.Y * 16))

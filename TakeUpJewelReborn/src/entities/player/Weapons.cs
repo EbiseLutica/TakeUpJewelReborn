@@ -72,7 +72,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			UpdateBehavior();
 			base.OnUpdate();
 		}

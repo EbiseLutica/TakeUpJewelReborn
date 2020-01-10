@@ -38,7 +38,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			//TODO: ここにこの Entity が行う処理を記述してください。
 			UpdateStatus();
 			//int x = (int)(ks.camera.X + Location.X);
 			//int y = (int)(ks.camera.Y + Location.Y);
