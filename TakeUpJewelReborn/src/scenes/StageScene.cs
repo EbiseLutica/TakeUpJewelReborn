@@ -19,6 +19,17 @@ namespace TakeUpJewel
 			InitializeMap(area);
 			InitializeHUD();
 
+			messageBox = new Container();
+			var backdrop = new Sprite(ResourceManager.MesBox);
+			messageBox.Add(backdrop);
+			messageBox.Width = (int)backdrop.Width;
+			messageBox.Height = (int)backdrop.Height;
+			message = new DEText("", Color.Black)
+			{
+				Location = Vector.One * 16,
+			};
+			messageBox.Add(message);
+
 			Core.I.Entities.EntityAdded += EntityAdded;
 			Core.I.Entities.EntityRemoved += EntityRemoved;
 
@@ -51,6 +62,26 @@ namespace TakeUpJewel
 			{
 				game.StartCoroutine(HandleGoal(router, game));
 			}
+
+			if ((eventRuntimeIterator == null) || !eventRuntimeIterator.MoveNext())
+				eventRuntimeIterator = EventRuntime.Execute();
+
+			if (EventRuntime.BalloonIsShowing && !Root.Contains(messageBox))
+			{
+				Root.Add(messageBox);
+			}
+			if (!EventRuntime.BalloonIsShowing && Root.Contains(messageBox))
+			{
+				Root.Remove(messageBox);
+			}
+			message.Text = EventRuntime.MesBuffer;
+
+			messageBox.Location = new Vector(
+				Const.Width / 2 - messageBox.Width / 2,
+				EventRuntime.MesPos == EventRuntime.UpDown.Up
+					? 2
+					: Const.Height - messageBox.Height - 2
+			);
 
 			stage.Location = Core.I.Camera;
 		}
@@ -222,5 +253,9 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 		private bool handlingDying;
 		private DEText hud, shadow;
 		private bool handlingGoal;
+		private Sprite prompt;
+		private Container messageBox;
+		private DEText message;
+		private IEnumerator eventRuntimeIterator;
 	}
 }
