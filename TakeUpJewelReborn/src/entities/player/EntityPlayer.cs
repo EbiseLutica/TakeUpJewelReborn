@@ -348,7 +348,7 @@ namespace TakeUpJewel
 			SetGraphic(5);
 		}
 
-		internal void SetMuteki()
+		internal void SetGod()
 		{
 			AteGodItem = true;
 			GodTime = 600;

@@ -40,7 +40,7 @@ namespace TakeUpJewel
 				var ep = (EntityPlayer)entity;
 				if (!ep.IsDying && new RectangleF(ep.Location.ToPoint(), ep.Size).CheckCollision(new RectangleF(Location.ToPoint(), Size)))
 				{
-					ep.SetMuteki();
+					ep.SetGod();
 					IsDead = true;
 				}
 			}
