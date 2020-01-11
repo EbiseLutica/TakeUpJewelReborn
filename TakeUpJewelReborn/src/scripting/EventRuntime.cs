@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -108,7 +108,7 @@ namespace TakeUpJewel
 								yield return null;
 						}
 						IsWaitingResponse = true;
-						while (DFKeyboard.ShiftLeft.IsKeyDown)
+						while (!DFKeyboard.Z.IsKeyDown)
 							yield return null;
 						DESound.Play(Sounds.Selected);
 						yield return null;
@@ -133,7 +133,7 @@ namespace TakeUpJewel
 					case "mesnod":
 
 						IsWaitingResponse = true;
-						while (!DFKeyboard.ShiftLeft.IsKeyDown)
+						while (!DFKeyboard.Z.IsKeyDown)
 							yield return null;
 						// DFKeyboard.Z.IsKeyDown = false;
 
