@@ -81,12 +81,14 @@ namespace TakeUpJewel
 			while (true)
 			{
 				time += Time.DeltaTime;
-				if (time > 8) break;
+				if (time > 7) break;
 
 				main.Velocity = new Vector(1.4f, main.Velocity.Y);
-
 				yield return null;
 			}
+			Core.I.LoadLevel(Core.I.NextLevel);
+			Core.I.IsGoal = false;
+			router.ChangeScene<PreStageScene>();
 		}
 
 		private void EntityAdded(object? sender, Entity e)
