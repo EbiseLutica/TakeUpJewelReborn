@@ -25,7 +25,6 @@ namespace TakeUpJewel
 		public static Texture2D[] IcePlayerFemale { get; private set; }
 		public static Texture2D[] MagicPlayerFemale { get; private set; }
 		public static Texture2D[] BigPlayerFemale { get; private set; }
-		public static Texture2D[] MiniPlayer { get; private set; }
 		public static Texture2D[] CommonMob { get; private set; }
 		public static Texture2D[] ModokeeGround { get; private set; }
 		public static Texture2D[] ModokeeCave { get; private set; }
@@ -63,7 +62,6 @@ namespace TakeUpJewel
 			IcePlayer = LoadAndSplit("Resources/Graphics/spplayer_ice.png", 18, 4, new VectorInt(16, 32));
 			FirePlayer = LoadAndSplit("Resources/Graphics/spplayer_fire.png", 18, 4, new VectorInt(16, 32));
 			BigPlayer = LoadAndSplit("Resources/Graphics/spplayer.png", 18, 4, new VectorInt(16, 32));
-			MiniPlayer = LoadAndSplit("Resources/Graphics/spplayermini.png", 18, 4, new VectorInt(16, 16));
 
 			MagicPlayerFemale = LoadAndSplit("Resources/Graphics/spfemaleplayer_magic.png", 18, 4, new VectorInt(16, 32));
 			IcePlayerFemale = LoadAndSplit("Resources/Graphics/spfemaleplayer_fire.png", 18, 4, new VectorInt(16, 32));
