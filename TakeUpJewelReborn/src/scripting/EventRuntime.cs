@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -194,6 +194,9 @@ namespace TakeUpJewel
 						break;
 					case "teleport":
 					case "tp":
+						var e = new PreEventArgs();
+						PreTeleport?.Invoke(e);
+						if (e.IsCanceled) break;
 						int level, area;
 						Core.I.IsGoal = false;
 						Core.I.Middle = VectorInt.Zero;
@@ -209,9 +212,9 @@ namespace TakeUpJewel
 								Core.I.LoadLevel(level, area);
 								break;
 						}
+						PostTeleport?.Invoke(new EventArgs());
 						break;
 				}
-
 
 				if (CurrentScript.IsEndOfScript)
 				{
@@ -224,5 +227,7 @@ namespace TakeUpJewel
 					CurrentScript.ProgramCounter++;
 			}
 		}
+		public static event StaticEventHandler<PreEventArgs>? PreTeleport;
+		public static event StaticEventHandler<EventArgs>? PostTeleport;
 	}
 }
