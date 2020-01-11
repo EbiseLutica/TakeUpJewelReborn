@@ -78,10 +78,6 @@ namespace TakeUpJewel
 		{
 			var baseDir = Path.Combine("Resources/Levels", "Level " + level);
 			var lvldatPath = Path.Combine(baseDir, "lvldat.json");
-			var areaDir = Path.Combine(baseDir, "Area " + area);
-			var areaPath = Path.Combine(areaDir, "area.json");
-			var mapPath = Path.Combine(areaDir, "map.citmap");
-			var spdataPath = Path.Combine(areaDir, "spdata.json");
 
 			if (CurrentLevel != level)
 			{
@@ -93,6 +89,11 @@ namespace TakeUpJewel
 			}
 
 			var a = area ?? CurrentLevelData!.FirstArea;
+
+			var areaDir = Path.Combine(baseDir, "Area " + a);
+			var areaPath = Path.Combine(areaDir, "area.json");
+			var mapPath = Path.Combine(areaDir, "map.citmap");
+			var spdataPath = Path.Combine(areaDir, "spdata.json");
 
 			// エリアを読み込む
 			CurrentMap = MapLoader.Load(mapPath);
