@@ -16,7 +16,6 @@ namespace TakeUpJewel
 		public static void Init()
 		{
 			soundList.Clear();
-			player.Gain = 0.25f;
 			string file;
 			for (var i = 0; File.Exists(file = $"Resources/Sounds/{i}.wav"); i++)
 			{
@@ -24,7 +23,6 @@ namespace TakeUpJewel
 				soundList.Add(handle);
 				logger.Info("Loaded Sound ID " + i);
 			}
-
 		}
 
 		/// <summary>
@@ -43,7 +41,7 @@ namespace TakeUpJewel
 		{
 			if (snd == -1)
 				return;
-			player.PlayOneShotAsync(soundList[snd]);
+			Core.I.player.PlayOneShotAsync(soundList[snd]);
 		}
 
 
@@ -69,8 +67,6 @@ namespace TakeUpJewel
 		// }
 
 		private static readonly List<IAudioSource> soundList = new List<IAudioSource>();
-
-		private static readonly AudioPlayer player = new AudioPlayer();
 
 		private static readonly Logger logger = new Logger("Sound");
 	}
