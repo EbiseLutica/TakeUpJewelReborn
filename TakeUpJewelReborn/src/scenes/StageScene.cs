@@ -10,6 +10,8 @@ namespace TakeUpJewel
 	{
 		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
 		{
+			this.router = router;
+			this.game = game;
 			if (!(Core.I.CurrentAreaInfo is AreaInfo area && Core.I.CurrentMap is MapData map))
 			{
 				// todo: エラーシーンを作成してそこで表示するようにする
@@ -32,6 +34,7 @@ namespace TakeUpJewel
 
 			Core.I.Entities.EntityAdded += EntityAdded;
 			Core.I.Entities.EntityRemoved += EntityRemoved;
+			EventRuntime.PostTeleport += HandleTeleport;
 
 			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
 		}
@@ -54,13 +57,13 @@ namespace TakeUpJewel
 			// プレイヤーの死亡処理
 			if (!handlingDying && !Core.I.IsFreezing && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
 			{
-				game.StartCoroutine(HandleDying(router, game));
+				game.StartCoroutine(HandleDying());
 			}
 
 			// ゴールハンドリング
 			if (!handlingGoal && !handlingDying && !Core.I.IsFreezing && Core.I.IsGoal)
 			{
-				game.StartCoroutine(HandleGoal(router, game));
+				game.StartCoroutine(HandleGoal());
 			}
 
 			if ((eventRuntimeIterator == null) || !eventRuntimeIterator.MoveNext())
@@ -90,9 +93,15 @@ namespace TakeUpJewel
 		{
 			Core.I.Entities.EntityAdded -= EntityAdded;
 			Core.I.Entities.EntityRemoved -= EntityRemoved;
+			EventRuntime.PostTeleport -= HandleTeleport;
 		}
 
-		private IEnumerator HandleDying(Router router, GameBase game)
+		private void HandleTeleport(EventArgs e)
+		{
+			router.ChangeScene<StageScene>();
+		}
+
+		private IEnumerator HandleDying()
 		{
 			handlingDying = true;
 			Core.I.BgmPlay("jingle_miss.mid");
@@ -102,7 +111,7 @@ namespace TakeUpJewel
 			router.ChangeScene<StageScene>();
 		}
 
-		private IEnumerator HandleGoal(Router router, GameBase game)
+		private IEnumerator HandleGoal()
 		{
 			handlingGoal = true;
 			Core.I.BgmPlay("jingle_goal.mid");
@@ -257,5 +266,7 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time} {Time.Fps}FPS"
 		private Container messageBox;
 		private DEText message;
 		private IEnumerator eventRuntimeIterator;
+		private Router router;
+		private GameBase game;
 	}
 }
