@@ -188,21 +188,16 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
 
 			if (Core.I.CurrentMap == null) return;
 
-			if ((main.Location.X + Core.I.Camera.X > Const.Width / 2) &&
-							(Core.I.Camera.X > -Core.I.CurrentMap.Size.X * 16 + Const.Width))
+			if ((main.Location.X + Core.I.Camera.X > Const.Width / 2) && (Core.I.Camera.X > -Core.I.CurrentMap.Size.X * 16 + Const.Width))
 				Core.I.Camera = new Vector(-(int)main.Location.X + Const.Width / 2, Core.I.Camera.Y);
 
-			if ((Core.I.CurrentMap.Size.X * 16 - main.Location.X > Const.Width / 2) &&
-				/*main.Velocity.X < 0 &&*/ (Core.I.Camera.X < 0))
+			if ((Core.I.CurrentMap.Size.X * 16 - main.Location.X > Const.Width / 2) && (Core.I.Camera.X < 0))
 				Core.I.Camera = new Vector(-(int)main.Location.X + Const.Width / 2, Core.I.Camera.Y);
 
-			if ((main.Location.Y + Core.I.Camera.Y > Const.Height / 2) &&
-				/*main.Velocity.Y > 0 &&*/
-				(Core.I.Camera.Y > -Core.I.CurrentMap.Size.Y * 16 + Const.Height))
+			if ((main.Location.Y + Core.I.Camera.Y > Const.Height / 2) && (Core.I.Camera.Y > -Core.I.CurrentMap.Size.Y * 16 + Const.Height))
 				Core.I.Camera = new Vector(Core.I.Camera.X, -(int)main.Location.Y + Const.Height / 2);
 
-			if ((Core.I.CurrentMap.Size.Y * 16 - main.Location.Y > Const.Height / 2) &&
-				/*main.Velocity.Y < 0 &&*/ (Core.I.Camera.Y < 0))
+			if ((Core.I.CurrentMap.Size.Y * 16 - main.Location.Y > Const.Height / 2) && (Core.I.Camera.Y < 0))
 				Core.I.Camera = new Vector(Core.I.Camera.X, -(int)main.Location.Y + Const.Height / 2);
 
 			if (Core.I.Camera.X > 0)

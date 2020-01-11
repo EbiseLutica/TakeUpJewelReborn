@@ -169,7 +169,6 @@ namespace TakeUpJewel
 					Velocity.X = 0;
 			}
 
-
 			if (DFKeyboard.Z.IsKeyDown)
 			{
 				if (!IsOnLand && DFKeyboard.Left && (CollisionLeft() == ObjectHitFlag.Hit))
