@@ -64,7 +64,7 @@ namespace TakeUpJewel
 		private IEnumerator HandleDying(Router router, GameBase game)
 		{
 			handlingDying = true;
-			Core.I.BgmPlay("bgm_miss.mid");
+			Core.I.BgmPlay("jingle_miss.mid");
 			yield return new WaitForSeconds(5);
 			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
 			Root.Clear();
