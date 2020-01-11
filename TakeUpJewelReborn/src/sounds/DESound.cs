@@ -41,7 +41,7 @@ namespace TakeUpJewel
 		{
 			if (snd == -1)
 				return;
-			Core.I.player.PlayOneShotAsync(soundList[snd]);
+			Core.I.Player.PlayOneShotAsync(soundList[snd]);
 		}
 
 

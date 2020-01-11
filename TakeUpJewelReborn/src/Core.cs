@@ -15,7 +15,7 @@ namespace TakeUpJewel
 	{
 		public static Core I { get; } = new Core();
 
-		public AudioPlayer player { get; } = new AudioPlayer();
+		public AudioPlayer Player { get; } = new AudioPlayer();
 
 		public PlayerGender CurrentGender { get; set; }
 
@@ -59,19 +59,19 @@ namespace TakeUpJewel
 		{
 			ResourceManager.Init();
 			DESound.Init();
-			bgmPlayer.Gain = 1;
+			Player.Gain = 1;
 		}
 
 		public void BgmPlay(string? id = null)
 		{
 			if (id == null)
 				return;
-			Task.Run(() => bgmPlayer.Play(ResourceManager.MusicList[id]));
+			Task.Run(() => Player.Play(ResourceManager.MusicList[id]));
 		}
 
 		public void BgmStop(int time = 0)
 		{
-			bgmPlayer.Stop(time / 1000f);
+			Player.Stop(time / 1000f);
 		}
 
 		public void LoadLevel(int level, int? area = null)
@@ -158,8 +158,6 @@ namespace TakeUpJewel
 		internal void _SetTick(int tick) => Tick = tick;
 
 		private static Random rnd = new Random();
-
-		private AudioPlayer bgmPlayer = new AudioPlayer();
 
 		private Logger logger = new Logger(nameof(Core));
 	}
