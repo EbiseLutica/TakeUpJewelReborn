@@ -418,6 +418,7 @@ namespace TakeUpJewel
 
 		public virtual void OnDyingAnimation(IDrawable d)
 		{
+			if (DyingMax == 0) return;
 			var lerp = DFMath.Lerp((DyingMax - DyingTick) / (float)DyingMax, 1, 0);
 			if (d is Sprite s)
 			{
