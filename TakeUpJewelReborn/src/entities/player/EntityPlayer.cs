@@ -150,17 +150,27 @@ namespace TakeUpJewel
 		{
 			if (DFKeyboard.Left)
 			{
-				Direction = Direction.Left;
-				Velocity.X -= _spdAddition;
-				if (Velocity.X < -_spdlimit)
-					Velocity.X = -_spdlimit;
+				var e = new PreEventArgs();
+				PreMove?.Invoke(this, e);
+				if (!e.IsCanceled)
+				{
+					Direction = Direction.Left;
+					Velocity.X -= _spdAddition;
+					if (Velocity.X < -_spdlimit)
+						Velocity.X = -_spdlimit;
+				}
 			}
 			else if (DFKeyboard.Right)
 			{
-				Direction = Direction.Right;
-				Velocity.X += _spdAddition;
-				if (Velocity.X > _spdlimit)
-					Velocity.X = _spdlimit;
+				var e = new PreEventArgs();
+				PreMove?.Invoke(this, e);
+				if (!e.IsCanceled)
+				{
+					Direction = Direction.Right;
+					Velocity.X += _spdAddition;
+					if (Velocity.X > _spdlimit)
+						Velocity.X = _spdlimit;
+				}
 			}
 			else
 			{
@@ -194,12 +204,17 @@ namespace TakeUpJewel
 					}
 					else if (IsOnLand || (_flowtimer < 10))
 					{
-						if (!IsJumping)
-							DESound.Play(Sounds.BigJump);
-						Velocity.Y = -3.6f - Math.Abs(Velocity.X) / 6.5f;
-						Move();
+						var e = new PreEventArgs();
+						PreJump?.Invoke(this, e);
+						if (!e.IsCanceled)
+						{
+							if (!IsJumping)
+								DESound.Play(Sounds.BigJump);
+							Velocity.Y = -3.6f - Math.Abs(Velocity.X) / 6.5f;
+							IsJumping = true;
+							Move();
+						}
 					}
-					IsJumping = true;
 				}
 			}
 			if (IsOnLand)
@@ -283,33 +298,48 @@ namespace TakeUpJewel
 			if (IsFall)
 			{
 				base.Kill();
-				Velocity = Vector.Zero;
-				Life = 0;
-				DESound.Play(Sounds.PlayerMiss);
+
+				// イベントで抑制されている可能性があるので確認する
+				if (IsDying)
+				{
+					Velocity = Vector.Zero;
+					Life = 0;
+					DESound.Play(Sounds.PlayerMiss);
+				}
 				return;
 			}
 			if (Core.I.Time == 0)
 			{
-				SetGraphic(5);
 				base.Kill();
+				if (IsDying)
+					SetGraphic(5);
 				return;
 			}
 			if (GodTime > 0)
 				return;
-			DESound.Play(Sounds.PowerDown);
-			GodTime = 240;
-			Life--;
 
-			if (Form != PlayerForm.Big)
-				Form = PlayerForm.Big;
+			var e = new PreEventArgs();
+			PreDamage?.Invoke(this, e);
+			if (!e.IsCanceled)
+			{
+				DESound.Play(Sounds.PowerDown);
+				var e2 = new PlayerGodEventArgs(240, false);
+				PreGod?.Invoke(this, e2);
+				if (!e2.IsCanceled)
+					GodTime = e2.Time;
+				Life--;
+
+				if (Form != PlayerForm.Big)
+					Form = PlayerForm.Big;
+
+				Velocity = Vector.Zero;
+			}
 
 			if (Life < 1)
 			{
 				SetGraphic(5);
 				base.Kill();
 			}
-
-			Velocity = Vector.Zero;
 		}
 
 		public override void OnUpdate(Vector p, IDrawable d)
@@ -326,6 +356,11 @@ namespace TakeUpJewel
 
 		internal void PowerUp(PlayerForm f)
 		{
+			var e = new PlayerPowerUpEventArgs(f);
+			PrePowerUp?.Invoke(this, e);
+			f = e.Form;
+			if (e.IsCanceled) return;
+
 			switch (f)
 			{
 				case PlayerForm.Fire:
@@ -350,11 +385,23 @@ namespace TakeUpJewel
 
 		internal void SetGod()
 		{
-			AteGodItem = true;
-			GodTime = 600;
+			var e = new PlayerGodEventArgs(600, true);
+			PreGod?.Invoke(this, e);
 
-			DESound.Play(Sounds.PowerUp);
-			Core.I.BgmPlay("bgm_god.mid");
+			if (!e.IsCanceled)
+			{
+				AteGodItem = true;
+				GodTime = e.Time;
+
+				DESound.Play(Sounds.PowerUp);
+				Core.I.BgmPlay("bgm_god.mid");
+			}
 		}
+
+		public static event PreEventHandler? PreMove;
+		public static event PreEventHandler? PreJump;
+		public static event EventHandler<PlayerPowerUpEventArgs>? PrePowerUp;
+		public static event EventHandler<PlayerGodEventArgs>? PreGod;
+		public static event PreEventHandler? PreDamage;
 	}
 }

@@ -396,6 +396,10 @@ namespace TakeUpJewel
 
 		public override void Kill()
 		{
+			var e = new PreEventArgs();
+			EntityLiving.PreKill?.Invoke(this, e);
+			if (e.IsCanceled) return;
+
 			IsDying = true;
 			DyingTick = DyingMax;
 			if (IsDying)
@@ -426,5 +430,7 @@ namespace TakeUpJewel
 				s.Location += Vector.Right * lerp;
 			}
 		}
+
+		public static event EventHandler<PreEventArgs>? PreKill;
 	}
 }
