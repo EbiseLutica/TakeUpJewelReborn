@@ -148,9 +148,15 @@ namespace TakeUpJewel
 			if (!(Core.I.CurrentMap is MapData map)) return;
 
 			var chips = map.Chips;
+			backTile.Clear();
+			foreTile.Clear();
 			for (var y = 0; y < map.Size.Y; y++)
 				for (var x = 0; x < map.Size.X; x++)
 				{
+					var abs = Core.I.Camera + new Vector(x, y) * 16;
+
+					if (abs.X <= -16 || abs.Y <= -16 || abs.X >= Const.Width || abs.Y >= Const.Height)
+						continue;
 					backTile[x, y] = Core.I.Mpts[chips[x, y, 1]];
 					foreTile[x, y] = Core.I.Mpts[chips[x, y, 0]];
 				}
