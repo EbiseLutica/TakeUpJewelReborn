@@ -64,8 +64,11 @@ namespace TakeUpJewel
 
 		public void BgmPlay(string? id = null)
 		{
-			if (id == null)
+			if (string.IsNullOrEmpty(id))
+			{
+				BgmStop();
 				return;
+			}
 			Task.Run(() => Player.Play(ResourceManager.MusicList[id]));
 		}
 
