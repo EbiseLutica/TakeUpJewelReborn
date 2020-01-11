@@ -37,6 +37,7 @@ namespace TakeUpJewel
 			EventRuntime.PostTeleport += HandleTeleport;
 
 			Core.I.BgmPlay(Core.I.CurrentAreaInfo.Music);
+
 		}
 
 		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
@@ -44,6 +45,9 @@ namespace TakeUpJewel
 			if (!game.IsFocused) return;
 
 			Core.I._SetTick(Core.I.Tick + 1);
+
+			if (DFKeyboard.G.IsKeyDown)
+				(Core.I.Entities.MainEntity as EntityPlayer)?.SetGod();
 
 			ControlCamera();
 			RenderMap();
