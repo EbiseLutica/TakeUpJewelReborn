@@ -186,6 +186,8 @@ namespace TakeUpJewel
 		{
 			if (!(d is Sprite sprite)) return;
 
+			base.OnUpdate(p, d);
+
 			var cond = (MutekiTime > 0) && MutekiTime % 8 < 4;
 
 			sprite.Color = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
