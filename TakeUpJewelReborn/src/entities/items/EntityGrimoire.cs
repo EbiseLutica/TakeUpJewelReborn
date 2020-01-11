@@ -19,8 +19,6 @@ namespace TakeUpJewel
 
 		public override Texture2D[] ImageHandle => ResourceManager.Item;
 
-		public static bool Nikaime { get; set; }
-
 		public override float Gravity => 0.05f;
 
 		public override EntityGroup MyGroup => EntityGroup.Stage;
@@ -35,12 +33,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			if (!Nikaime)
-			{
-				EventRuntime.AddScript(Misc.GenerateItemDescription("グリモワール(魔導書)\n魔法の　すべてが　記されている。",
-					"魔法弾が撃てるようになる。", "魔法弾は　射程距離が　短いが　最も近くの　モンスターを　たおす。"));
-				Nikaime = true;
-			}
 			Velocity.X *= 0.98f;
 			foreach (var entity in Parent.FindEntitiesByType<EntityPlayer>())
 			{

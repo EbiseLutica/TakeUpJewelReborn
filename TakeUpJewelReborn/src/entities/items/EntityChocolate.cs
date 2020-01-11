@@ -17,9 +17,7 @@ namespace TakeUpJewel
 			SetGraphic(5);
 		}
 
-		public static bool Nikaime { get; set; }
 		public override Texture2D[] ImageHandle => ResourceManager.Item;
-
 
 		public override EntityGroup MyGroup => EntityGroup.Stage;
 
@@ -35,11 +33,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			if (!Nikaime)
-			{
-				EventRuntime.AddScript(Misc.GenerateItemDescription(@"ソウルチョコレート\n命の　すべてが　詰まった　フシギな　チョコレート。", "プレイヤーの　体力が　1だけ　回復する。"));
-				Nikaime = true;
-			}
 			if (Velocity.Y < 0)
 				Velocity.Y += 0.1f;
 			else if (MainAi == null)

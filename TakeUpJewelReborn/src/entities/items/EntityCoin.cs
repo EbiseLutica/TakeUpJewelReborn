@@ -26,7 +26,6 @@ namespace TakeUpJewel
 
 
 		public override EntityGroup MyGroup => EntityGroup.Stage;
-		public static bool tutorialRead { get; set; }
 
 		public override Entity SetEntityData(dynamic jsonobj)
 		{
@@ -56,12 +55,6 @@ namespace TakeUpJewel
 						_animating = true;
 						DESound.Play(Sounds.GetCoin);
 						Core.I.Coin++;
-						if (!tutorialRead)
-						{
-							EventRuntime.AddScript(Misc.GenerateItemDescription("トランジスタコイン\nトランジスタ王国の　通貨。",
-								"50枚　集めると　残機が　1だけ　増える。"));
-							tutorialRead = true;
-						}
 						break;
 				}
 

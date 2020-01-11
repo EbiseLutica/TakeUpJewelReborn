@@ -19,8 +19,6 @@ namespace TakeUpJewel
 
 		public override Texture2D[] ImageHandle => ResourceManager.Item;
 
-
-		public static bool Nikaime { get; set; }
 		public override EntityGroup MyGroup => EntityGroup.Stage;
 
 		public override void SetKilledAnime()
@@ -33,14 +31,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			if (!Nikaime)
-			{
-				EventRuntime.AddScript(Misc.GenerateItemDescription(@"ほのおのつえ\nなくならない　燃料が　詰められた　つえ。",
-					"ファイアボールを　撃てるようになる。　ファイアボールは　向いている　方向に　発射でき、　上下キーで　向きを　調節可能。"));
-				Nikaime = true;
-			}
-
-
 			foreach (var entity in Parent.FindEntitiesByType<EntityPlayer>())
 			{
 				var ep = (EntityPlayer)entity;

@@ -16,9 +16,7 @@ namespace TakeUpJewel
 			SetGraphic(4);
 		}
 
-		public static bool Nikaime { get; set; }
 		public override Texture2D[] ImageHandle => ResourceManager.Item;
-
 
 		public override EntityGroup MyGroup => EntityGroup.Stage;
 
@@ -32,13 +30,6 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			if (!Nikaime)
-			{
-				EventRuntime.AddScript(Misc.GenerateItemDescription(@"アイシーペンダント\n触ると　つめたい　アイシークリスタルで　つくられた　ペンダント。",
-					"氷ブロックを　発射できるようになる。", "氷ブロックは　床を滑りながら　敵を倒し　滑り続けると　小さくなり　最終的には　消える。"));
-				Nikaime = true;
-			}
-
 			foreach (var entity in Parent.FindEntitiesByType<EntityPlayer>())
 			{
 				var ep = (EntityPlayer)entity;
