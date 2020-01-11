@@ -162,7 +162,7 @@ namespace TakeUpJewel
 		private string GenerateHUD()
 		{
 			return $@"①{Core.I.Coin} {(Core.I.CurrentGender == PlayerGender.Male ? "Alen" : "Lucy")}×∞{new string('♥', (Core.I.Entities.MainEntity as EntityPlayer)?.Life ?? 0)}
-Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time}";
+Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time} {Time.Fps}FPS";
 		}
 
 		private void InitializeMap(AreaInfo area)
