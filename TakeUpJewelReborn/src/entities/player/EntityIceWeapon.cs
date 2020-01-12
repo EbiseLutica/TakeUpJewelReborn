@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using DotFeather;
 
 namespace TakeUpJewel
@@ -61,10 +62,11 @@ namespace TakeUpJewel
 			if (Location.Y > Core.I.CurrentMap.Size.Y * 16)
 				Kill(true, false);
 
-			foreach (EntityLiving e in new List<Entity>(Parent.FindEntitiesByType<EntityLiving>()))
+			foreach (EntityLiving e in Parent.FindEntitiesByType<EntityLiving>().ToList())
 				if (!e.IsDying && (e.MyGroup == EntityGroup.Enemy) &&
 					new RectangleF(Location.ToPoint(), Size).CheckCollision(new RectangleF(e.Location.ToPoint(), e.Size)))
 					e.Kill();
+
 			if (Life < 1)
 				Kill();
 
