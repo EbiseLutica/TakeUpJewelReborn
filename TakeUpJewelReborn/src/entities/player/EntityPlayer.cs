@@ -36,8 +36,6 @@ namespace TakeUpJewel
 			Map = chips;
 			Parent = par;
 			CollisionAIs.Add(new AiKillMonster(this));
-
-			IsOnLand = true;
 			Form = PlayerForm.Big;
 			Size = new Size(12, 14);
 		}
@@ -94,6 +92,23 @@ namespace TakeUpJewel
 				base.Move();
 		}
 
+		public override void UpdatePhysics(ColliderType top, ColliderType bottom, ColliderType left, ColliderType right)
+		{
+			base.UpdatePhysics(top, bottom, left, right);
+			var (x, y) = (VectorInt)Location;
+			for (var i = (int)Collision.Left; i < Collision.Right; i++)
+			{
+				if (top.IsLandLike() && Map[(x + i) / 16, (y - 1) / 16, 0] == 9)
+				{
+					Map[(x + i) / 16, (y - 1) / 16, 0] = 0;
+					DESound.Play(Sounds.Destroy);
+					Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
+				}
+			}
+			if (IsOnLand)
+				IsJumping = false;
+		}
+
 		public override void UpdateGravity()
 		{
 			if (PowerupTime == 0)
@@ -124,19 +139,19 @@ namespace TakeUpJewel
 			switch (Direction)
 			{
 				case Direction.Left:
-					if (IsOnLand)
+					if (!IsJumping)
 						SetAnime(0, 3, 8);
 					else
 						SetGraphic(4);
-					if (IsInWater)
+					if (IsUnderWater)
 						SetAnime(18, 21, 8);
 					break;
 				case Direction.Right:
-					if (IsOnLand)
+					if (!IsJumping)
 						SetAnime(6, 9, 8);
 					else
 						SetGraphic(10);
-					if (IsInWater)
+					if (IsUnderWater)
 						SetAnime(22, 25, 8);
 					break;
 			}
@@ -195,12 +210,11 @@ namespace TakeUpJewel
 				}
 				else
 				{
-					if (IsInWater)
+					if (IsUnderWater)
 					{
 						DESound.Play(Sounds.Swim);
 						Velocity.Y = -2f;
 						IsJumping = false;
-						IsOnLand = true;
 					}
 					else if (IsOnLand || (_flowtimer < 10))
 					{

@@ -43,7 +43,6 @@ namespace TakeUpJewel
 			Parent = par;
 			CollisionAIs.Add(new AiKillDefender(this));
 			InternalGravity = 0.1f;
-			IsOnLand = true;
 			_firstLoc = pnt;
 			Tick = 50;
 			_left = _firstLoc.X - 192;

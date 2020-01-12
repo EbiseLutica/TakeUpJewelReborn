@@ -21,10 +21,9 @@ namespace TakeUpJewel
 
 		public override int DyingMax => 0;
 
-		public override void CheckCollision()
+		public override void UpdatePhysics(ColliderType top, ColliderType bottom, ColliderType left, ColliderType right)
 		{
 		}
-
 
 		public override void SetKilledAnime()
 		{

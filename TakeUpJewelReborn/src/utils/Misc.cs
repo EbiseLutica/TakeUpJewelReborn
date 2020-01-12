@@ -93,5 +93,8 @@ namespace TakeUpJewel
 		/// <returns>当たっているかどうか。</returns>
 		public static bool CheckCollision(this Vector p, RectangleF r)
 			=> (r.X < p.X) && (p.X < r.X + r.Width) && (r.Y < p.Y) && (p.Y < r.Y + r.Height);
+
+		public static bool IsLandLike(this ColliderType t)
+			=> t == ColliderType.Land || t == ColliderType.NeedleLike || t == ColliderType.PoisonLike;
 	}
 }

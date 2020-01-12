@@ -33,11 +33,6 @@ namespace TakeUpJewel
 		public bool IsFall;
 
 		/// <summary>
-		/// 地面についているかどうか。
-		/// </summary>
-		public bool IsOnLand;
-
-		/// <summary>
 		/// 自分の座標。
 		/// </summary>
 		public Vector Location;
@@ -60,7 +55,7 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 自分につけられたタグ。
 		/// </summary>
-		public string Tag;
+		public string Tag = "";
 
 		/// <summary>
 		/// 自分の速度。

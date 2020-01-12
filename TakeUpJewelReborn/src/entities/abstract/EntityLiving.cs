@@ -19,11 +19,18 @@ namespace TakeUpJewel
 		public int DyingTick;
 
 		/// <summary>
+		/// 地面についているかどうか。
+		/// </summary>
+		public bool IsOnLand;
+
+		public int FlightingTime;
+
+		/// <summary>
 		/// 死んでいる途中かどうか。
 		/// </summary>
 		public bool IsDying;
 
-		public bool IsInWater;
+		public bool IsUnderWater;
 
 		/// <summary>
 		/// ジャンプしているかどうか。
@@ -47,23 +54,34 @@ namespace TakeUpJewel
 		public virtual int DyingMax => 42;
 
 
+		public abstract void SetKilledAnime();
+		public abstract void SetCrushedAnime();
+
 		public virtual void UpdateGravity()
 		{
 			Velocity.Y += Gravity;
-			if (IsInWater)
+			if (IsUnderWater)
 				Velocity.Y -= 0.03f;
 		}
 
 		public override void OnUpdate()
 		{
 			UpdateGravity();
-			CheckCollision();
-			IsInWater = GetIsInWater();
+
+			var top = CollisionTop();
+			var bottom = CollisionBottom();
+			var left = CollisionLeft();
+			var right = CollisionRight();
+			if (Core.I.CurrentMap != null && Location.Y > Core.I.CurrentMap.Size.Y * 16)
+				Kill(true, false);
+			UpdatePhysics(top, bottom, left, right);
+
+			IsUnderWater = GetIsInWater();
 			if (IsDying)
 				Dying();
-			if (IsInWater && !BIsInWater)
+			if (IsUnderWater && !BIsInWater)
 				OnIntoWater();
-			if (!IsInWater && BIsInWater)
+			if (!IsUnderWater && BIsInWater)
 				OnOutOfWater();
 
 			base.OnUpdate();
@@ -71,7 +89,7 @@ namespace TakeUpJewel
 
 		public override void Backup()
 		{
-			BIsInWater = IsInWater;
+			BIsInWater = IsUnderWater;
 			base.Backup();
 		}
 
@@ -118,18 +136,46 @@ namespace TakeUpJewel
 		}
 
 		/// <summary>
-		/// 当たり判定を計算します。
+		/// 物理演算を行います。
 		/// </summary>
-		public virtual void CheckCollision()
+		public virtual void UpdatePhysics(ColliderType top, ColliderType bottom, ColliderType left, ColliderType right)
 		{
-			if (Core.I.CurrentMap == null)
-				return;
-			if (Location.Y > Core.I.CurrentMap.Size.Y * 16)
-				Kill(true, false);
-			CollisionTop();
-			CollisionBottom();
-			CollisionLeft();
-			CollisionRight();
+			if (Location.X < 0)
+				Location.X = 0;
+
+			if (Core.I.CurrentMap != null && Location.X > Core.I.CurrentMap.Size.X * 16)
+				Location.X = Core.I.CurrentMap.Size.X * 16;
+
+			if (top.IsLandLike() && Velocity.Y < 0)
+			{
+				// 天井で反発する
+				Velocity.Y = 0;
+		}
+
+			IsOnLand = bottom.IsLandLike();
+			if (IsOnLand && Velocity.Y > 0)
+			{
+				Velocity.Y = 0;
+			}
+
+			// 滞空時間を更新
+			FlightingTime = IsOnLand ? 0 : FlightingTime + 1;
+
+			if (left.IsLandLike() && Velocity.X < 0)
+			{
+				if (CollisionTopLeft().IsLandLike() || FlightingTime > 10)
+					Velocity.X = 0;
+				else while (Misc.CheckHit((int)(Location.X), (int)(Location.Y + Collision.Bottom)).IsLandLike())
+						Location.Y--;
+			}
+
+			if (right.IsLandLike() && Velocity.X > 0)
+			{
+				if (CollisionTopRight().IsLandLike() || FlightingTime > 10)
+					Velocity.X = 0;
+				else while (Misc.CheckHit((int)(Location.X + Collision.Right), (int)(Location.Y + Collision.Bottom)).IsLandLike())
+						Location.Y--;
+			}
 		}
 
 		/// <summary>
@@ -137,52 +183,17 @@ namespace TakeUpJewel
 		/// </summary>
 		public virtual ColliderType CollisionTop()
 		{
-			int x, y;
-			var retval = ColliderType.Air;
-
-			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
+			for (var x = (int)(Location.X + Collision.Left);
 				x < (int)(Location.X + Collision.Right);
 				x += (int)Collision.Width / 2)
 			{
-				y = (int)(Location.Y + Collision.Y);
+				var y = (int)(Location.Y + Collision.Y);
 				var hit = Misc.CheckHit(x, y);
-				switch (hit)
-				{
-					case ColliderType.Land:
-						Location.Y++;
-						Velocity.Y = 0;
-						if (this is EntityPlayer)
-							if (IsJumping && (Map[x / 16, y / 16, 0] == 9)) //ブロック破壊
-							{
-								DESound.Play(Sounds.Destroy);
-								Map[x / 16, y / 16, 0] = 0;
-								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
-							}
-						break;
-					case ColliderType.NeedleLike:
-						Kill();
-						goto case ColliderType.Land;
-					case ColliderType.PoisonLike:
-						Kill();
-						goto case ColliderType.Land;
-				}
-				if (Misc.CheckHit(x, y - 1) == ColliderType.Land)
-					retval = ColliderType.Land;
+				if (hit != ColliderType.Air)
+					return hit;
 			}
-			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
-			{
-				if (sc == this)
-					continue;
-				if (new Rectangle((int)(Location.X + Collision.Left), (int)(Location.Y + Collision.Y), (int)Collision.Width, 1)
-					.CheckCollision(
-						new Rectangle((int)(sc.Location.X + sc.Collision.Left), (int)(sc.Location.Y + sc.Collision.Y),
-							(int)sc.Collision.Width, (int)sc.Collision.Height)))
-				{
-					Location.Y++;
-					Velocity.Y = 0;
-				}
-			}
-			return retval;
+
+			return ColliderType.Air;
 		}
 
 		/// <summary>
@@ -190,162 +201,85 @@ namespace TakeUpJewel
 		/// </summary>
 		public virtual ColliderType CollisionBottom()
 		{
-			int x, y;
-			var retval = ColliderType.Air;
-			IsOnLand = false;
-			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
+			for (var x = (int)(Location.X + Collision.Left);
 				x < (int)(Location.X + Collision.Right);
 				x += (int)Collision.Width / 2)
 			{
-				y = (int)(Location.Y + Collision.Y + Collision.Height);
+				var y = (int)(Location.Y + Collision.Y + Collision.Height);
 				var hit = Misc.CheckHit(x, y);
-
-				switch (hit)
-				{
-					case ColliderType.Land:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Land)
-							Location.Y--;
-						IsOnLand = true;
-						IsJumping = false;
-						retval = ColliderType.Land;
-						if (Velocity.Y > 0)
-							Velocity.Y = 0;
-						break;
-					case ColliderType.NeedleLike:
-						Kill();
-						goto case ColliderType.Land;
-					case ColliderType.PoisonLike:
-						Kill();
-						goto case ColliderType.Land;
-				}
-				if (Misc.CheckHit(x, y + 1) == ColliderType.Land)
-					retval = ColliderType.Land;
+				if (hit != ColliderType.Air)
+					return hit;
 			}
-			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
-			{
-				if (sc == this)
-					continue;
-				if (new Rectangle((int)(Location.X + Collision.Left), (int)(Location.Y + Collision.Bottom), (int)Collision.Width,
-					1).CheckCollision(
-					new Rectangle((int)(sc.Location.X + sc.Collision.Left), (int)(sc.Location.Y + sc.Collision.Y),
-						(int)sc.Collision.Width, (int)sc.Collision.Height)))
-				{
-					Location.Y--;
-					IsOnLand = true;
-					if (Velocity.Y > 0)
-						Velocity.Y = 0;
-					retval = ColliderType.Land;
-				}
+
+			return ColliderType.Air;
 			}
-			return retval;
-		}
-
-		public abstract void SetKilledAnime();
-		public abstract void SetCrushedAnime();
-
 
 		/// <summary>
 		/// 左の当たり判定を計算します。
 		/// </summary>
 		public virtual ColliderType CollisionLeft()
 		{
-			int x, y;
-			var retval = ColliderType.Air;
-
-			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
+			for (var y = (int)(Location.Y + Collision.Top);
 				y < (int)(Location.Y + Collision.Bottom);
-				y += (int)Collision.Height / 3)
+				y += (int)Collision.Height / 8)
 			{
-				x = (int)(Location.X + Collision.X);
+				var x = (int)(Location.X + Collision.X);
 				var hit = Misc.CheckHit(x, y);
-				switch (hit)
-				{
-					case ColliderType.Land:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Air)
-							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
-						else
-							Location.X++;
-						Velocity.X = 0;
-						retval = ColliderType.Land;
-						break;
-					case ColliderType.NeedleLike:
-						Kill();
-						goto case ColliderType.Land;
-					case ColliderType.PoisonLike:
-						Kill();
-						goto case ColliderType.Land;
+				if (hit != ColliderType.Air)
+					return hit;
 				}
-				if (Misc.CheckHit(x - 1, y) == ColliderType.Land)
-					retval = ColliderType.Land;
+			return ColliderType.Air;
 			}
-			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
-			{
-				if (sc == this)
-					continue;
-				if (new Rectangle((int)(Location.X + Collision.Left), (int)(Location.Y + Collision.Y), 1, (int)Collision.Height)
-					.CheckCollision(
-						new Rectangle((int)(sc.Location.X + sc.Collision.Left), (int)(sc.Location.Y + sc.Collision.Y),
-							(int)sc.Collision.Width, (int)sc.Collision.Height)))
-				{
-					Location.X++;
-					Velocity.X = 0;
-					retval = ColliderType.Land;
-				}
-			}
-			return retval;
-		}
 
 		/// <summary>
 		/// 右の当たり判定を計算します。
 		/// </summary>
 		public virtual ColliderType CollisionRight()
-		{
-			int x, y;
-			var retval = ColliderType.Air;
-
-			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
+			{
+			for (var y = (int)(Location.Y + Collision.Top);
 				y < (int)(Location.Y + Collision.Bottom);
-				y += (int)Collision.Height / 3)
-			{
-				x = (int)(Location.X + Collision.X + Collision.Width);
+				y += (int)Collision.Height / 8)
+				{
+				var x = (int)(Location.X + Collision.X + Collision.Width);
 				var hit = Misc.CheckHit(x, y);
-				switch (hit)
-				{
-					case ColliderType.Air:
-						break;
-					case ColliderType.Land:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Air)
-							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
-						else
-							Location.X--;
-						Velocity.X = 0;
-						retval = ColliderType.Land;
-						break;
-					case ColliderType.NeedleLike:
-						Kill();
-						goto case ColliderType.Land;
-					case ColliderType.PoisonLike:
-						Kill();
-						goto case ColliderType.Land;
-				}
-				if (Misc.CheckHit(x + 1, y) == ColliderType.Land)
-					retval = ColliderType.Land;
+				if (hit != ColliderType.Air)
+					return hit;
 			}
-			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
+			return ColliderType.Air;
+		}
+
+		/// <summary>
+		/// 左の当たり判定を計算します。
+		/// </summary>
+		public virtual ColliderType CollisionTopLeft()
+		{
+			for (var y = (int)(Location.Y + Collision.Top);
+				y < (int)(Location.Y + Collision.Bottom / 2);
+				y += (int)Collision.Height / 8)
 			{
-				if (sc == this)
-					continue;
-				if (new Rectangle((int)(Location.X + Collision.Left), (int)(Location.Y + Collision.Y), 1, (int)Collision.Height)
-					.CheckCollision(
-						new Rectangle((int)(sc.Location.X + sc.Collision.Left), (int)(sc.Location.Y + sc.Collision.Y),
-							(int)sc.Collision.Width, (int)sc.Collision.Height)))
-				{
-					Location.X--;
-					Velocity.X = 0;
-					retval = ColliderType.Land;
+				var x = (int)(Location.X + Collision.X);
+				var hit = Misc.CheckHit(x, y);
+				if (hit != ColliderType.Air)
+					return hit;
 				}
+			return ColliderType.Air;
 			}
-			return retval;
+
+		/// <summary>
+		/// 右の当たり判定を計算します。
+		/// </summary>
+		public virtual ColliderType CollisionTopRight()
+			{
+			for (var y = (int)(Location.Y + Collision.Top);
+				y < (int)(Location.Y + Collision.Bottom / 2);
+				y += (int)Collision.Height / 8)
+				{
+				var x = (int)(Location.X + Collision.X + Collision.Width);
+				var hit = Misc.CheckHit(x, y);
+				if (hit != ColliderType.Air)
+					return hit;
+			}
+			return ColliderType.Air;
 		}
 
 		public override void Kill()

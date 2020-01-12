@@ -194,7 +194,7 @@ namespace TakeUpJewel
 		{
 		}
 
-		public override void CheckCollision()
+		public override void UpdatePhysics(ColliderType top, ColliderType bottom, ColliderType left, ColliderType right)
 		{
 		}
 

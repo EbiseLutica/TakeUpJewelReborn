@@ -35,10 +35,10 @@ namespace TakeUpJewel
 
 		public EntityLiving Owner { get; set; }
 
-		public override void CheckCollision()
+		public override void UpdatePhysics(ColliderType top, ColliderType bottom, ColliderType left, ColliderType right)
 		{
 			if (!IsDying && ((Owner == null) || IsRunning))
-				base.CheckCollision();
+				base.UpdatePhysics(top, bottom, left, right);
 		}
 
 		public override void SetKilledAnime()
