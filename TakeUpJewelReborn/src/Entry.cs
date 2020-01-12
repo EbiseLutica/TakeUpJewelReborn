@@ -26,7 +26,8 @@ namespace TakeUpJewel
 
 			game.Update += (s, e) =>
 			{
-
+				if (DFKeyboard.R.IsKeyDown)
+					Core.I.ReloadAudioPlayer();
 			};
 
 			game.Run();

@@ -15,7 +15,7 @@ namespace TakeUpJewel
 	{
 		public static Core I { get; } = new Core();
 
-		public AudioPlayer Player { get; } = new AudioPlayer();
+		public AudioPlayer Player { get; private set; } = new AudioPlayer();
 
 		public PlayerGender CurrentGender { get; set; }
 
@@ -131,6 +131,12 @@ namespace TakeUpJewel
 		}
 
 		public static int GetRand(int max) => rnd.Next(max);
+
+		public void ReloadAudioPlayer()
+		{
+			Player?.Dispose();
+			Player = new AudioPlayer();
+		}
 
 		private void LoadMasks(string name)
 		{
