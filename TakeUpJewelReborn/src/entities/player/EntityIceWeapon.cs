@@ -23,7 +23,6 @@ namespace TakeUpJewel
 
 		public override Texture2D[] ImageHandle => ResourceManager.Weapon;
 
-
 		public override EntityGroup MyGroup => EntityGroup.DefenderWeapon;
 
 		public override Sounds KilledSound => Sounds.Null;
@@ -72,12 +71,10 @@ namespace TakeUpJewel
 			if (Life == 70)
 			{
 				SetGraphic(15);
-				Velocity.X *= 0.5f;
 			}
 			if (Life == 35)
 			{
 				SetGraphic(16);
-				Velocity.X *= 0.5f;
 			}
 
 			if ((CollisionLeft() == ObjectHitFlag.Hit) || (CollisionRight() == ObjectHitFlag.Hit))
