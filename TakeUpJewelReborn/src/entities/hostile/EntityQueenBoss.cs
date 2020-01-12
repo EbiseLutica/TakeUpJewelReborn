@@ -89,7 +89,7 @@ namespace TakeUpJewel
 			if (!_isBattling)
 			{
 				// ReSharper disable once AssignmentInConditionalExpression
-				if (_isBattling = Location.GetLengthTo(Parent.MainEntity.Location) < _startKyori)
+				if (_isBattling = Location.Distance(Parent.MainEntity.Location) < _startKyori)
 					try
 					{
 						EventRuntime.AddScript(new EventScript(_startScript));

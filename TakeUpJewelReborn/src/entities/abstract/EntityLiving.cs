@@ -145,14 +145,10 @@ namespace TakeUpJewel
 				x += (int)Collision.Width / 2)
 			{
 				y = (int)(Location.Y + Collision.Y);
-				var pnt = new Point(x, y);
-				if (pnt.IsOutOfRange())
-					continue;
-				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
+				var hit = Misc.CheckHit(x, y);
 				switch (hit)
 				{
 					case ColliderType.Land:
-						//if (Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Hit)
 						Location.Y++;
 						Velocity.Y = 0;
 						if (this is EntityPlayer)
@@ -170,10 +166,8 @@ namespace TakeUpJewel
 						Kill();
 						goto case ColliderType.Land;
 				}
-				if (y > 0)
-					if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Land)
-						retval = ColliderType.Land;
-				// DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
+				if (Misc.CheckHit(x, y - 1) == ColliderType.Land)
+					retval = ColliderType.Land;
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
 			{
@@ -204,16 +198,10 @@ namespace TakeUpJewel
 				x += (int)Collision.Width / 2)
 			{
 				y = (int)(Location.Y + Collision.Y + Collision.Height);
-				var pnt = new Point(x, y);
-				if (pnt.IsOutOfRange())
-					continue;
-				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
+				var hit = Misc.CheckHit(x, y);
 
 				switch (hit)
 				{
-					case ColliderType.Air:
-						//IsOnLand = false;
-						break;
 					case ColliderType.Land:
 						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Land)
 							Location.Y--;
@@ -230,11 +218,8 @@ namespace TakeUpJewel
 						Kill();
 						goto case ColliderType.Land;
 				}
-				if (y < Core.I.CurrentMap.Size.Y * 16 - 1)
-					if (Mpts[Map[x / 16, (y + 1) / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ColliderType.Land)
-						retval = ColliderType.Land;
-				// if (Game.I.IsDebugMode)
-				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
+				if (Misc.CheckHit(x, y + 1) == ColliderType.Land)
+					retval = ColliderType.Land;
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
 			{
@@ -272,25 +257,14 @@ namespace TakeUpJewel
 				y += (int)Collision.Height / 3)
 			{
 				x = (int)(Location.X + Collision.X);
-				var pnt = new Point(x, y);
-				if (pnt.IsOutOfRange())
-					continue;
-				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
+				var hit = Misc.CheckHit(x, y);
 				switch (hit)
 				{
 					case ColliderType.Land:
-						//if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Hit)
 						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Air)
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X++;
-						if (this is EntityTurcosShell && ((EntityTurcosShell)this).IsRunning)
-							if (Map[x / 16, y / 16, 0] == 9) //ブロック破壊
-							{
-								DESound.Play(Sounds.Destroy);
-								Map[x / 16, y / 16, 0] = 0;
-								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
-							}
 						Velocity.X = 0;
 						retval = ColliderType.Land;
 						break;
@@ -301,11 +275,8 @@ namespace TakeUpJewel
 						Kill();
 						goto case ColliderType.Land;
 				}
-				if (x > 0)
-					if (Mpts[Map[(x - 1) / 16, y / 16, 0]].CheckHit((x - 1) % 16, y % 16) == ColliderType.Land)
-						retval = ColliderType.Land;
-				// if (Game.I.IsDebugMode)
-				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
+				if (Misc.CheckHit(x - 1, y) == ColliderType.Land)
+					retval = ColliderType.Land;
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
 			{
@@ -337,10 +308,7 @@ namespace TakeUpJewel
 				y += (int)Collision.Height / 3)
 			{
 				x = (int)(Location.X + Collision.X + Collision.Width);
-				var pnt = new Point(x, y);
-				if (pnt.IsOutOfRange())
-					continue;
-				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
+				var hit = Misc.CheckHit(x, y);
 				switch (hit)
 				{
 					case ColliderType.Air:
@@ -350,13 +318,6 @@ namespace TakeUpJewel
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X--;
-						if (this is EntityTurcosShell && ((EntityTurcosShell)this).IsRunning)
-							if (Map[x / 16, y / 16, 0] == 9) //ブロック破壊
-							{
-								DESound.Play(Sounds.Destroy);
-								Map[x / 16, y / 16, 0] = 0;
-								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
-							}
 						Velocity.X = 0;
 						retval = ColliderType.Land;
 						break;
@@ -367,11 +328,8 @@ namespace TakeUpJewel
 						Kill();
 						goto case ColliderType.Land;
 				}
-				if (x < Core.I.CurrentMap.Size.X * 16 - 1)
-					if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ColliderType.Land)
-						retval = ColliderType.Land;
-				// if (Game.I.IsDebugMode)
-				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
+				if (Misc.CheckHit(x + 1, y) == ColliderType.Land)
+					retval = ColliderType.Land;
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
 			{

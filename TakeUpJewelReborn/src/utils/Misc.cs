@@ -22,6 +22,25 @@ namespace TakeUpJewel
 		}
 
 		/// <summary>
+		/// ピクセル単位の座標を指定して、当たり判定を算出します。
+		/// </summary>
+		public static ColliderType CheckHit(int x, int y)
+		{
+			return CheckHit(new Vector(x, y));
+		}
+
+		/// <summary>
+		/// ピクセル単位の座標を指定して、当たり判定を算出します。
+		/// </summary>
+		public static ColliderType CheckHit(Vector position)
+		{
+			if (IsOutOfRange(position) || Core.I.CurrentMap == null)
+				return ColliderType.Air;
+			var (x, y) = (VectorInt)position;
+			return Core.I.Tiles[Core.I.CurrentMap.Chips[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
+		}
+
+		/// <summary>
 		/// 指定した座標が、マップの範囲から外れているかどうか判定します。
 		/// </summary>
 		/// <param name="pnt">座標。</param>
