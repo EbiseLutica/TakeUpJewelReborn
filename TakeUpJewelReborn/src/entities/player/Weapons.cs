@@ -6,12 +6,11 @@ using DotFeather;
 
 namespace TakeUpJewel
 {
-
-	public class Weapons : EntityFlying
+	public class EntityMagicWeapon : EntityFlying
 	{
 		public int Life = 40;
 
-		public Weapons(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
+		public EntityMagicWeapon(Vector pnt, Tile[] obj, byte[,,] chips, EntityList par)
 		{
 			Location = pnt;
 			Mpts = obj;
@@ -19,38 +18,31 @@ namespace TakeUpJewel
 			Parent = par;
 			Size = new Size(8, 8);
 			SetGraphic(2);
-			Entity ent = null;
-			var min = float.MaxValue;
 
-			if (Parent.Count(en => en is Weapons) > 3)
+			// ウェポンは同時に3つまでしか打てない
+			if (Parent.FindEntitiesByType<EntityMagicWeapon>().Count() > 3)
 				Kill();
 
-			foreach (var e in from entity in Parent
-							  where entity.MyGroup == EntityGroup.Enemy
-							  select entity)
-				if (Math.Abs(Location.X - e.Location.X) < min)
-				{
-					min = Math.Abs(Location.X - e.Location.X);
-					ent = e;
-				}
+			// 対象を探す
+			// 条件は、プレイヤーに最も近いエネミー
+			Entity? target = Parent
+				.Where(e => e.MyGroup == EntityGroup.Enemy)
+				.OrderBy(e => MathF.Abs(e.Location.Distance(Location)))
+				.FirstOrDefault();
 
-			var r = ent != null
-				? Math.Atan2(Location.Y - ent.Location.Y, Location.X - ent.Location.X)
+			// 対象がいればその方向へ、いなければランダムに射出
+			var r = target != null
+				? MathF.Atan2(Location.Y - target.Location.Y, Location.X - target.Location.X)
 				: DFMath.ToRadian(Core.GetRand(360));
 
-			float x = -(float)Math.Cos(r) * 5,
-				y = -(float)Math.Sin(r) * 5;
-
-			Velocity = new Vector(x, y);
+			Velocity = new Vector(MathF.Cos(r), MathF.Sin(r)) * -5;
 		}
 
 		public override Texture2D[] ImageHandle => ResourceManager.Weapon;
 
-
 		public override EntityGroup MyGroup => EntityGroup.DefenderWeapon;
 
 		public override Sounds KilledSound => Sounds.Null;
-
 
 		public override ObjectHitFlag CollisionBottom() => ObjectHitFlag.NotHit;
 		public override ObjectHitFlag CollisionTop() => ObjectHitFlag.NotHit;

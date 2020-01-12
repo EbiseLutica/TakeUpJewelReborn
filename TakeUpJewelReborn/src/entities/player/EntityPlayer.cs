@@ -249,7 +249,7 @@ namespace TakeUpJewel
 							break;
 						case PlayerForm.Magic:
 							DESound.Play(Sounds.ShootFire);
-							Parent.Add(new Weapons(Location, Mpts, Map, Parent));
+							Parent.Add(new EntityMagicWeapon(Location, Mpts, Map, Parent));
 							break;
 					}
 
