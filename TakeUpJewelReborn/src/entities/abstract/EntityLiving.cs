@@ -427,7 +427,7 @@ namespace TakeUpJewel
 			if (d is Sprite s)
 			{
 				s.Color = Color.FromArgb(255, (int)(lerp * 255), (int)(lerp * 255));
-				s.Location += Vector.Right * lerp;
+				Location += Vector.Right * lerp;
 			}
 		}
 
