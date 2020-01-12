@@ -96,7 +96,14 @@ namespace TakeUpJewel
 
 				var living = item as EntityLiving;
 				if (MainEntity != null && Math.Abs(MainEntity.Location.X - item.Location.X) > Const.Width && (living == null || !living.IsDying))
+				{
+					if (item.MyGroup == EntityGroup.DefenderWeapon || item.MyGroup == EntityGroup.MonsterWeapon)
+					{
+						item.Kill();
+						Remove(item);
+					}
 					continue;
+				}
 
 				if (!Core.I.IsFreezing)
 				{
