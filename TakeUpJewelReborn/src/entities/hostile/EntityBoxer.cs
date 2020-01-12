@@ -36,8 +36,13 @@ namespace TakeUpJewel
 		public override void OnUpdate()
 		{
 			base.OnUpdate();
-			if (IsOnLand)
-				Velocity.Y = -1f;
+			Velocity.X = -1;
+
+			if (Misc.CheckHit(new Vector(Location.X - 16, Location.Y + Size.Height / 2)) == ColliderType.Land && IsOnLand)
+			{
+				Velocity.Y = -3.4f;
+			}
+
 			if (IsDying)
 				Velocity = Vector.Zero;
 		}

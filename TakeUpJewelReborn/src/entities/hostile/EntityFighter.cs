@@ -37,7 +37,7 @@ namespace TakeUpJewel
 		{
 			base.OnUpdate();
 			if (IsOnLand)
-				Velocity.Y = -1f;
+				Velocity.Y = -2.6f;
 			Velocity.X = -1f;
 			if (IsDying)
 				Velocity = Vector.Zero;
