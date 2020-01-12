@@ -45,10 +45,10 @@ namespace TakeUpJewel
 
 		public override Sounds KilledSound => Sounds.Null;
 
-		public override ObjectHitFlag CollisionBottom() => ObjectHitFlag.NotHit;
-		public override ObjectHitFlag CollisionTop() => ObjectHitFlag.NotHit;
-		public override ObjectHitFlag CollisionLeft() => ObjectHitFlag.NotHit;
-		public override ObjectHitFlag CollisionRight() => ObjectHitFlag.NotHit;
+		public override ObjectHitFlag CollisionBottom() => ObjectHitFlag.Air;
+		public override ObjectHitFlag CollisionTop() => ObjectHitFlag.Air;
+		public override ObjectHitFlag CollisionLeft() => ObjectHitFlag.Air;
+		public override ObjectHitFlag CollisionRight() => ObjectHitFlag.Air;
 
 		public sealed override void Kill()
 		{
@@ -94,9 +94,9 @@ namespace TakeUpJewel
 				Kill();
 			if (Math.Abs(Location.X - Parent.MainEntity.Location.X) > Const.Width / 1.7)
 				Kill();
-			if (CollisionBottom() == ObjectHitFlag.Hit)
+			if (CollisionBottom() == ObjectHitFlag.Land)
 				Kill();
-			if ((CollisionLeft() == ObjectHitFlag.Hit) || (CollisionRight() == ObjectHitFlag.Hit))
+			if ((CollisionLeft() == ObjectHitFlag.Land) || (CollisionRight() == ObjectHitFlag.Land))
 				Kill();
 			Life--;
 		}

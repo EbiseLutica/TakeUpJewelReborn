@@ -28,6 +28,8 @@ namespace TakeUpJewel
 
 		public ObjectHitFlag CheckHit(int x, int y)
 		{
+			if (x < 0 || y < 0 || x >= HitMask.GetLength(0) || y >= HitMask.GetLength(1))
+				return ObjectHitFlag.Air;
 			return (ObjectHitFlag)HitMask[x, y];
 		}
 	}

@@ -131,7 +131,7 @@ namespace TakeUpJewel
 
 			base.OnUpdate();
 			var a = CollisionLeft();
-			if (!IsDying && (a != ObjectHitFlag.NotHit) && (a != ObjectHitFlag.InWater))
+			if (!IsDying && (a != ObjectHitFlag.Air) && (a != ObjectHitFlag.UnderWater))
 				Kill();
 		}
 

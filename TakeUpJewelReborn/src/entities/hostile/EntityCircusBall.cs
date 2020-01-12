@@ -40,14 +40,14 @@ namespace TakeUpJewel
 
 		public override void OnUpdate()
 		{
-			if (CollisionBottom() == ObjectHitFlag.Hit)
+			if (CollisionBottom() == ObjectHitFlag.Land)
 			{
 				Life--;
 				Location.Y += Velocity.Y = -4.3f;
 				DESound.Play(Sounds.Dumping);
 			}
 
-			if ((CollisionLeft() == ObjectHitFlag.Hit) || (CollisionRight() == ObjectHitFlag.Hit))
+			if ((CollisionLeft() == ObjectHitFlag.Land) || (CollisionRight() == ObjectHitFlag.Land))
 			{
 				Life--;
 				Location.X += Velocity.X *= -1;

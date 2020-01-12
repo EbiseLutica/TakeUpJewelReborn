@@ -102,7 +102,7 @@ namespace TakeUpJewel
 			switch (_nowBehavior)
 			{
 				case KingBossBehaviorOption.JumpToLeft:
-					if ((Location.Y <= _top) || (Location.Y <= 0) || (CollisionTop() == ObjectHitFlag.Hit))
+					if ((Location.Y <= _top) || (Location.Y <= 0) || (CollisionTop() == ObjectHitFlag.Land))
 					{
 						Velocity.Y = InternalGravity = 0;
 						Location.Y = _top;
@@ -116,7 +116,7 @@ namespace TakeUpJewel
 
 						Parent.Add(new EntityPlayingCard(Location, Mpts, Map, Parent) { Velocity = new Vector(x, y) });
 					}
-					if ((Location.X <= _left) || (Location.X <= 0) || (CollisionLeft() == ObjectHitFlag.Hit))
+					if ((Location.X <= _left) || (Location.X <= 0) || (CollisionLeft() == ObjectHitFlag.Land))
 					{
 						InternalGravity = 0.1f;
 						_nowBehavior = KingBossBehaviorOption.Waiting1;
@@ -124,7 +124,7 @@ namespace TakeUpJewel
 					}
 					break;
 				case KingBossBehaviorOption.Waiting1:
-					if ((Tick < 0) && (CollisionBottom() == ObjectHitFlag.Hit))
+					if ((Tick < 0) && (CollisionBottom() == ObjectHitFlag.Land))
 						Tick = 120;
 
 					if (Tick == 100)
@@ -154,7 +154,7 @@ namespace TakeUpJewel
 					break;
 				case KingBossBehaviorOption.JumpToRight:
 
-					if ((Location.Y <= _top) || (Location.Y <= 0) || (CollisionTop() == ObjectHitFlag.Hit))
+					if ((Location.Y <= _top) || (Location.Y <= 0) || (CollisionTop() == ObjectHitFlag.Land))
 						Velocity.Y = InternalGravity = 0;
 					if (Tick % 30 == 0)
 					{
@@ -166,7 +166,7 @@ namespace TakeUpJewel
 						Parent.Add(new EntityPlayingCard(Location, Mpts, Map, Parent) { Velocity = new Vector(x, y) });
 					}
 					if (((Location.X >= _firstLoc.X) && (Location.X >= Core.I.CurrentMap.Size.X - 1)) ||
-						(CollisionRight() == ObjectHitFlag.Hit))
+						(CollisionRight() == ObjectHitFlag.Land))
 					{
 						InternalGravity = 0.1f;
 						Velocity.X = 0;
@@ -175,7 +175,7 @@ namespace TakeUpJewel
 					}
 					break;
 				case KingBossBehaviorOption.Waiting2:
-					if ((Tick < 0) && (CollisionBottom() == ObjectHitFlag.Hit))
+					if ((Tick < 0) && (CollisionBottom() == ObjectHitFlag.Land))
 						Tick = 120;
 
 					if (Tick == 100)

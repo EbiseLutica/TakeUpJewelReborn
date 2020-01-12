@@ -70,7 +70,7 @@ namespace TakeUpJewel
 					timer = 0;
 				}
 			}*/
-			if (CollisionBottom() == ObjectHitFlag.Hit)
+			if (CollisionBottom() == ObjectHitFlag.Land)
 			{
 				//Velocity.Y = -3.4f;
 				if (_isjumping)

@@ -87,7 +87,7 @@ namespace TakeUpJewel
 			if (new Point(x, y).IsOutOfRange())
 				return false;
 
-			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ObjectHitFlag.InWater;
+			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ObjectHitFlag.UnderWater;
 		}
 
 		/// <summary>
@@ -122,12 +122,8 @@ namespace TakeUpJewel
 		/// </summary>
 		public virtual void CheckCollision()
 		{
-			if (Location.X < 0)
-				Location.X = 0;
-			if (Location.X > Core.I.CurrentMap.Size.X * 16 - Size.Width)
-				Location.X = Core.I.CurrentMap.Size.X * 16 - Size.Width;
-			if (Location.Y < 0)
-				Location.Y = 0;
+			if (Core.I.CurrentMap == null)
+				return;
 			if (Location.Y > Core.I.CurrentMap.Size.Y * 16)
 				Kill(true, false);
 			CollisionTop();
@@ -142,7 +138,7 @@ namespace TakeUpJewel
 		public virtual ObjectHitFlag CollisionTop()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.NotHit;
+			var retval = ObjectHitFlag.Air;
 
 			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
 				x < (int)(Location.X + Collision.Right);
@@ -155,7 +151,7 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.Hit:
+					case ObjectHitFlag.Land:
 						//if (Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Hit)
 						Location.Y++;
 						Velocity.Y = 0;
@@ -167,16 +163,16 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						break;
-					case ObjectHitFlag.Damage:
+					case ObjectHitFlag.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
-					case ObjectHitFlag.Death:
+						goto case ObjectHitFlag.Land;
+					case ObjectHitFlag.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
+						goto case ObjectHitFlag.Land;
 				}
 				if (y > 0)
-					if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Hit)
-						retval = ObjectHitFlag.Hit;
+					if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Land)
+						retval = ObjectHitFlag.Land;
 				// DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
@@ -201,7 +197,7 @@ namespace TakeUpJewel
 		public virtual ObjectHitFlag CollisionBottom()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.NotHit;
+			var retval = ObjectHitFlag.Air;
 			IsOnLand = false;
 			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
 				x < (int)(Location.X + Collision.Right);
@@ -215,28 +211,28 @@ namespace TakeUpJewel
 
 				switch (hit)
 				{
-					case ObjectHitFlag.NotHit:
+					case ObjectHitFlag.Air:
 						//IsOnLand = false;
 						break;
-					case ObjectHitFlag.Hit:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Hit)
+					case ObjectHitFlag.Land:
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Land)
 							Location.Y--;
 						IsOnLand = true;
 						IsJumping = false;
-						retval = ObjectHitFlag.Hit;
+						retval = ObjectHitFlag.Land;
 						if (Velocity.Y > 0)
 							Velocity.Y = 0;
 						break;
-					case ObjectHitFlag.Damage:
+					case ObjectHitFlag.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
-					case ObjectHitFlag.Death:
+						goto case ObjectHitFlag.Land;
+					case ObjectHitFlag.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
+						goto case ObjectHitFlag.Land;
 				}
 				if (y < Core.I.CurrentMap.Size.Y * 16 - 1)
-					if (Mpts[Map[x / 16, (y + 1) / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Hit)
-						retval = ObjectHitFlag.Hit;
+					if (Mpts[Map[x / 16, (y + 1) / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Land)
+						retval = ObjectHitFlag.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -253,7 +249,7 @@ namespace TakeUpJewel
 					IsOnLand = true;
 					if (Velocity.Y > 0)
 						Velocity.Y = 0;
-					retval = ObjectHitFlag.Hit;
+					retval = ObjectHitFlag.Land;
 				}
 			}
 			return retval;
@@ -269,7 +265,7 @@ namespace TakeUpJewel
 		public virtual ObjectHitFlag CollisionLeft()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.NotHit;
+			var retval = ObjectHitFlag.Air;
 
 			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
 				y < (int)(Location.Y + Collision.Bottom);
@@ -282,9 +278,9 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.Hit:
+					case ObjectHitFlag.Land:
 						//if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Hit)
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.NotHit)
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Air)
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X++;
@@ -296,18 +292,18 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
-						retval = ObjectHitFlag.Hit;
+						retval = ObjectHitFlag.Land;
 						break;
-					case ObjectHitFlag.Damage:
+					case ObjectHitFlag.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
-					case ObjectHitFlag.Death:
+						goto case ObjectHitFlag.Land;
+					case ObjectHitFlag.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
+						goto case ObjectHitFlag.Land;
 				}
 				if (x > 0)
-					if (Mpts[Map[(x - 1) / 16, y / 16, 0]].CheckHit((x - 1) % 16, y % 16) == ObjectHitFlag.Hit)
-						retval = ObjectHitFlag.Hit;
+					if (Mpts[Map[(x - 1) / 16, y / 16, 0]].CheckHit((x - 1) % 16, y % 16) == ObjectHitFlag.Land)
+						retval = ObjectHitFlag.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -322,7 +318,7 @@ namespace TakeUpJewel
 				{
 					Location.X++;
 					Velocity.X = 0;
-					retval = ObjectHitFlag.Hit;
+					retval = ObjectHitFlag.Land;
 				}
 			}
 			return retval;
@@ -334,7 +330,7 @@ namespace TakeUpJewel
 		public virtual ObjectHitFlag CollisionRight()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.NotHit;
+			var retval = ObjectHitFlag.Air;
 
 			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
 				y < (int)(Location.Y + Collision.Bottom);
@@ -347,10 +343,10 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.NotHit:
+					case ObjectHitFlag.Air:
 						break;
-					case ObjectHitFlag.Hit:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.NotHit)
+					case ObjectHitFlag.Land:
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Air)
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X--;
@@ -362,18 +358,18 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
-						retval = ObjectHitFlag.Hit;
+						retval = ObjectHitFlag.Land;
 						break;
-					case ObjectHitFlag.Damage:
+					case ObjectHitFlag.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
-					case ObjectHitFlag.Death:
+						goto case ObjectHitFlag.Land;
+					case ObjectHitFlag.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Hit;
+						goto case ObjectHitFlag.Land;
 				}
 				if (x < Core.I.CurrentMap.Size.X * 16 - 1)
-					if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Hit)
-						retval = ObjectHitFlag.Hit;
+					if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Land)
+						retval = ObjectHitFlag.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -388,7 +384,7 @@ namespace TakeUpJewel
 				{
 					Location.X--;
 					Velocity.X = 0;
-					retval = ObjectHitFlag.Hit;
+					retval = ObjectHitFlag.Land;
 				}
 			}
 			return retval;

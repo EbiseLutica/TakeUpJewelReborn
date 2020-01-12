@@ -85,12 +85,12 @@ namespace TakeUpJewel
 				}
 			if (Life < 1)
 				Kill();
-			if (CollisionBottom() == ObjectHitFlag.Hit)
+			if (CollisionBottom() == ObjectHitFlag.Land)
 			{
 				Velocity.Y = -2.5f;
 				Life--;
 			}
-			if ((CollisionLeft() == ObjectHitFlag.Hit) || (CollisionRight() == ObjectHitFlag.Hit))
+			if ((CollisionLeft() == ObjectHitFlag.Land) || (CollisionRight() == ObjectHitFlag.Land))
 				Kill();
 		}
 

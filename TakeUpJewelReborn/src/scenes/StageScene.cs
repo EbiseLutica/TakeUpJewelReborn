@@ -128,7 +128,18 @@ namespace TakeUpJewel
 				if (time > 7) break;
 
 				main.Velocity = new Vector(1.4f, main.Velocity.Y);
+				if (main is EntityLiving l && l.CollisionRight() == ObjectHitFlag.Land)
+				{
+					l.Velocity = new Vector(0, l.Velocity.Y);
+				}
 				yield return null;
+			}
+			if (Core.I.NextLevel == -1)
+			{
+				//todo エピローグを実装する
+				router.ChangeScene<TitleScene>();
+				Core.I.IsGoal = false;
+				yield break;
 			}
 			Core.I.LoadLevel(Core.I.NextLevel);
 			Core.I.IsGoal = false;

@@ -181,13 +181,13 @@ namespace TakeUpJewel
 
 			if (DFKeyboard.Z.IsKeyDown)
 			{
-				if (!IsOnLand && DFKeyboard.Left && (CollisionLeft() == ObjectHitFlag.Hit))
+				if (!IsOnLand && DFKeyboard.Left && (CollisionLeft() == ObjectHitFlag.Land))
 				{
 					Velocity.X = 3f;
 					Velocity.Y = -4f;
 					DESound.Play(Sounds.Destroy);
 				}
-				else if (!IsOnLand && DFKeyboard.Right && (CollisionRight() == ObjectHitFlag.Hit))
+				else if (!IsOnLand && DFKeyboard.Right && (CollisionRight() == ObjectHitFlag.Land))
 				{
 					Velocity.X = -3f;
 					Velocity.Y = -4f;

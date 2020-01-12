@@ -132,7 +132,7 @@ namespace TakeUpJewel
 					}
 					break;
 				case QueenBossBehaviorOption.MoveToLeft:
-					if ((Location.X <= _left - 16) || (Location.X <= 0) || (CollisionLeft() == ObjectHitFlag.Hit))
+					if ((Location.X <= _left - 16) || (Location.X <= 0) || (CollisionLeft() == ObjectHitFlag.Land))
 					{
 						Tick = 60;
 						_nowBehavior = QueenBossBehaviorOption.Waiting2;
@@ -166,7 +166,7 @@ namespace TakeUpJewel
 					break;
 				case QueenBossBehaviorOption.MoveToRight:
 					if (((Location.X >= _firstLoc.X) && (Location.X >= Core.I.CurrentMap.Size.X - 1)) ||
-						(CollisionRight() == ObjectHitFlag.Hit))
+						(CollisionRight() == ObjectHitFlag.Land))
 					{
 						Tick = 60;
 						_nowBehavior = QueenBossBehaviorOption.Waiting1;
