@@ -1,6 +1,7 @@
 using System.Drawing;
 using static TakeUpJewel.Core;
 using DotFeather;
+using System.Collections;
 
 namespace TakeUpJewel
 {
@@ -34,6 +35,27 @@ namespace TakeUpJewel
 				origin.Parent.Add(Core.I.EntityRegistry.CreateEntity("WaterSplash",
 					new Vector(origin.Location.X + GetRand(origin.Size.Width), origin.Location.Y + origin.Size.Height / 2), origin.Mpts, origin.Map,
 					origin.Parent));
+		}
+
+		/// <summary>
+		/// 煙を発生させます。
+		/// </summary>
+		/// <param name="origin">煙の登るエンティティ。</param>
+		public static void Smoke(Entity origin)
+		{
+			CoroutineRunner.Start(SmokeImpl(origin));
+		}
+
+		private static IEnumerator SmokeImpl(Entity origin)
+		{
+			for (var i = 0; i < 7 + GetRand(3); i++)
+			{
+				origin.Parent.Add(Core.I.EntityRegistry.CreateEntity("Smoke",
+					new Vector(origin.Location.X + GetRand(origin.Size.Width), origin.Location.Y + GetRand(origin.Size.Height)), origin.Mpts, origin.Map,
+					origin.Parent));
+				if (i % 2 == 0)
+					yield return null;
+			}
 		}
 
 		public static void BrokenBlock(Point pos, EntityList collection, Tile[] tiles)

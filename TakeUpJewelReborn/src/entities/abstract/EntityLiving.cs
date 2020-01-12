@@ -53,6 +53,7 @@ namespace TakeUpJewel
 
 		public virtual int DyingMax => 42;
 
+		public virtual bool SmokeWhenDead => true;
 
 		public abstract void SetKilledAnime();
 		public abstract void SetCrushedAnime();
@@ -131,6 +132,12 @@ namespace TakeUpJewel
 			if (DyingTick <= 0)
 			{
 				IsDead = true;
+
+				if (SmokeWhenDead)
+				{
+					Particle.Smoke(this);
+				}
+
 				DyingTick = 0;
 			}
 		}
@@ -150,7 +157,7 @@ namespace TakeUpJewel
 			{
 				// 天井で反発する
 				Velocity.Y = 0;
-		}
+			}
 
 			IsOnLand = bottom.IsLandLike();
 			if (IsOnLand && Velocity.Y > 0)
@@ -212,7 +219,7 @@ namespace TakeUpJewel
 			}
 
 			return ColliderType.Air;
-			}
+		}
 
 		/// <summary>
 		/// 左の当たり判定を計算します。
@@ -227,19 +234,19 @@ namespace TakeUpJewel
 				var hit = Misc.CheckHit(x, y);
 				if (hit != ColliderType.Air)
 					return hit;
-				}
-			return ColliderType.Air;
 			}
+			return ColliderType.Air;
+		}
 
 		/// <summary>
 		/// 右の当たり判定を計算します。
 		/// </summary>
 		public virtual ColliderType CollisionRight()
-			{
+		{
 			for (var y = (int)(Location.Y + Collision.Top);
 				y < (int)(Location.Y + Collision.Bottom);
 				y += (int)Collision.Height / 8)
-				{
+			{
 				var x = (int)(Location.X + Collision.X + Collision.Width);
 				var hit = Misc.CheckHit(x, y);
 				if (hit != ColliderType.Air)
@@ -261,19 +268,19 @@ namespace TakeUpJewel
 				var hit = Misc.CheckHit(x, y);
 				if (hit != ColliderType.Air)
 					return hit;
-				}
-			return ColliderType.Air;
 			}
+			return ColliderType.Air;
+		}
 
 		/// <summary>
 		/// 右の当たり判定を計算します。
 		/// </summary>
 		public virtual ColliderType CollisionTopRight()
-			{
+		{
 			for (var y = (int)(Location.Y + Collision.Top);
 				y < (int)(Location.Y + Collision.Bottom / 2);
 				y += (int)Collision.Height / 8)
-				{
+			{
 				var x = (int)(Location.X + Collision.X + Collision.Width);
 				var hit = Misc.CheckHit(x, y);
 				if (hit != ColliderType.Air)

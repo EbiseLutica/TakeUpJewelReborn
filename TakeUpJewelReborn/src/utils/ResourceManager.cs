@@ -90,7 +90,7 @@ namespace TakeUpJewel
 			FolderFly = LoadAndSplit("Resources/Graphics/spFolderFly.png", 5, 1, new VectorInt(16, 16));
 			BlackServer = LoadAndSplit("Resources/Graphics/spblackserver.png", 10, 1, new VectorInt(16, 32));
 			CameraMan = LoadAndSplit("Resources/Graphics/spCameraMan.png", 6, 1, new VectorInt(16, 32));
-			Particle = LoadAndSplit("Resources/Graphics/spparticle.png", 8, 1, new VectorInt(8, 8));
+			Particle = LoadAndSplit("Resources/Graphics/spparticle.png", 15, 1, new VectorInt(8, 8));
 			StrangeFlower = LoadAndSplit("Resources/Graphics/spstrangeflower.png", 5, 1, new VectorInt(48, 48));
 
 			TheEnd = Load("Resources/Graphics/theend.png");
