@@ -24,9 +24,10 @@ namespace TakeUpJewel
 				Kill();
 
 			// 対象を探す
-			// 条件は、プレイヤーに最も近いエネミー
+			// 条件は、プレイヤーに最も近い生きているエネミー
 			Entity? target = Parent
 				.Where(e => e.MyGroup == EntityGroup.Enemy)
+				.Where(e => !(e is EntityLiving l) || !l.IsDying)
 				.OrderBy(e => MathF.Abs(e.Location.Distance(Location)))
 				.FirstOrDefault();
 
