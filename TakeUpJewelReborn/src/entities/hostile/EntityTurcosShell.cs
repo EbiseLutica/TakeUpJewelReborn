@@ -107,9 +107,9 @@ namespace TakeUpJewel
 			}
 			if (Mutekitime > 0)
 				Mutekitime--;
-			if ((CollisionLeft() == ObjectHitFlag.Land) || (Location.X <= 0))
+			if ((CollisionLeft() == ColliderType.Land) || (Location.X <= 0))
 				Velocity.X = Speed;
-			if ((CollisionRight() == ObjectHitFlag.Land) || (Location.X >= Core.I.CurrentMap.Size.X * 16 - 1))
+			if ((CollisionRight() == ColliderType.Land) || (Location.X >= Core.I.CurrentMap.Size.X * 16 - 1))
 				Velocity.X = -Speed;
 
 			if ((Owner != null) && !DFKeyboard.ShiftLeft)

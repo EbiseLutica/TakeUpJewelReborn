@@ -79,7 +79,7 @@ namespace TakeUpJewel
 				SetGraphic(16);
 			}
 
-			if ((CollisionLeft() == ObjectHitFlag.Land) || (CollisionRight() == ObjectHitFlag.Land))
+			if ((CollisionLeft() == ColliderType.Land) || (CollisionRight() == ColliderType.Land))
 				Velocity.X *= -1;
 			Life--;
 		}

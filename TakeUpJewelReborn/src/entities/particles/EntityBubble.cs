@@ -17,7 +17,7 @@ namespace TakeUpJewel
 		{
 			var judge = new Vector(Location.X + Size.Width / 2, Location.Y + Size.Height / 2);
 			if (Mpts[Map[(int)judge.X / 16, (int)judge.Y / 16, 0]].CheckHit((int)judge.X % 16, (int)judge.Y % 16) !=
-				ObjectHitFlag.UnderWater)
+				ColliderType.UnderWater)
 				Kill();
 			base.OnUpdate();
 		}

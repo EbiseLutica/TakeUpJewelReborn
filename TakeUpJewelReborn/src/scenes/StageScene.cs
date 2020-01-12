@@ -128,7 +128,7 @@ namespace TakeUpJewel
 				if (time > 7) break;
 
 				main.Velocity = new Vector(1.4f, main.Velocity.Y);
-				if (main is EntityLiving l && l.CollisionRight() == ObjectHitFlag.Land)
+				if (main is EntityLiving l && l.CollisionRight() == ColliderType.Land)
 				{
 					l.Velocity = new Vector(0, l.Velocity.Y);
 				}

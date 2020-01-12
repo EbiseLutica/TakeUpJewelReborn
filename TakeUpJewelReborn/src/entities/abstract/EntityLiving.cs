@@ -87,7 +87,7 @@ namespace TakeUpJewel
 			if (new Point(x, y).IsOutOfRange())
 				return false;
 
-			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ObjectHitFlag.UnderWater;
+			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ColliderType.UnderWater;
 		}
 
 		/// <summary>
@@ -135,10 +135,10 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 上の当たり判定を計算します。
 		/// </summary>
-		public virtual ObjectHitFlag CollisionTop()
+		public virtual ColliderType CollisionTop()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.Air;
+			var retval = ColliderType.Air;
 
 			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
 				x < (int)(Location.X + Collision.Right);
@@ -151,7 +151,7 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.Land:
+					case ColliderType.Land:
 						//if (Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Hit)
 						Location.Y++;
 						Velocity.Y = 0;
@@ -163,16 +163,16 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						break;
-					case ObjectHitFlag.NeedleLike:
+					case ColliderType.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
-					case ObjectHitFlag.PoisonLike:
+						goto case ColliderType.Land;
+					case ColliderType.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
+						goto case ColliderType.Land;
 				}
 				if (y > 0)
-					if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Land)
-						retval = ObjectHitFlag.Land;
+					if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Land)
+						retval = ColliderType.Land;
 				// DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
 			foreach (IScaffold sc in Parent.FindEntitiesByType<IScaffold>())
@@ -194,10 +194,10 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 下の当たり判定を計算します。
 		/// </summary>
-		public virtual ObjectHitFlag CollisionBottom()
+		public virtual ColliderType CollisionBottom()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.Air;
+			var retval = ColliderType.Air;
 			IsOnLand = false;
 			for (x = (int)(Location.X + Collision.Left) + (int)Collision.Width / 4;
 				x < (int)(Location.X + Collision.Right);
@@ -211,28 +211,28 @@ namespace TakeUpJewel
 
 				switch (hit)
 				{
-					case ObjectHitFlag.Air:
+					case ColliderType.Air:
 						//IsOnLand = false;
 						break;
-					case ObjectHitFlag.Land:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Land)
+					case ColliderType.Land:
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Land)
 							Location.Y--;
 						IsOnLand = true;
 						IsJumping = false;
-						retval = ObjectHitFlag.Land;
+						retval = ColliderType.Land;
 						if (Velocity.Y > 0)
 							Velocity.Y = 0;
 						break;
-					case ObjectHitFlag.NeedleLike:
+					case ColliderType.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
-					case ObjectHitFlag.PoisonLike:
+						goto case ColliderType.Land;
+					case ColliderType.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
+						goto case ColliderType.Land;
 				}
 				if (y < Core.I.CurrentMap.Size.Y * 16 - 1)
-					if (Mpts[Map[x / 16, (y + 1) / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ObjectHitFlag.Land)
-						retval = ObjectHitFlag.Land;
+					if (Mpts[Map[x / 16, (y + 1) / 16, 0]].CheckHit(x % 16, (y + 1) % 16) == ColliderType.Land)
+						retval = ColliderType.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -249,7 +249,7 @@ namespace TakeUpJewel
 					IsOnLand = true;
 					if (Velocity.Y > 0)
 						Velocity.Y = 0;
-					retval = ObjectHitFlag.Land;
+					retval = ColliderType.Land;
 				}
 			}
 			return retval;
@@ -262,10 +262,10 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 左の当たり判定を計算します。
 		/// </summary>
-		public virtual ObjectHitFlag CollisionLeft()
+		public virtual ColliderType CollisionLeft()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.Air;
+			var retval = ColliderType.Air;
 
 			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
 				y < (int)(Location.Y + Collision.Bottom);
@@ -278,9 +278,9 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.Land:
+					case ColliderType.Land:
 						//if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Hit)
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Air)
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Air)
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X++;
@@ -292,18 +292,18 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
-						retval = ObjectHitFlag.Land;
+						retval = ColliderType.Land;
 						break;
-					case ObjectHitFlag.NeedleLike:
+					case ColliderType.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
-					case ObjectHitFlag.PoisonLike:
+						goto case ColliderType.Land;
+					case ColliderType.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
+						goto case ColliderType.Land;
 				}
 				if (x > 0)
-					if (Mpts[Map[(x - 1) / 16, y / 16, 0]].CheckHit((x - 1) % 16, y % 16) == ObjectHitFlag.Land)
-						retval = ObjectHitFlag.Land;
+					if (Mpts[Map[(x - 1) / 16, y / 16, 0]].CheckHit((x - 1) % 16, y % 16) == ColliderType.Land)
+						retval = ColliderType.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -318,7 +318,7 @@ namespace TakeUpJewel
 				{
 					Location.X++;
 					Velocity.X = 0;
-					retval = ObjectHitFlag.Land;
+					retval = ColliderType.Land;
 				}
 			}
 			return retval;
@@ -327,10 +327,10 @@ namespace TakeUpJewel
 		/// <summary>
 		/// 右の当たり判定を計算します。
 		/// </summary>
-		public virtual ObjectHitFlag CollisionRight()
+		public virtual ColliderType CollisionRight()
 		{
 			int x, y;
-			var retval = ObjectHitFlag.Air;
+			var retval = ColliderType.Air;
 
 			for (y = (int)(Location.Y + Collision.Top) + Size.Height / 6;
 				y < (int)(Location.Y + Collision.Bottom);
@@ -343,10 +343,10 @@ namespace TakeUpJewel
 				var hit = Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16);
 				switch (hit)
 				{
-					case ObjectHitFlag.Air:
+					case ColliderType.Air:
 						break;
-					case ObjectHitFlag.Land:
-						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ObjectHitFlag.Air)
+					case ColliderType.Land:
+						if (Mpts[Map[x / 16, (y - 1) / 16, 0]].CheckHit(x % 16, (y - 1) % 16) == ColliderType.Air)
 							Location.Y -= this is EntityPlayer && (((EntityPlayer)this).Form == PlayerForm.Big) ? 2 : 1;
 						else
 							Location.X--;
@@ -358,18 +358,18 @@ namespace TakeUpJewel
 								Particle.BrokenBlock(new Point(x, y), Parent, Mpts);
 							}
 						Velocity.X = 0;
-						retval = ObjectHitFlag.Land;
+						retval = ColliderType.Land;
 						break;
-					case ObjectHitFlag.NeedleLike:
+					case ColliderType.NeedleLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
-					case ObjectHitFlag.PoisonLike:
+						goto case ColliderType.Land;
+					case ColliderType.PoisonLike:
 						Kill();
-						goto case ObjectHitFlag.Land;
+						goto case ColliderType.Land;
 				}
 				if (x < Core.I.CurrentMap.Size.X * 16 - 1)
-					if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ObjectHitFlag.Land)
-						retval = ObjectHitFlag.Land;
+					if (Mpts[Map[(x + 1) / 16, y / 16, 0]].CheckHit((x + 1) % 16, y % 16) == ColliderType.Land)
+						retval = ColliderType.Land;
 				// if (Game.I.IsDebugMode)
 				//     DX.DrawPixel(Game.I.Camera.X + x, Game.I.Camera.Y + y, DX.GetColor(255, 255, 255));
 			}
@@ -384,7 +384,7 @@ namespace TakeUpJewel
 				{
 					Location.X--;
 					Velocity.X = 0;
-					retval = ObjectHitFlag.Land;
+					retval = ColliderType.Land;
 				}
 			}
 			return retval;

@@ -3,7 +3,7 @@
 	/// <summary>
 	/// オブジェクトの当たり判定フラグを指定します。
 	/// </summary>
-	public enum ObjectHitFlag
+	public enum ColliderType
 	{
 		/// <summary>
 		/// 何もなし。

@@ -51,7 +51,7 @@ namespace TakeUpJewel
 			if (new Point(x, y).IsOutOfRange())
 				return false;
 
-			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ObjectHitFlag.UnderWater;
+			return Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ColliderType.UnderWater;
 		}
 
 		public virtual void UpdateGravity()
@@ -84,7 +84,7 @@ namespace TakeUpJewel
 
 			var x = (int)(Collision.X + Location.X);
 			var y = (int)(Collision.Y + Location.Y);
-			if (Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ObjectHitFlag.Land)
+			if (Mpts[Map[x / 16, y / 16, 0]].CheckHit(x % 16, y % 16) == ColliderType.Land)
 			{
 				Velocity = Vector.Zero;
 				if (!IsStucked)

@@ -21,19 +21,6 @@ namespace TakeUpJewel
 			return dat[rnd.Next(dat.Length)];
 		}
 
-		public static EventScript GenerateItemDescription(params string[] description)
-		{
-			var sb = new StringBuilder();
-			sb.Append(@"[wait:40][enstop][mesbox:down]");
-			foreach (var s in description)
-				sb.Append($"[mes:{s}]");
-			sb.Append("[mesend][enstart]");
-			return new EventScript(sb.ToString());
-		}
-
-		public static float GetLengthTo(this Vector p1, Vector p2)
-			=> p1.Distance(p2);
-
 		/// <summary>
 		/// 指定した座標が、マップの範囲から外れているかどうか判定します。
 		/// </summary>
@@ -41,7 +28,6 @@ namespace TakeUpJewel
 		/// <returns>マップの範囲から外れていれば true が返されます。</returns>
 		public static bool IsOutOfRange(this Point pnt) => (pnt.X < 0) || (pnt.X > Core.I.CurrentMap.Size.X * 16 - 1) ||
 														   (pnt.Y < 0) || (pnt.Y > Core.I.CurrentMap.Size.Y * 16 - 1);
-
 
 		/// <summary>
 		/// 指定した座標が、マップの範囲から外れているかどうか判定します。
