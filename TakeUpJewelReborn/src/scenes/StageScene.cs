@@ -8,10 +8,8 @@ namespace TakeUpJewel
 {
 	public class StageScene : Scene
 	{
-		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
+		public override void OnStart(Dictionary<string, object> args)
 		{
-			this.router = router;
-			this.game = game;
 			if (!(Core.I.CurrentAreaInfo is AreaInfo area && Core.I.CurrentMap is MapData map))
 			{
 				// todo: エラーシーンを作成してそこで表示するようにする
@@ -40,9 +38,9 @@ namespace TakeUpJewel
 
 		}
 
-		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		public override void OnUpdate()
 		{
-			if (!game.IsFocused) return;
+			if (!DF.Window.IsFocused) return;
 
 			Core.I._SetTick(Core.I.Tick + 1);
 
@@ -61,13 +59,13 @@ namespace TakeUpJewel
 			// プレイヤーの死亡処理
 			if (!handlingDying && !Core.I.IsFreezing && ((entities.MainEntity is EntityLiving liv && liv.IsDying) || entities.MainEntity.IsDead))
 			{
-				game.StartCoroutine(HandleDying());
+				CoroutineRunner.Start(HandleDying());
 			}
 
 			// ゴールハンドリング
 			if (!handlingGoal && !handlingDying && !Core.I.IsFreezing && Core.I.IsGoal)
 			{
-				game.StartCoroutine(HandleGoal());
+				CoroutineRunner.Start(HandleGoal());
 			}
 
 			if ((eventRuntimeIterator == null) || !eventRuntimeIterator.MoveNext())
@@ -93,7 +91,7 @@ namespace TakeUpJewel
 			stage.Location = Core.I.Camera;
 		}
 
-		public override void OnDestroy(Router router)
+		public override void OnDestroy()
 		{
 			Core.I.Entities.EntityAdded -= EntityAdded;
 			Core.I.Entities.EntityRemoved -= EntityRemoved;
@@ -102,7 +100,7 @@ namespace TakeUpJewel
 
 		private void HandleTeleport(EventArgs e)
 		{
-			router.ChangeScene<StageScene>();
+			DF.Router.ChangeScene<StageScene>();
 		}
 
 		private IEnumerator HandleDying()
@@ -112,7 +110,7 @@ namespace TakeUpJewel
 			yield return new WaitForSeconds(5);
 			Core.I.LoadLevel(Core.I.CurrentLevel, Core.I.CurrentArea);
 			Root.Clear();
-			router.ChangeScene<StageScene>();
+			DF.Router.ChangeScene<StageScene>();
 		}
 
 		private IEnumerator HandleGoal()
@@ -137,25 +135,25 @@ namespace TakeUpJewel
 			if (Core.I.NextLevel == -1)
 			{
 				//todo エピローグを実装する
-				router.ChangeScene<TitleScene>();
+				DF.Router.ChangeScene<TitleScene>();
 				Core.I.IsGoal = false;
 				yield break;
 			}
 			Core.I.LoadLevel(Core.I.NextLevel);
 			Core.I.IsGoal = false;
-			router.ChangeScene<PreStageScene>();
+			DF.Router.ChangeScene<PreStageScene>();
 		}
 
 		private void EntityAdded(object? sender, Entity e)
 		{
-			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
-				entitiesLayer.Add(d);
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is ElementBase el)
+				entitiesLayer.Add(el);
 		}
 
 		private void EntityRemoved(object? sender, Entity e)
 		{
-			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is IDrawable d)
-				entitiesLayer.Remove(d);
+			if (sender is EntityList list && e is EntityVisible visible && list.GetDrawableByEntity(visible) is ElementBase el)
+				entitiesLayer.Remove(el);
 		}
 
 		private void RenderMap()
@@ -199,12 +197,11 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time} {Time.Fps}FPS"
 		{
 			// Background
 			var bg = new Sprite(ResourceManager.LoadTexture(area.BG));
-			bg.ZOrder = -2;
 			Root.Add(bg);
 
 			// タイル
-			backTile = new Tilemap(Vector.One * 16);
-			foreTile = new Tilemap(Vector.One * 16);
+			backTile = new Tilemap((16, 16));
+			foreTile = new Tilemap((16, 16));
 
 			RenderMap();
 
@@ -223,7 +220,6 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time} {Time.Fps}FPS"
 			if (area.FG is string fg)
 			{
 				var f = new Sprite(ResourceManager.LoadTexture(fg));
-				f.ZOrder = 2;
 				Root.Add(f);
 			}
 
@@ -287,7 +283,5 @@ Level {Core.I.CurrentLevel}-{Core.I.CurrentArea} ⌚{Core.I.Time} {Time.Fps}FPS"
 		private Container messageBox;
 		private DEText message;
 		private IEnumerator eventRuntimeIterator;
-		private Router router;
-		private GameBase game;
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using DotFeather;
 
@@ -11,9 +10,9 @@ namespace TakeUpJewel
 	/// </summary>
 	public class EntityList : EntityCollection
 	{
-		public Entity MainEntity { get; private set; }
+		public Entity? MainEntity { get; private set; }
 
-		public IEnumerable<IDrawable> Drawables => drawablesMap.Values;
+		public IEnumerable<ElementBase> Drawables => drawablesMap.Values;
 
 		/// <summary>
 		/// タグを使って Entity を探します。
@@ -35,7 +34,7 @@ namespace TakeUpJewel
 			return this.OfType<T>();
 		}
 
-		public IDrawable? GetDrawableByEntity(EntityVisible entity) => drawablesMap.TryGetValue(entity, out var d) ? d : null;
+		public ElementBase? GetDrawableByEntity(EntityVisible entity) => drawablesMap.TryGetValue(entity, out var d) ? d : null;
 
 		public override void Add(Entity item)
 		{
@@ -141,6 +140,6 @@ namespace TakeUpJewel
 
 		public event EventHandler<Entity>? EntityRemoved;
 
-		private Dictionary<EntityVisible, IDrawable> drawablesMap = new Dictionary<EntityVisible, IDrawable>();
+		private Dictionary<EntityVisible, ElementBase> drawablesMap = new Dictionary<EntityVisible, ElementBase>();
 	}
 }

@@ -7,9 +7,9 @@ namespace TakeUpJewel
 {
 	public class PrologueScene : Scene
 	{
-		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
+		public override void OnStart(Dictionary<string, object> args)
 		{
-			if (game.IsFocused && DFKeyboard.Enter)
+			if (DF.Window.IsFocused && DFKeyboard.Enter)
 			{
 				hasToSkip = true;
 				return;
@@ -26,36 +26,36 @@ namespace TakeUpJewel
 			Root.Add(text);
 		}
 
-		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		public override void OnUpdate()
 		{
 			if (hasToSkip)
 			{
-				Go(router);
+				Go();
 				return;
 			}
-			if (!game.IsFocused) return;
+			if (!DF.Window.IsFocused) return;
 
 			// この画面に移行した瞬間はZキーを押しているので、
 			// 一回離してからZキーを押さないと、高速字送りしないようにする
 			if (DFKeyboard.Z.IsKeyUp)
 				keyUpPressed = true;
 
-			text.Location += Vector.Up * (DFKeyboard.Z && keyUpPressed ? 64 : 8) * e.DeltaTime;
+			text.Location += Vector.Up * (DFKeyboard.Z && keyUpPressed ? 64 : 8) * Time.DeltaTime;
 
 			if (text.Location.Y < -text.Height - 8)
 			{
-				Go(router);
+				Go();
 			}
 		}
 
-		private void Go(Router router)
+		private void Go()
 		{
 			Core.I.LoadLevel(1, 1);
-			router.ChangeScene<PreStageScene>();
+			DF.Router.ChangeScene<PreStageScene>();
 			Core.I.BgmStop();
 		}
 
-		private DEText text;
+		private DEText? text;
 		private bool keyUpPressed;
 		private bool hasToSkip;
 	}

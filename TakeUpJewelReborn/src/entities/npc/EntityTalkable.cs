@@ -69,7 +69,7 @@ namespace TakeUpJewel
 			base.OnUpdate();
 		}
 
-		public override IDrawable OnSpawn()
+		public override ElementBase OnSpawn()
 		{
 			return base.OnSpawn();
 		}

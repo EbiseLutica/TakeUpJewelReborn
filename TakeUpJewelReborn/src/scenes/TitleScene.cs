@@ -9,11 +9,8 @@ namespace TakeUpJewel
 {
 	public class TitleScene : Scene
 	{
-		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
+		public override void OnStart(Dictionary<string, object> args)
 		{
-			this.router = router;
-			this.game = game;
-
 			menuItems = new (DEText, Action)[]
 			{
 				(new DEText(" はじめる", Color.Yellow), () =>
@@ -25,19 +22,18 @@ namespace TakeUpJewel
 				}),
 				(new DEText(" ジュークボックス", Color.White), () =>
 				{
-					router.ChangeScene<JukeboxScene>();
+					DF.Router.ChangeScene<JukeboxScene>();
 				}),
 				(new DEText(" ヘルプ", Color.White), () =>
 				{
 					Root.Add(helpImage);
 					state = State.Help;
 				}),
-				(new DEText(" おわる", Color.White), () => game.Exit(0)),
+				(new DEText(" おわる", Color.White), () => DF.Exit(0)),
 			};
 
 			helpImage = new Sprite(LoadTexture("kbactgame.png"))
 			{
-				ZOrder = 2
 			};
 
 			genderSelectorPrompt = new DEText("どちらであそぶ？", Color.White);
@@ -45,10 +41,10 @@ namespace TakeUpJewel
 			genderSelectorItems[1] = new DEText(" ルーシィ", Color.White);
 			genderSelectorItems[2] = new DEText(" もどる", Color.White);
 
-			game.StartCoroutine(OpeningAnimation(game));
+			CoroutineRunner.Start(OpeningAnimation());
 		}
 
-		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		public override void OnUpdate()
 		{
 			if (isFirstUpdate)
 			{
@@ -56,7 +52,7 @@ namespace TakeUpJewel
 				{
 					case "debug-stage":
 						Core.I.LoadLevel(1, 1);
-						router.ChangeScene<PreStageScene>();
+						DF.Router.ChangeScene<PreStageScene>();
 						return;
 				}
 				isFirstUpdate = false;
@@ -75,7 +71,7 @@ namespace TakeUpJewel
 					break;
 
 				case State.Help:
-					if (game.IsFocused && DFKeyboard.Z.IsKeyDown)
+					if (DF.Window.IsFocused && DFKeyboard.Z.IsKeyDown)
 					{
 						Root.Remove(helpImage);
 						state = State.Menu;
@@ -86,7 +82,7 @@ namespace TakeUpJewel
 
 		private void UpdateMenu()
 		{
-			if (!game.IsFocused) return;
+			if (!DF.Window.IsFocused) return;
 
 			if (DFKeyboard.Up.IsKeyDown)
 			{
@@ -119,7 +115,7 @@ namespace TakeUpJewel
 
 		private void UpdateGenderSelector()
 		{
-			if (!game.IsFocused) return;
+			if (!DF.Window.IsFocused) return;
 
 			if (DFKeyboard.Up.IsKeyDown)
 			{
@@ -152,11 +148,11 @@ namespace TakeUpJewel
 				{
 					case 0:
 						Core.I.CurrentGender = PlayerGender.Male;
-						router.ChangeScene<PrologueScene>();
+						DF.Router.ChangeScene<PrologueScene>();
 						break;
 					case 1:
 						Core.I.CurrentGender = PlayerGender.Female;
-						router.ChangeScene<PrologueScene>();
+						DF.Router.ChangeScene<PrologueScene>();
 						break;
 					case 2:
 						state = State.Menu;
@@ -168,12 +164,11 @@ namespace TakeUpJewel
 			}
 		}
 
-		private IEnumerator OpeningAnimation(GameBase game)
+		private IEnumerator OpeningAnimation()
 		{
 			var title = new Sprite(Logo[0])
 			{
 				Location = new Vector(Const.Width / 2 - Logo[0].Size.X / 2, Const.Height),
-				ZOrder = 1,
 			};
 			Root.Add(title);
 
@@ -191,7 +186,7 @@ namespace TakeUpJewel
 
 			DESound.Play(Sounds.Flash);
 
-			var flash = game.StartCoroutine(Flash(title));
+			var flash = CoroutineRunner.Start(Flash(title));
 
 			var time = 0f;
 
@@ -201,7 +196,7 @@ namespace TakeUpJewel
 				time += Time.DeltaTime;
 			} while (time < 2.5f && !DFKeyboard.Z.IsKeyDown);
 
-			game.StopCoroutine(flash);
+			CoroutineRunner.Stop(flash);
 
 			title.Texture = Logo[0];
 
@@ -213,7 +208,7 @@ namespace TakeUpJewel
 			copyright.Location = new Vector(0, Const.Height - copyright.Height);
 			Root.Add(copyright);
 
-			var engine = new DEText("Made with DotFeather 2.5.0", Color.White, true);
+			var engine = new DEText("Made with DotFeather 3.1.0-beta.1", Color.White, true);
 			engine.Location = new Vector(Const.Width - engine.Width, Const.Height - engine.Height);
 			Root.Add(engine);
 
@@ -292,9 +287,6 @@ namespace TakeUpJewel
 		private DEText[] genderSelectorItems = new DEText[3];
 
 		private Sprite helpImage;
-
-		private Router router;
-		private GameBase game;
 
 		private bool isFirstUpdate = true;
 

@@ -27,7 +27,7 @@ namespace TakeUpJewel
 			return this;
 		}
 
-		public override IDrawable OnSpawn()
+		public override ElementBase OnSpawn()
 		{
 			// foreach (var te in Parent.FindEntitiesByTag(_targetTag))
 			// {
@@ -39,9 +39,9 @@ namespace TakeUpJewel
 			return new Graphic();
 		}
 
-		public override void OnUpdate(Vector p, IDrawable drawable)
+		public override void OnUpdate(Vector p, ElementBase el)
 		{
-			if (drawable is Graphic g)
+			if (el is Graphic g)
 			{
 				g.Clear();
 				foreach (var target in Parent.FindEntitiesByTag(_targetTag))

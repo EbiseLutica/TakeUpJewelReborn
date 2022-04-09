@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using DotFeather;
+using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SF = SixLabors.Fonts;
@@ -84,7 +87,8 @@ namespace TakeUpJewel
 			var (x, y, w, h) = SF.TextMeasurer.MeasureBounds(c.ToString(), new SF.RendererOptions(nativeFont));
 			using var img = new SI.Image<Rgba32>((int)(x + w), (int)(y + h));
 			img.Mutate((ctx) => ctx.DrawText(c.ToString(), nativeFont, SI.Color.White, default));
-			var tex = Texture2D.LoadFrom(img);
+			var rgbaBytes = MemoryMarshal.AsBytes(img.GetPixelMemoryGroup().ToArray()[0].Span).ToArray();
+			var tex = Texture2D.Create(rgbaBytes, img.Width, img.Height);
 			nativeFontMap[c] = tex;
 			return tex;
 		}
@@ -125,7 +129,7 @@ namespace TakeUpJewel
 				Add(new Sprite(texture)
 				{
 					Location = new Vector(tx, ty),
-					Color = Color,
+					TintColor = Color,
 				});
 
 				tx += IsSmallFont ?
@@ -208,7 +212,7 @@ namespace TakeUpJewel
 		private static readonly Dictionary<char, Texture2D> nativeFontMap = new Dictionary<char, Texture2D>();
 		private static Texture2D[] font = new Texture2D[0];
 		private static Texture2D[] smallFont = new Texture2D[0];
-		private static SixLabors.Fonts.Font nativeFont;
+		private static SixLabors.Fonts.Font? nativeFont;
 		private static bool isInitialized;
 		private string text;
 		private Color color;

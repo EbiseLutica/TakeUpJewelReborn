@@ -7,7 +7,7 @@ namespace TakeUpJewel
 {
 	public class JukeboxScene : Scene
 	{
-		public override void OnStart(Router router, GameBase game, Dictionary<string, object> args)
+		public override void OnStart(Dictionary<string, object> args)
 		{
 			Root.Add(new Sprite(ResourceManager.LoadTexture("bgjukebox.png")));
 			Core.I.BgmStop();
@@ -25,7 +25,7 @@ namespace TakeUpJewel
 				Root.Add(item);
 		}
 
-		public override void OnUpdate(Router router, GameBase game, DFEventArgs e)
+		public override void OnUpdate()
 		{
 			foreach (var (item, i) in menuItems.Select((item, index) => (item, index)))
 			{
@@ -40,7 +40,7 @@ namespace TakeUpJewel
 					item.Text = "　" + item.Text.Substring(1);
 				}
 			}
-			if (!game.IsFocused) return;
+			if (!DF.Window.IsFocused) return;
 
 			if (DFKeyboard.Up.IsKeyDown)
 				selectedIndex--;
@@ -56,7 +56,7 @@ namespace TakeUpJewel
 				{
 					DESound.Play(Sounds.Back);
 					Core.I.BgmStop();
-					router.ChangeScene<TitleScene>();
+					DF.Router.ChangeScene<TitleScene>();
 				}
 				else
 				{
@@ -71,7 +71,7 @@ namespace TakeUpJewel
 
 		private int selectedIndex = 0;
 
-		private DEText[] menuItems;
+		private DEText[]? menuItems;
 
 		private static readonly string[] AudioList =
 		{

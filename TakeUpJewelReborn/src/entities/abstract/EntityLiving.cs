@@ -306,22 +306,22 @@ namespace TakeUpJewel
 			Velocity = Vector.Zero;
 		}
 
-		public override void OnUpdate(Vector p, IDrawable d)
+		public override void OnUpdate(Vector p, ElementBase el)
 		{
-			base.OnUpdate(p, d);
+			base.OnUpdate(p, el);
 			if (IsDying)
 			{
-				OnDyingAnimation(d);
+				OnDyingAnimation(el);
 			}
 		}
 
-		public virtual void OnDyingAnimation(IDrawable d)
+		public virtual void OnDyingAnimation(ElementBase el)
 		{
 			if (DyingMax == 0) return;
 			var lerp = DFMath.Lerp((DyingMax - DyingTick) / (float)DyingMax, 1, 0);
-			if (d is Sprite s)
+			if (el is Sprite s)
 			{
-				s.Color = Color.FromArgb(255, (int)(lerp * 255), (int)(lerp * 255));
+				s.TintColor = Color.FromArgb(255, (int)(lerp * 255), (int)(lerp * 255));
 				Location += Vector.Right * lerp;
 			}
 		}

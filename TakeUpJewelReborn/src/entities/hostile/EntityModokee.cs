@@ -38,10 +38,10 @@ namespace TakeUpJewel
 				SetGraphic(7);
 		}
 
-		public override void OnDyingAnimation(IDrawable d)
+		public override void OnDyingAnimation(ElementBase el)
 		{
 			if (!IsCrushed)
-				base.OnDyingAnimation(d);
+				base.OnDyingAnimation(el);
 		}
 	}
 }

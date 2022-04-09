@@ -1,4 +1,3 @@
-using System.Drawing;
 using DotFeather;
 
 namespace TakeUpJewel
@@ -62,14 +61,14 @@ namespace TakeUpJewel
 			ControlAnime();
 		}
 
-		public override IDrawable OnSpawn()
+		public override ElementBase OnSpawn()
 		{
 			return new Sprite(ImageHandle[Ptranime]);
 		}
 
-		public override void OnUpdate(Vector p, IDrawable drawable)
+		public override void OnUpdate(Vector p, ElementBase el)
 		{
-			if (drawable is Sprite s)
+			if (el is Sprite s)
 			{
 				s.Location = p;
 				s.Texture = ImageHandle[Ptranime];

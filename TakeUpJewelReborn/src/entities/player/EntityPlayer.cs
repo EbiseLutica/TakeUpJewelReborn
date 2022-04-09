@@ -356,15 +356,15 @@ namespace TakeUpJewel
 			}
 		}
 
-		public override void OnUpdate(Vector p, IDrawable d)
+		public override void OnUpdate(Vector p, ElementBase el)
 		{
-			if (!(d is Sprite sprite)) return;
+			if (!(el is Sprite sprite)) return;
 
-			base.OnUpdate(p, d);
+			base.OnUpdate(p, el);
 
 			var cond = (GodTime > 0) && (PowerupTime == 0) && GodTime % 8 < 4;
 
-			sprite.Color = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
+			sprite.TintColor = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
 			sprite.Location = new Vector(p.X, p.Y + ((Core.I.Tick % 8 < 4) && (PowerupTime > 0) ? 16 : 0));
 		}
 

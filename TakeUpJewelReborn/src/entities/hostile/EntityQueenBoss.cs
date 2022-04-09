@@ -181,15 +181,15 @@ namespace TakeUpJewel
 			MutekiTime--;
 		}
 
-		public override void OnUpdate(Vector p, IDrawable d)
+		public override void OnUpdate(Vector p, ElementBase el)
 		{
-			if (!(d is Sprite sprite)) return;
+			if (!(el is Sprite sprite)) return;
 
-			base.OnUpdate(p, d);
+			base.OnUpdate(p, el);
 
 			var cond = (MutekiTime > 0) && MutekiTime % 8 < 4;
 
-			sprite.Color = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
+			sprite.TintColor = Color.FromArgb(cond ? 0 : 255, 255, 255, 255);
 		}
 
 		/// <summary>

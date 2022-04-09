@@ -189,7 +189,7 @@ namespace Codeplex.Data
 
 		private DynamicJson(XElement element, JsonType type)
 		{
-			Debug.Assert(type == JsonType.array || type == JsonType.@object);
+			System.Diagnostics.Debug.Assert(type == JsonType.array || type == JsonType.@object);
 
 			xml = element;
 			jsonType = type;

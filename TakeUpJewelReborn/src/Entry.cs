@@ -1,36 +1,24 @@
-﻿using System;
-using DotFeather;
+﻿using DotFeather;
+using TakeUpJewel;
 
-namespace TakeUpJewel
+DF.Window.Size = (Const.Width * 2, Const.Height * 2);
+DF.Window.Title = "Take Up Jewel";
+DF.Root.Scale = (2, 2);
+
+DF.Window.Start += () =>
 {
-	/// <summary>
-	/// エントリーポイント。
-	/// </summary>
-	public class Entry
+	Core.I.Initialize();
+	if (args.Length > 0)
 	{
-		static void Main(string[] args)
-		{
-			// ゲームの起動
-			var game = new RoutingGameBase<TitleScene>(Const.Width * 2, Const.Height * 2, "Take Up Jewel", 60, false, true);
-			// スケーリングを2倍にする
-			game.Root.Scale = Vector.One * 2;
-
-			game.Load += (s, e) =>
-			{
-				Core.I.Initialize();
-				if (args.Length > 0)
-				{
-					Core.I.RunningMode = args[0].ToLowerInvariant();
-				}
-			};
-
-			game.Update += (s, e) =>
-			{
-				if (DFKeyboard.R.IsKeyDown)
-					Core.I.ReloadAudioPlayer();
-			};
-
-			game.Run();
-		}
+		Core.I.RunningMode = args[0].ToLowerInvariant();
 	}
-}
+	DF.Router.ChangeScene<TitleScene>();
+};
+
+DF.Window.Update += () =>
+{
+	if (DFKeyboard.R.IsKeyDown)
+		Core.I.ReloadAudioPlayer();
+};
+
+return DF.Run();

@@ -1,12 +1,11 @@
-using System.Drawing;
 using DotFeather;
 
 namespace TakeUpJewel
 {
 	public abstract class EntityVisible : Entity
 	{
-		public abstract IDrawable OnSpawn();
+		public abstract ElementBase OnSpawn();
 
-		public abstract void OnUpdate(Vector p, IDrawable drawable);
+		public abstract void OnUpdate(Vector p, ElementBase el);
 	}
 }
